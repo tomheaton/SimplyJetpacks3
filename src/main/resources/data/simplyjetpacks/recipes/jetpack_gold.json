@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "grg",
+    "gjg",
+    "t t"
+  ],
+  "key": {
+    "g": { "item": "minecraft:gold_ingot" },
+    "r": { "item": "minecraft:redstone_block" },
+    "j": { "item": "simplyjetpacks:jetpack_iron" },
+    "t": { "item": "simplyjetpacks:thruster_gold" }
+  },
+  "result": {
+    "item": "simplyjetpacks:jetpack_gold",
+    "count": 1
+  }
+}
