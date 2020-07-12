@@ -1,0 +1,20 @@
+{
+    "__comment": "Made with TheDestruc7i0n's advancements generator: https://advancements.thedestruc7i0n.ca",
+    "display": {
+        "title": {
+            "text": "Gold Jetpack"
+        },
+        "description": {
+            "text": "Craft a Gold Jetpack"
+        },
+        "icon": {
+            "item": "minecraft:stone"
+        },
+        "frame": "challenge",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {},
+    "parent": "adventure:adv1"
+}

@@ -32,9 +32,13 @@ public class ModdedArmorItem extends ArmorItem {
         return armorTexture;
     }
 
+    // TODO: get this to only work if the item is the creative jetpack
     @Override
-    public boolean hasEffect(ItemStack par1ItemStack) {
-        return true;
+    public boolean hasEffect(ItemStack itemStack) {
+        if(itemStack.getItem().toString() == "jetpack_creative") {
+            return true;
+        }
+        return false;
     }
 
     @SuppressWarnings("unchecked")
