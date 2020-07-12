@@ -25,16 +25,20 @@ public class ModRegistry {
 	public static void registerItems(final RegistryEvent.Register<Item> event) {
 		event.getRegistry().registerAll
 		(
+				// EXAMPLES:
 				ItemList.netherite_helmet = new ModdedArmorItem(ArmorMaterialList.netherite, EquipmentSlotType.HEAD, new Item.Properties().group(tabSimplyJetpacks), new ArmorTest()::applyData, new ResourceLocation("simplyjetpacks:textures/models/armor/custom_armor.png")).setRegistryName(location("netherite_helmet")),
 				ItemList.netherite_chestplate = new ModdedArmorItem(ArmorMaterialList.netherite, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new ArmorTest()::applyData, new ResourceLocation("simplyjetpacks:textures/models/armor/custom_armor.png")).setRegistryName(location("netherite_chestplate")),
 				ItemList.netherite_leggings = new ModdedArmorItem(ArmorMaterialList.netherite, EquipmentSlotType.LEGS, new Item.Properties().group(tabSimplyJetpacks), new ArmorTest()::applyData, new ResourceLocation("simplyjetpacks:textures/models/armor/custom_armor.png")).setRegistryName(location("netherite_leggings")),
 				ItemList.netherite_boots = new ModdedArmorItem(ArmorMaterialList.netherite, EquipmentSlotType.FEET, new Item.Properties().group(tabSimplyJetpacks), new ArmorTest()::applyData, new ResourceLocation("simplyjetpacks:textures/models/armor/custom_armor.png")).setRegistryName(location("netherite_boots")),
 
 				// TESTING:
-				ItemList.netherite_boots = new ModdedArmorItem(ArmorMaterialList.netherite, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new JetpackTest()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_creative.png")).setRegistryName(location("jetpack_creative")),
-				ItemList.netherite_boots = new ModdedArmorItem(ArmorMaterialList.netherite, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new JetpackTest()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_creative.png")).setRegistryName(location("jetpack_creative")),
-				ItemList.netherite_boots = new ModdedArmorItem(ArmorMaterialList.netherite, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new JetpackTest()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_creative.png")).setRegistryName(location("jetpack_creative")),
-				ItemList.netherite_boots = new ModdedArmorItem(ArmorMaterialList.netherite, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new JetpackTest()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_creative.png")).setRegistryName(location("jetpack_creative"))
+
+				// JETPACKS:
+				ItemList.jetpack_iron = new ModdedArmorItem(ArmorMaterialList.netherite, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new JetpackTest()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_iron.png")).setRegistryName(location("jetpack_iron")),
+				ItemList.jetpack_gold = new ModdedArmorItem(ArmorMaterialList.netherite, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new JetpackTest()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_gold.png")).setRegistryName(location("jetpack_gold")),
+				ItemList.jetpack_diamond = new ModdedArmorItem(ArmorMaterialList.netherite, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new JetpackTest()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_diamond.png")).setRegistryName(location("jetpack_diamond")),
+				ItemList.jetpack_creative = new ModdedArmorItem(ArmorMaterialList.netherite, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new JetpackTest()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_creative.png")).setRegistryName(location("jetpack_creative"))
+
 		);
 		LOGGER.info("Items registered.");
 	}

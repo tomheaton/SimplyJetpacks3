@@ -7,4 +7,10 @@ public class ItemList {
 	public static Item netherite_chestplate;
 	public static Item netherite_leggings;
 	public static Item netherite_boots;
+
+	public static Item jetpack_potato;
+	public static Item jetpack_iron;
+	public static Item jetpack_gold;
+	public static Item jetpack_diamond;
+	public static Item jetpack_creative;
 }

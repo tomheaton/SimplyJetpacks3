@@ -1,6 +1,7 @@
-[![CurseForge](http://cf.way2muchnoise.eu/simply-jetpacks-3.svg)](https://minecraft.curseforge.com/projects/simply-jetpacks-3)
-[![CurseForge](http://cf.way2muchnoise.eu/versions/simply-jetpacks-3.svg)](https://minecraft.curseforge.com/projects/simply-jetpacks-3)
+[![CurseForge](http://cf.way2muchnoise.eu/simply-jetpacks-3.svg)](https://www.curseforge.com/minecraft/mc-mods/simply-jetpacks-3)
+[![CurseForge](http://cf.way2muchnoise.eu/versions/simply-jetpacks-3.svg)](https://www.curseforge.com/minecraft/mc-mods/simply-jetpacks-3)
 [![Discord](https://img.shields.io/badge/Discord-StormedPanda-738bd7.svg?style=flat-square)](https://discord.gg/PQNvrXc)
+[![Status](https://img.shields.io/badge/Status-In_Development-orange.svg)](https://github.com/Th0mas-7/SimplyJetpacks3)
 
 # Simply Jetpacks 3
 ###For Minecraft Version 1.16.1

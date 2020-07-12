@@ -40,6 +40,11 @@ public class ModArmorItem extends ArmorItem {
         return (A) armorApplier.apply(_default, armorSlot);
     }
 
+    @Override
+    public boolean hasEffect(ItemStack par1ItemStack) {
+        return true;
+    }
+
     public static class ModArmorMaterial implements IArmorMaterial {
 
         @Override
@@ -82,4 +87,5 @@ public class ModArmorItem extends ArmorItem {
             return 0;
         }
     }
+
 }

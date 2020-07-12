@@ -32,6 +32,11 @@ public class ModdedArmorItem extends ArmorItem {
         return armorTexture;
     }
 
+    @Override
+    public boolean hasEffect(ItemStack par1ItemStack) {
+        return true;
+    }
+
     @SuppressWarnings("unchecked")
 	@OnlyIn(Dist.CLIENT)
     @Nullable

@@ -36,8 +36,9 @@ public class SimplyJetpacks {
 
         MinecraftForge.EVENT_BUS.register(this);
 
+        // TODO: Merge the two registries into one
         // Initialise the Registry
-        //RegistryHandler.init();
+        RegistryHandler.init();
     }
 
     private void setup(final FMLCommonSetupEvent event) {
