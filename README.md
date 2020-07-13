@@ -3,7 +3,7 @@
 [![Discord](https://img.shields.io/badge/Discord-StormedPanda-738bd7.svg?style=flat-square)](https://discord.gg/PQNvrXc)
 [![Status](https://img.shields.io/badge/Status-In_Development-orange.svg)](https://github.com/Th0mas-7/SimplyJetpacks3)
 
-![Simply Jetpacks 3 Logo](https://i.imgur.com/1Lof0b1.png "Simply Jetpacks 3 Logo)
+![Simply Jetpacks 3 Logo](https://i.imgur.com/1Lof0b1.png "Simply Jetpacks 3 Logo")
 
 # Simply Jetpacks 3
 ### For Minecraft Version 1.16.1
