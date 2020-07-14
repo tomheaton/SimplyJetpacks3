@@ -1,11 +1,12 @@
-package stormedpanda.simplyjetpacks.models;
+package stormedpanda.simplyjetpacks.client.models;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 
-public class ModelJetpack extends BipedModel<PlayerEntity> {
+public class ModelDragonArmor extends BipedModel<PlayerEntity> {
+
     private final ModelRenderer armorHead;
     private final ModelRenderer armorBody;
     private final ModelRenderer armorRightArm;
@@ -15,8 +16,7 @@ public class ModelJetpack extends BipedModel<PlayerEntity> {
     private final ModelRenderer armorRightBoot;
     private final ModelRenderer armorLeftBoot;
 
-    //Don't touch the constructor just rename it to fit the class name
-    public ModelJetpack() { //Changed constructor
+    public ModelDragonArmor() {
         super(0f, 0f, 0, 0);
         textureWidth = 64;
         textureHeight = 64;
@@ -28,7 +28,7 @@ public class ModelJetpack extends BipedModel<PlayerEntity> {
         armorBody = new ModelRenderer(this);
         armorBody.setRotationPoint(0.0F, 0.0F, 0.0F);
         bipedBody.addChild(armorBody);
-
+        
         armorRightArm = new ModelRenderer(this);
         armorRightArm.setRotationPoint(0.0F, 0.0F, 0.0F);
         bipedRightArm.addChild(armorRightArm);
@@ -36,7 +36,7 @@ public class ModelJetpack extends BipedModel<PlayerEntity> {
         armorLeftArm = new ModelRenderer(this);
         armorLeftArm.setRotationPoint(0.0F, 0.0F, 0.0F);
         bipedLeftArm.addChild(armorLeftArm);
-
+        
         armorRightLeg = new ModelRenderer(this);
         armorRightLeg.setRotationPoint(0.0F, 0.0F, 0.0F);
         bipedRightLeg.addChild(armorRightLeg);
@@ -56,54 +56,53 @@ public class ModelJetpack extends BipedModel<PlayerEntity> {
         setupCustomModel();
     }
 
-    private void setupCustomModel(){
-        //Paste code that is responsible for adding cubes & bones here.
-        //Example:
-        bipedHead.addChild(armorHead);
-        armorHead.addBox("armorHead", -5.0F, -2.0F, -3.0F, 10, 2, 8, 0.0F, 0, 12);
-        armorHead.addBox("armorHead", -5.0F, -6.0F, 0.0F, 10, 2, 5, 0.0F, 0, 22);
-        armorHead.addBox("armorHead", -3.0F, -10.0F, -2.0F, 1, 2, 9, 0.0F, 29, 32);
-        armorHead.addBox("armorHead", 2.0F, -10.0F, -2.0F, 1, 2, 9, 0.0F, 27, 13);
-        armorHead.addBox("armorHead", -5.0F, -9.0F, -5.0F, 10, 2, 10, 0.0F, 0, 0);
+    private void setupCustomModel() {
+		bipedHead.addChild(armorHead);
+		armorHead.addBox("armorHead", -5.0F, -2.0F, -3.0F, 10, 2, 8, 0.0F, 0, 12);
+		armorHead.addBox("armorHead", -5.0F, -6.0F, 0.0F, 10, 2, 5, 0.0F, 0, 22);
+		armorHead.addBox("armorHead", -3.0F, -10.0F, -2.0F, 1, 2, 9, 0.0F, 29, 32);
+		armorHead.addBox("armorHead", 2.0F, -10.0F, -2.0F, 1, 2, 9, 0.0F, 27, 13);
+		armorHead.addBox("armorHead", -5.0F, -9.0F, -5.0F, 10, 2, 10, 0.0F, 0, 0);
 
-        bipedBody.addChild(armorBody);
-        armorBody.addBox("armorBody", -4.0F, 0.0F, -3.0F, 1, 11, 6, 0.0F, 24, 24);
-        armorBody.addBox("armorBody", -2.0F, 6.0F, -3.0F, 4, 1, 1, 0.0F, 48, 38);
-        armorBody.addBox("armorBody", -1.0F, 4.0F, -3.0F, 2, 1, 1, 0.0F, 0, 12);
-        armorBody.addBox("armorBody", -2.0F, 1.0F, -3.0F, 4, 2, 1, 0.0F, 49, 24);
-        armorBody.addBox("armorBody", -2.0F, 8.0F, -3.0F, 4, 3, 6, 0.0F, 30, 0);
-        armorBody.addBox("armorBody", 3.0F, 0.0F, -3.0F, 1, 11, 6, 0.0F, 0, 29);
-        armorBody.addBox("armorBody", 1.0F, 0.0F, 2.0F, 2, 7, 3, 0.0F, 38, 43);
-        armorBody.addBox("armorBody", -3.0F, 0.0F, 2.0F, 2, 7, 3, 0.0F, 0, 0);
+		bipedBody.addChild(armorBody);
+		armorBody.addBox("armorBody", -4.0F, 0.0F, -3.0F, 1, 11, 6, 0.0F, 24, 24);
+		armorBody.addBox("armorBody", -2.0F, 6.0F, -3.0F, 4, 1, 1, 0.0F, 48, 38);
+		armorBody.addBox("armorBody", -1.0F, 4.0F, -3.0F, 2, 1, 1, 0.0F, 0, 12);
+		armorBody.addBox("armorBody", -2.0F, 1.0F, -3.0F, 4, 2, 1, 0.0F, 49, 24);
+		armorBody.addBox("armorBody", -2.0F, 8.0F, -3.0F, 4, 3, 6, 0.0F, 30, 0);
+		armorBody.addBox("armorBody", 3.0F, 0.0F, -3.0F, 1, 11, 6, 0.0F, 0, 29);
+		armorBody.addBox("armorBody", 1.0F, 0.0F, 2.0F, 2, 7, 3, 0.0F, 38, 43);
+		armorBody.addBox("armorBody", -3.0F, 0.0F, 2.0F, 2, 7, 3, 0.0F, 0, 0);
 
-        bipedRightArm.addChild(armorRightArm);
-        armorRightArm.addBox("armorRightArm", -4.0F, -3.0F, 0.0F, 3, 11, 3, 0.0F, 40, 24);
-        armorRightArm.addBox("armorRightArm", -4.0F, -1.0F, -3.0F, 3, 3, 2, 0.0F, 48, 7);
-        armorRightArm.addBox("armorRightArm", -4.0F, 3.0F, -3.0F, 3, 3, 2, 0.0F, 48, 48);
+		bipedRightArm.addChild(armorRightArm);
+		armorRightArm.addBox("armorRightArm", -4.0F, -3.0F, 0.0F, 3, 11, 3, 0.0F, 40, 24);
+		armorRightArm.addBox("armorRightArm", -4.0F, -1.0F, -3.0F, 3, 3, 2, 0.0F, 48, 7);
+		armorRightArm.addBox("armorRightArm", -4.0F, 3.0F, -3.0F, 3, 3, 2, 0.0F, 48, 48);
 
-        bipedLeftArm.addChild(armorLeftArm);
-        armorLeftArm.addBox("armorLeftArm", 1.0F, -3.0F, 0.0F, 3, 11, 3, 0.0F, 14, 38);
-        armorLeftArm.addBox("armorLeftArm", 1.0F, -1.0F, -3.0F, 3, 3, 2, 0.0F, 47, 41);
-        armorLeftArm.addBox("armorLeftArm", 1.0F, 3.0F, -3.0F, 3, 3, 2, 0.0F, 0, 46);
+		bipedLeftArm.addChild(armorLeftArm);
+		armorLeftArm.addBox("armorLeftArm", 1.0F, -3.0F, 0.0F, 3, 11, 3, 0.0F, 14, 38);
+		armorLeftArm.addBox("armorLeftArm", 1.0F, -1.0F, -3.0F, 3, 3, 2, 0.0F, 47, 41);
+		armorLeftArm.addBox("armorLeftArm", 1.0F, 3.0F, -3.0F, 3, 3, 2, 0.0F, 0, 46);
 
-        bipedRightLeg.addChild(armorRightLeg);
-        armorRightLeg.addBox("armorLeftLeg", -3.0F, 1.0F, 0.0F, 3, 10, 3, 0.0F, 38, 9);
+		bipedRightLeg.addChild(armorRightLeg);
+		armorRightLeg.addBox("armorLeftLeg", -3.0F, 1.0F, 0.0F, 3, 10, 3, 0.0F, 38, 9);
+		
+		bipedLeftLeg.addChild(armorLeftLeg);
+		armorLeftLeg.addBox("armorRightLeg", 0.0F, 1.0F, 0.0F, 3, 10, 3, 0.0F, 26, 43);
 
-        bipedLeftLeg.addChild(armorLeftLeg);
-        armorLeftLeg.addBox("armorRightLeg", 0.0F, 1.0F, 0.0F, 3, 10, 3, 0.0F, 26, 43);
-
-        bipedRightLeg.addChild(armorRightBoot);
-        armorRightBoot.addBox("armorLeftBoot", -3.0F, 2.0F, -3.0F, 3, 3, 2, 0.0F, 8, 29);
-        armorRightBoot.addBox("armorLeftBoot", -3.0F, 6.0F, -3.0F, 3, 2, 2, 0.0F, 14, 34);
-        armorRightBoot.addBox("armorLeftBoot", -3.0F, 9.0F, -3.0F, 3, 1, 2, 0.0F, 40, 38);
-
-        bipedLeftLeg.addChild(armorLeftBoot);
-        armorLeftBoot.addBox("armorRightBoot", 0.0F, 2.0F, -3.0F, 3, 3, 2, 0.0F, 44, 0);
-        armorLeftBoot.addBox("armorRightBoot", 0.0F, 6.0F, -3.0F, 3, 2, 2, 0.0F, 48, 20);
-        armorLeftBoot.addBox("armorRightBoot", 0.0F, 9.0F, -3.0F, 3, 1, 2, 0.0F, 32, 24);
+		bipedRightLeg.addChild(armorRightBoot);
+		armorRightBoot.addBox("armorLeftBoot", -3.0F, 2.0F, -3.0F, 3, 3, 2, 0.0F, 8, 29);
+		armorRightBoot.addBox("armorLeftBoot", -3.0F, 6.0F, -3.0F, 3, 2, 2, 0.0F, 14, 34);
+		armorRightBoot.addBox("armorLeftBoot", -3.0F, 9.0F, -3.0F, 3, 1, 2, 0.0F, 40, 38);
+		
+		bipedLeftLeg.addChild(armorLeftBoot);
+		armorLeftBoot.addBox("armorRightBoot", 0.0F, 2.0F, -3.0F, 3, 3, 2, 0.0F, 44, 0);
+		armorLeftBoot.addBox("armorRightBoot", 0.0F, 6.0F, -3.0F, 3, 2, 2, 0.0F, 48, 20);
+		armorLeftBoot.addBox("armorRightBoot", 0.0F, 9.0F, -3.0F, 3, 1, 2, 0.0F, 32, 24);
     }
 
-    public BipedModel<PlayerEntity> applyData(BipedModel defaultArmor, EquipmentSlotType slot){
+    @SuppressWarnings("rawtypes")
+	public BipedModel<PlayerEntity> applyData(BipedModel defaultArmor, EquipmentSlotType slot) {
         this.isChild = defaultArmor.isChild;
         this.isSneak = defaultArmor.isSneak;
         this.isSitting = defaultArmor.isSitting;

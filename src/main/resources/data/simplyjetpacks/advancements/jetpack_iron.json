@@ -4,10 +4,10 @@
       "item": "simplyjetpacks:jetpack_iron"
     },
     "title": {
-      "translate": "advancements.simplyjetpacks.iron_jetpack.title"
+      "translate": "advancements.simplyjetpacks.jetpack_iron.title"
     },
     "description": {
-      "translate": "advancements.simplyjetpacks.iron_jetpack.description"
+      "translate": "advancements.simplyjetpacks.jetpack_iron.description"
     },
     "frame": "task",
     "show_toast": true,

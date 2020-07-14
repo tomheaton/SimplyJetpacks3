@@ -1,6 +1,5 @@
 package stormedpanda.simplyjetpacks;
 
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
@@ -28,8 +27,6 @@ public class SimplyJetpacks {
     public static final String MOD_NAME = "Simply Jetpacks 3";
     public static final String VERSION = "${version}";
 
-    public static Minecraft mc = Minecraft.getInstance();
-
     public static final Logger LOGGER = LogManager.getLogger(MODID);
     public static final CreativeTabSimplyJetpacks tabSimplyJetpacks = new CreativeTabSimplyJetpacks();
 
@@ -40,11 +37,9 @@ public class SimplyJetpacks {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 
         MinecraftForge.EVENT_BUS.register(this);
-        //MinecraftForge.EVENT_BUS.register(KeyBindHandler.class);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_SPEC, "simplyjetpacks.toml");
 
-        // TODO: Merge the two item/block registries into one
         RegistryHandler.init();
     }
 

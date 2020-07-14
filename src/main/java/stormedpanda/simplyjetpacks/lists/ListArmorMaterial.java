@@ -9,25 +9,35 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 
-public enum ArmorMaterialList implements IArmorMaterial {
+public enum ListArmorMaterial implements IArmorMaterial {
 
-	netherite("netherite", 66, new int[] {4, 7, 10, 4}, 12, Items.IRON_INGOT, "entity.ender_dragon.growl", 3.0f, 60.0f);
-	
+	DRAGON("dragon", 66, new int[] {4, 7, 10, 4}, 12, Items.IRON_INGOT, "entity.ender_dragon.growl", 3.0f, 60.0f),
+	JETPACK("jetpack", 66, new int[] {4, 7, 10, 4}, 12, Items.IRON_INGOT, "entity.ender_dragon.growl", 3.0f, 60.0f);
+
+	private final String name;
+	private final int durability;
+	private final int[] damageReductionAmounts;
+	private final int enchantability;
+	private final Item repairItem;
+	private final String equipSound;
+	private final float toughness;
+	private final float knockbackResistance;
 	private static final int[] max_damage_array = new int[] {13, 15, 16, 11};
-	private String name, equipSound;
-	private int durability, enchantability;
-	private Item repairItem;
-	private int[] damageReductionAmounts;
-	private float toughness, knockbackresistance;
-	
-	private ArmorMaterialList(String name, int durability, int[] damageReductionAmounts, int enchantability, Item repairItem, String equipSound, float toughness, float knockbackresistance) {
+
+	ListArmorMaterial(String name, int durability, int[] damageReductionAmounts, int enchantability, Item repairItem, String equipSound, float toughness, float knockbackResistance) {
 		this.name = name;
-		this.equipSound = equipSound;
 		this.durability = durability;
-		this.repairItem = repairItem;
 		this.damageReductionAmounts = damageReductionAmounts;
+		this.enchantability = enchantability;
+		this.repairItem = repairItem;
+		this.equipSound = equipSound;
 		this.toughness = toughness;
-		this.knockbackresistance = knockbackresistance;
+		this.knockbackResistance = knockbackResistance;
+	}
+
+	@Override
+	public String getName() {
+		return SimplyJetpacks.MODID + ":" + this.name;
 	}
 
 	@Override
@@ -46,18 +56,13 @@ public enum ArmorMaterialList implements IArmorMaterial {
 	}
 
 	@Override
-	public SoundEvent getSoundEvent() {
-		return new SoundEvent(new ResourceLocation(equipSound));
-	}
-
-	@Override
 	public Ingredient getRepairMaterial() {
 		return Ingredient.fromItems(this.repairItem);
 	}
 
 	@Override
-	public String getName() {
-		return SimplyJetpacks.MODID + ":" + this.name;
+	public SoundEvent getSoundEvent() {
+		return new SoundEvent(new ResourceLocation(equipSound));
 	}
 
 	@Override
@@ -67,6 +72,6 @@ public enum ArmorMaterialList implements IArmorMaterial {
 
 	@Override
 	public float func_230304_f_() {
-		return this.knockbackresistance;
+		return this.knockbackResistance;
 	}
 }

@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
 import stormedpanda.simplyjetpacks.gui.ModScreen;
 
-@Mod.EventBusSubscriber(modid = SimplyJetpacks.MODID)
+@Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class KeyBindHandler {
 
     public static KeyBinding GUI_KEY;

@@ -1,14 +1,11 @@
 package stormedpanda.simplyjetpacks;
 
 import net.minecraft.block.Block;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import stormedpanda.simplyjetpacks.items.ModArmorItem;
 
 public class RegistryHandler {
 
@@ -21,6 +18,11 @@ public class RegistryHandler {
     }
 
     // TESTING:
+/*    public static final RegistryObject<Item> JETPACK_TEST = ITEMS.register("jetpack_test", () ->
+            new TestItemJetpack(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+
+    public static final RegistryObject<Item> JETPACK_TEST_ARMORED = ITEMS.register("jetpack_test_armored", () ->
+            new TestItemJetpack(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));*/
 
     // JETPACKS:
 /*    public static final RegistryObject<Item> JETPACK_IRON = ITEMS.register("jetpack_iron", () ->
@@ -41,11 +43,15 @@ public class RegistryHandler {
             new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
     public static final RegistryObject<Item> THRUSTER_DIAMOND = ITEMS.register("thruster_diamond", () ->
             new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> THRUSTER_NETHERITE = ITEMS.register("thruster_netherite", () ->
+            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
 
     // MISC:
     public static final RegistryObject<Item> LEATHER_STRAP = ITEMS.register("leather_strap", () ->
             new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
 
-    // BLOCKS:
+    public static final RegistryObject<Item> INGOT_DRAGON = ITEMS.register("ingot_dragon", () ->
+            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
 
+    // BLOCKS:
 }

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " n ",
+    "nfn",
+    "nbn"
+  ],
+  "key": {
+    "d": { "item": "minecraft:netherite_ingot" },
+    "f": { "item": "minecraft:furnace" },
+    "b": { "item": "minecraft:blaze_powder"}
+  },
+  "result": {
+    "item": "simplyjetpacks:thruster_netherite",
+    "count": 1
+  }
+}

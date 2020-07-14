@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "simplyjetpacks:item/netherite_boots"
+        "layer0": "simplyjetpacks:item/dragon_boots"
     }
 }

@@ -1,13 +1,13 @@
 {
   "display": {
     "icon": {
-      "item": "simplyjetpacks:jetpack_gold"
+      "item": "simplyjetpacks:jetpack_netherite"
     },
     "title": {
-      "translate": "advancements.simplyjetpacks.gold_jetpack.title"
+      "translate": "advancements.simplyjetpacks.jetpack_netherite.title"
     },
     "description": {
-      "translate": "advancements.simplyjetpacks.gold_jetpack.description"
+      "translate": "advancements.simplyjetpacks.jetpack_netherite.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "item": "simplyjetpacks:jetpack_gold",
+            "item": "simplyjetpacks:jetpack_netherite",
             "count": {
               "min": 1,
               "max": 1
@@ -33,5 +33,5 @@
   "rewards": {
     "experience": 1
   },
-  "parent": "simplyjetpacks:iron_jetpack"
+  "parent": "simplyjetpacks:jetpack_diamond"
 }

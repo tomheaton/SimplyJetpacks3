@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 
-public class JetpackTest extends BipedModel<PlayerEntity> {
+public class ModelJetpack extends BipedModel<PlayerEntity> {
 
 	private final ModelRenderer middle;
 	private final ModelRenderer leftCanister;
@@ -19,68 +19,66 @@ public class JetpackTest extends BipedModel<PlayerEntity> {
 	private final ModelRenderer rightExhaust1;
 	private final ModelRenderer rightExhaust2;
 
-	public JetpackTest() {
+	public ModelJetpack() {
 		//super(0f, 0f, 0, 0);
 		super(1f, 0f, 64, 64);
 		textureWidth = 64;
 		textureHeight = 64;
 
-		middle = new ModelRenderer(this, 0, 54).setTextureSize(64, 64);
+		middle = new ModelRenderer(this, 0, 54);//.setTextureSize(64, 64);
 		middle.setRotationPoint(0F, 0F, 0F);
 		middle.mirror = true;
 		this.setRotation(middle, 0F, 0F, 0F);
 
-		leftCanister = new ModelRenderer(this, 0, 32).setTextureSize(64, 64);
+		leftCanister = new ModelRenderer(this, 0, 32);//.setTextureSize(64, 64);
 		leftCanister.setRotationPoint(0F, 0F, 0F);
 		leftCanister.mirror = true;
 		this.setRotation(leftCanister, 0F, 0F, 0F);
 
-		rightCanister = new ModelRenderer(this, 17, 32).setTextureSize(64, 64);
+		rightCanister = new ModelRenderer(this, 17, 32);//.setTextureSize(64, 64);
 		rightCanister.setRotationPoint(0F, 0F, 0F);
 		rightCanister.mirror = true;
 		this.setRotation(rightCanister, 0F, 0F, 0F);
 
-		leftTip1 = new ModelRenderer(this, 0, 45).setTextureSize(64, 64);
+		leftTip1 = new ModelRenderer(this, 0, 45);//.setTextureSize(64, 64);
 		leftTip1.setRotationPoint(0F, 0F, 0F);
 		leftTip1.mirror = true;
 		this.setRotation(leftTip1, 0F, 0F, 0F);
 
-		leftTip2 = new ModelRenderer(this, 0, 49).setTextureSize(64, 64);
+		leftTip2 = new ModelRenderer(this, 0, 49);//.setTextureSize(64, 64);
 		leftTip2.setRotationPoint(0F, 0F, 0F);
 		leftTip2.mirror = true;
 		this.setRotation(leftTip2, 0F, 0F, 0F);
 
-		rightTip1 = new ModelRenderer(this, 17, 45).setTextureSize(64, 64);
+		rightTip1 = new ModelRenderer(this, 17, 45);//.setTextureSize(64, 64);
 		rightTip1.setRotationPoint(0F, 0F, 0F);
 		rightTip1.mirror = true;
 		this.setRotation(rightTip1, 0F, 0F, 0F);
 
-		rightTip2 = new ModelRenderer(this, 17, 49).setTextureSize(64, 64);
+		rightTip2 = new ModelRenderer(this, 17, 49);//.setTextureSize(64, 64);
 		rightTip2.setRotationPoint(0F, 0F, 0F);
 		rightTip2.mirror = true;
 		this.setRotation(rightTip2, 0F, 0F, 0F);
 
-		leftExhaust1 = new ModelRenderer(this, 35, 32).setTextureSize(64, 64);
+		leftExhaust1 = new ModelRenderer(this, 35, 32);//.setTextureSize(64, 64);
 		leftExhaust1.addBox(1F, 9F, 3.1F, 3, 1, 3);
 		leftExhaust1.mirror = true;
 		this.setRotation(leftExhaust1, 0F, 0F, 0F);
 
-		leftExhaust2 = new ModelRenderer(this, 35, 37).setTextureSize(64, 64);
+		leftExhaust2 = new ModelRenderer(this, 35, 37);//.setTextureSize(64, 64);
 		leftExhaust2.setRotationPoint(0F, 0F, 0F);
 		leftExhaust2.mirror = true;
 		this.setRotation(leftExhaust2, 0F, 0F, 0F);
 
-		rightExhaust1 = new ModelRenderer(this, 48, 32).setTextureSize(64, 64);
+		rightExhaust1 = new ModelRenderer(this, 48, 32);//.setTextureSize(64, 64);
 		rightExhaust1.setRotationPoint(0F, 0F, 0F);
 		rightExhaust1.mirror = true;
 		this.setRotation(rightExhaust1, 0F, 0F, 0F);
 
-		rightExhaust2 = new ModelRenderer(this, 35, 45).setTextureSize(64, 64);
+		rightExhaust2 = new ModelRenderer(this, 35, 45);//.setTextureSize(64, 64);
 		rightExhaust2.setRotationPoint(0F, 0F, 0F);
 		rightExhaust2.mirror = true;
 		this.setRotation(rightExhaust2, 0F, 0F, 0F);
-
-
 
 		setupCustomModel();
 	}
@@ -110,30 +108,16 @@ public class JetpackTest extends BipedModel<PlayerEntity> {
 		bipedBody.addChild(rightExhaust2);
 		rightExhaust2.addBox(-4.5F, 10F, 2.6F, 4, 3, 4);
 
-//		armorLeftBoot.addBox("armorRightBoot", 0.0F, 2.0F, -3.0F, 3, 3, 2, 0.0F, 44, 0);
-//		armorLeftBoot.addBox("armorRightBoot", 0.0F, 6.0F, -3.0F, 3, 2, 2, 0.0F, 48, 20);
-//		armorLeftBoot.addBox("armorRightBoot", 0.0F, 9.0F, -3.0F, 3, 1, 2, 0.0F, 32, 24);
 	}
 
 	@SuppressWarnings("rawtypes")
 	public BipedModel<PlayerEntity> applyData(BipedModel defaultArmor, EquipmentSlotType slot) {
+	//public BipedModel<PlayerEntity> applyData(BipedModel defaultArmor) {
 		this.isChild = defaultArmor.isChild;
 		this.isSneak = defaultArmor.isSneak;
 		this.isSitting = defaultArmor.isSitting;
 		this.rightArmPose = defaultArmor.rightArmPose;
 		this.leftArmPose = defaultArmor.leftArmPose;
-
-//		middle;
-//		leftCanister;
-//		rightCanister;
-//		leftTip1;
-//		leftTip2;
-//		rightTip1;
-//		rightTip2;
-//		leftExhaust1;
-//		leftExhaust2;
-//		rightExhaust1;
-//		rightExhaust2;
 
 		middle.showModel = false;
 		leftCanister.showModel = false;
@@ -147,7 +131,7 @@ public class JetpackTest extends BipedModel<PlayerEntity> {
 		rightExhaust1.showModel = false;
 		rightExhaust2.showModel = false;
 
-		switch(slot){
+/*		switch(slot){
 			case HEAD:
 				break;
 			case CHEST:
@@ -169,7 +153,19 @@ public class JetpackTest extends BipedModel<PlayerEntity> {
 				break;
 			default:
 				break;
-		}
+		}*/
+
+		middle.showModel = true;
+		leftCanister.showModel = true;
+		rightCanister.showModel = true;
+		leftTip1.showModel = true;
+		leftTip2.showModel = true;
+		rightTip1.showModel = true;
+		rightTip2.showModel = true;
+		leftExhaust1.showModel = true;
+		leftExhaust2.showModel = true;
+		rightExhaust1.showModel = true;
+		rightExhaust2.showModel = true;
 		return this;
 	}
 

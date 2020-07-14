@@ -11,4 +11,5 @@
 Downloads for the mod can be found on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/simply-jetpacks-3 "CurseForge - Simply Jetpacks 3")
 
 Former Authors: Tonius, Tomson124
-Updated to 1.16.1 by Th0mas-7
+
+Updated to 1.16.1 by Th0mas-7/StormedPanda
