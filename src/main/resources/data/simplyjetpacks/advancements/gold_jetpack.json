@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "simplyjetpacks:jetpack_gold"
+    },
+    "title": {
+      "translate": "advancements.simplyjetpacks.gold_jetpack.title"
+    },
+    "description": {
+      "translate": "advancements.simplyjetpacks.gold_jetpack.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "iron_jetpack": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "simplyjetpacks:jetpack_gold",
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 1
+  },
+  "parent": "simplyjetpacks:iron_jetpack"
+}

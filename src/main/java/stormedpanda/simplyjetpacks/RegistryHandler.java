@@ -1,22 +1,23 @@
 package stormedpanda.simplyjetpacks;
 
+import net.minecraft.block.Block;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import stormedpanda.simplyjetpacks.items.ItemJetpack;
 import stormedpanda.simplyjetpacks.items.ModArmorItem;
-import stormedpanda.simplyjetpacks.models.ModelJetpack;
 
 public class RegistryHandler {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, SimplyJetpacks.MODID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SimplyJetpacks.MODID);
 
     public static void init() {
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     // TESTING:
@@ -44,5 +45,7 @@ public class RegistryHandler {
     // MISC:
     public static final RegistryObject<Item> LEATHER_STRAP = ITEMS.register("leather_strap", () ->
             new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+
+    // BLOCKS:
 
 }

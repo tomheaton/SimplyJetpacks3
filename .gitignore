@@ -1,11 +1,14 @@
  Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
-# Minecraft
+# Minecraft:
 run
 build
 .gradle
 .idea
+
+# Other Stuff:
+NOTES.md
 
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,

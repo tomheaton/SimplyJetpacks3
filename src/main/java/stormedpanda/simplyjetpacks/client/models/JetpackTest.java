@@ -20,7 +20,8 @@ public class JetpackTest extends BipedModel<PlayerEntity> {
 	private final ModelRenderer rightExhaust2;
 
 	public JetpackTest() {
-		super(0f, 0f, 0, 0);
+		//super(0f, 0f, 0, 0);
+		super(1f, 0f, 64, 64);
 		textureWidth = 64;
 		textureHeight = 64;
 

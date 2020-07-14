@@ -2,18 +2,37 @@
   "itemGroup.simplyjetpacks": "Simply Jetpacks 3",
 
   "item.simplyjetpacks.leather_strap": "Leather Strap",
-  "item.simplyjetpacks.jetpack_iron": "Iron Jetpack",
-  "item.simplyjetpacks.jetpack_gold": "Gold Jetpack",
-  "item.simplyjetpacks.jetpack_diamond": "Diamond Jetpack",
   "item.simplyjetpacks.thruster_iron": "Iron Thruster",
   "item.simplyjetpacks.thruster_gold": "Gold Thruster",
   "item.simplyjetpacks.thruster_diamond": "Diamond Thruster",
+
   "item.simplyjetpacks.jetpack_potato": "Potato Jetpack",
+  "item.simplyjetpacks.jetpack_iron": "Iron Jetpack",
+  "item.simplyjetpacks.jetpack_iron_armored": "Armored Iron Jetpack",
+  "item.simplyjetpacks.jetpack_gold": "Gold Jetpack",
+  "item.simplyjetpacks.jetpack_gold_armored": "Armored Gold Jetpack",
+  "item.simplyjetpacks.jetpack_diamond": "Diamond Jetpack",
+  "item.simplyjetpacks.jetpack_diamond_armored": "Armored Diamond Jetpack",
   "item.simplyjetpacks.jetpack_creative": "Creative Jetpack",
+  "item.simplyjetpacks.jetpack_creative_armored": "Armored Creative Jetpack",
+
   "item.simplyjetpacks.jetpack_test": "Test Jetpack",
+  "item.simplyjetpacks.jetpack_test_armored": "Armored Test Jetpack",
 
   "item.simplyjetpacks.netherite_helmet": "Netherite Helmet",
   "item.simplyjetpacks.netherite_chestplate": "Netherite Chestplate",
   "item.simplyjetpacks.netherite_leggings": "Netherite Leggings",
-  "item.simplyjetpacks.netherite_boots": "Netherite Boots"
+  "item.simplyjetpacks.netherite_boots": "Netherite Boots",
+
+  "advancements.simplyjetpacks.simply_jetpacks.title": "Simply Jetpacks 3",
+  "advancements.simplyjetpacks.simply_jetpacks.description": "Install Simply Jetpacks 3",
+  "advancements.simplyjetpacks.iron_jetpack.title": "Iron Jetpack",
+  "advancements.simplyjetpacks.iron_jetpack.description": "Obtain an Iron Jetpack",
+  "advancements.simplyjetpacks.gold_jetpack.title": "Gold Jetpack",
+  "advancements.simplyjetpacks.gold_jetpack.description": "Obtain a Gold Jetpack",
+  "advancements.simplyjetpacks.diamond_jetpack.title": "Diamond Jetpack",
+  "advancements.simplyjetpacks.diamond_jetpack.description": "Obtain a Diamond Jetpack",
+
+  "key.categories.simplyjetpacks": "Simply Jetpacks 3",
+  "key.simplyjetpacks.jetpack_gui": "Toggle Jetpack GUI"
 }
