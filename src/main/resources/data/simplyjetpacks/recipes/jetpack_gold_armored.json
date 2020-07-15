@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:gold_chestplate"
+      "item": "minecraft:golden_chestplate"
     },
     {
       "item": "simplyjetpacks:jetpack_gold"

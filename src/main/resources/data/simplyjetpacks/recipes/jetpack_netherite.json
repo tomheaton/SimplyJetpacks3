@@ -6,7 +6,7 @@
     "t t"
   ],
   "key": {
-    "d": { "item": "minecraft:netherite_ingot" },
+    "n": { "item": "minecraft:netherite_ingot" },
     "r": { "item": "minecraft:redstone_block" },
     "j": { "item": "simplyjetpacks:jetpack_gold" },
     "t": { "item": "simplyjetpacks:thruster_netherite" }

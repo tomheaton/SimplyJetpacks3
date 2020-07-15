@@ -16,4 +16,11 @@
 ### Far in the Future _(waiting on mods getting updated to 1.16.1)_
 - Integrate RedstoneFlux API
 - Integration with EnderIO, Applied Energistics, and Thermal Dynamics
-- 
+
+
+##### Quick Todo:
+- create custom netherite jetpack related sprites
+- update thruster sprites
+- add custom sprite to dragon armor
+- create armored jetpack sprites
+- redesign the creative jetpack + create armor

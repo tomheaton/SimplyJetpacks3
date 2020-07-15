@@ -6,7 +6,7 @@
     "nbn"
   ],
   "key": {
-    "d": { "item": "minecraft:netherite_ingot" },
+    "n": { "item": "minecraft:netherite_ingot" },
     "f": { "item": "minecraft:furnace" },
     "b": { "item": "minecraft:blaze_powder"}
   },
