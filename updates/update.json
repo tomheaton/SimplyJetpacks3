@@ -1,0 +1,10 @@
+{
+  "homepage": "https://minecraft.curseforge.com/projects/simply-jetpacks-3/files",
+  "promos": {
+    "1.16.1-latest" : "1.0.0.1",
+    "1.16.1-recommended" : "1.0.0.1"
+  },
+  "1.16.1" : {
+    "1.0.0.1" : "Update to 1.16.1"
+  }
+}
