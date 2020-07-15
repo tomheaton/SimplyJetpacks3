@@ -13,6 +13,11 @@ Then it's just sending a packet to the client to open the gui.
     and can be opened through `Minecraft#displayGuiScreen(Screen);`
  
  
+- Opening a gui
+    - client player presses the keybind,
+    - client sends packet to server,
+    - server calls NetworkHooks.openGui to open the container on the server and client
+    
 ``` 
 public class KeyboardUtil {
      private static final long MINECRAFT_WINDOW = Minecraft.getInstance().getMainWindow().getHandle();

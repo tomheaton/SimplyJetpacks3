@@ -1,12 +1,13 @@
 package stormedpanda.simplyjetpacks.gui.element;
 
-public class ElementFluidTankAdv /*extends ElementFluidTank TODO: Re-add GUIs*/
+public class ElementFluidTankAdv //extends ElementFluidTank
 {
-	/*public ElementFluidTankAdv(GuiBase gui, int posX, int posY, IFluidTank tank) {
-		super(gui, posX, posY, tank);
-        this.texture = new ResourceLocation(SimplyJetpacks.RESOURCE_PREFIX + "textures/gui/elements/fluidTank.png");
+    //TODO: Re-add GUIs
+/*    public ElementFluidTankAdv(GuiBase gui, int posX, int posY, IFluidTank tank) {
+        super(gui, posX, posY, tank);
+        this.texture = new ResourceLocation(SimplyJetpacks.MODID + ":" + "textures/gui/elements/fluidTank.png");
     }
-    
+
     @Override
     public void drawBackground(int mouseX, int mouseY, float gameTicks) {
         RenderHelper.bindTexture(this.texture);

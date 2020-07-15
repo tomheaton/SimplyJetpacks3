@@ -10,17 +10,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.energy.IEnergyStorage;
 import javax.annotation.Nullable;
 import java.util.function.BiFunction;
 
-public class ItemDragonArmor extends ArmorItem {
+public class TestItemJetpack extends ArmorItem implements IEnergyStorage {
+
+    public static final int MAX_POWER = 10000;
+    public static final int RF_PER_TICK = 10;
 
     @SuppressWarnings("rawtypes")
     private BiFunction<BipedModel, EquipmentSlotType, BipedModel<?>> armorApplier;
     private String armorTexture;
 
     @SuppressWarnings("rawtypes")
-	public ItemDragonArmor(IArmorMaterial material, EquipmentSlotType slot, Properties properties, BiFunction<BipedModel, EquipmentSlotType, BipedModel<?>> armorApplier, ResourceLocation armorTexture) {
+    public TestItemJetpack(IArmorMaterial material, EquipmentSlotType slot, Properties properties, BiFunction<BipedModel, EquipmentSlotType, BipedModel<?>> armorApplier, ResourceLocation armorTexture) {
         super(material, slot, properties);
         this.armorApplier = armorApplier;
         this.armorTexture = armorTexture.toString();
@@ -32,9 +36,39 @@ public class ItemDragonArmor extends ArmorItem {
     }
 
     @SuppressWarnings("unchecked")
-	@OnlyIn(Dist.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @Nullable
     public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default){
         return (A) armorApplier.apply(_default, armorSlot);
+    }
+
+    @Override
+    public int receiveEnergy(int maxReceive, boolean simulate) {
+        return 0;
+    }
+
+    @Override
+    public int extractEnergy(int maxExtract, boolean simulate) {
+        return 0;
+    }
+
+    @Override
+    public int getEnergyStored() {
+        return 0;
+    }
+
+    @Override
+    public int getMaxEnergyStored() {
+        return 0;
+    }
+
+    @Override
+    public boolean canExtract() {
+        return false;
+    }
+
+    @Override
+    public boolean canReceive() {
+        return false;
     }
 }

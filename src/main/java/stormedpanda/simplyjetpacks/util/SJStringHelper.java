@@ -1,6 +1,9 @@
 package stormedpanda.simplyjetpacks.util;
 
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
+import stormedpanda.simplyjetpacks.SimplyJetpacks;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -144,17 +147,15 @@ public abstract class SJStringHelper {
 		}
 	}*/
 
-/*	public static ITextComponent localizeNew(String unlocalized, Object... args) {
-		String toLocalize = SimplyJetpacks.PREFIX + unlocalized;
-		if(args != null && args.length > 0)
-		{
-			return new TextComponentTranslation(toLocalize, args);
+	public static ITextComponent localizeNew(String unlocalized, Object... args) {
+		String toLocalize = "chat." + SimplyJetpacks.MODID + "." + unlocalized;
+		if(args != null && args.length > 0) {
+			return new TranslationTextComponent(toLocalize, args);
 		}
-		else
-		{
-			return new TextComponentTranslation(toLocalize);
+		else {
+			return new TranslationTextComponent(toLocalize);
 		}
-	}*/
+	}
 
 /*	public static void addDescriptionLines(List<String> list, String base, String color) {
 		int i = 1;

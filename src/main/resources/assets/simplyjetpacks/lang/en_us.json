@@ -50,6 +50,28 @@
   "advancements.simplyjetpacks.jetpack_netherite_armored.title": "Armored Netherite Jetpack",
   "advancements.simplyjetpacks.jetpack_netherite_armored.description": "Upgrade to an Armored Netherite Jetpack",
 
-  "key.categories.simplyjetpacks": "Simply Jetpacks 3",
-  "key.simplyjetpacks.jetpack_gui": "Toggle Jetpack GUI"
+  "keybind.categories.simplyjetpacks": "Simply Jetpacks 3",
+  "keybind.simplyjetpacks.jetpack_gui": "Toggle Jetpack GUI",
+  "keybind.simplyjetpacks.jetpack_power": "Toggle Jetpack Power (ON/OFF)",
+
+  "misc.simplyjetpacks.empty": "Empty",
+  "misc.simplyjetpacks.energy": "%s FE",
+  "misc.simplyjetpacks.energyPerTick": "%s FE/t",
+  "misc.simplyjetpacks.energyWithMax": "%s / %s FE",
+  "misc.simplyjetpacks.fluidWithMax": "%s: %s / %s mB",
+  "misc.simplyjetpacks.redstoneMode": "Redstone Mode: %s",
+  "misc.simplyjetpacks.timeInSeconds": "Time: %ss",
+  "misc.simplyjetpacks.upgradeSlot": "Upgrade Slot",
+
+  "chat.simplyjetpacks.enabled": "enabled",
+  "chat.simplyjetpacks.disabled": "disabled",
+  "chat.simplyjetpacks.itemJetpack.on": "Jetpack engine %s",
+  "chat.simplyjetpacks.itemJetpack.hoverMode": "Hover Mode %s",
+  "chat.simplyjetpacks.itemJetpack.chargerMode": "JetPlate Charger %s",
+  "chat.simplyjetpacks.itemFluxpack.on": "Flux Pack Charger %s",
+  "chat.simplyjetpacks.itemJetpack.emergencyHoverMode": "Emergency Hover Mode %s",
+
+  "tooltip.simplyjetpacks.itemJetpack": "Jetpack Tooltip",
+
+  "screen.simplyjetpacks.jetpack_gui.title": "Jetpack GUI"
 }

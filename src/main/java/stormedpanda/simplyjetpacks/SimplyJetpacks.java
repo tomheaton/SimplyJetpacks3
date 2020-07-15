@@ -15,6 +15,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
+import stormedpanda.simplyjetpacks.network.Networking;
 
 import java.util.stream.Collectors;
 
@@ -37,6 +38,7 @@ public class SimplyJetpacks {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(KeyBindHandler.class);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_SPEC, "simplyjetpacks.toml");
 
@@ -46,6 +48,7 @@ public class SimplyJetpacks {
     private void setup(final FMLCommonSetupEvent event) {
         LOGGER.info("Setup Method registered.");
         KeyBindHandler.setup();
+        Networking.registerMessages();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

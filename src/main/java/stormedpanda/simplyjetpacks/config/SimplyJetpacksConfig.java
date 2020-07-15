@@ -11,6 +11,8 @@ import stormedpanda.simplyjetpacks.SimplyJetpacks;
 @Mod.EventBusSubscriber(modid = SimplyJetpacks.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SimplyJetpacksConfig {
 
+    public static boolean enableStateMessages = Defaults.enableStateMessages;
+
     public static class Common {
 
         public final IntValue crafting_width;
