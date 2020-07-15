@@ -8,7 +8,7 @@ public class ItemList {
 	public static Item dragon_leggings;
 	public static Item dragon_boots;
 
-	public static Item jetpack_potato;
+	//public static Item jetpack_potato;
 	public static Item jetpack_iron;
 	public static Item jetpack_iron_armored;
 	public static Item jetpack_gold;
