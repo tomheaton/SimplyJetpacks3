@@ -29,11 +29,16 @@ public class GuiJetpackScreen extends Screen {
         //int relY = (this.height - HEIGHT) / 2;
 
         //addButton(new Button(relX + 10, relY + 10, 160, 20, new StringTextComponent("Skeleton"), button -> spawn("minecraft:skeleton")));
+        addButton(new Button(0, 0, 160, 20, new StringTextComponent("HoverMode"), button -> buttonClick("1")));
     }
 
     @Override
     public boolean isPauseScreen() {
         return false;
+    }
+
+    private void buttonClick(String id) {
+
     }
 
     private void spawn(String id) {

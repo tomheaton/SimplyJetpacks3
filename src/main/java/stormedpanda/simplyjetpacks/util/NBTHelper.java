@@ -2,7 +2,6 @@ package stormedpanda.simplyjetpacks.util;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.NBTTypes;
 
 public final class NBTHelper {
     private NBTHelper() {

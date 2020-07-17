@@ -14,6 +14,7 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import stormedpanda.simplyjetpacks.client.handlers.HUDHandler;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.network.Networking;
 
@@ -39,6 +40,8 @@ public class SimplyJetpacks {
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(KeyBindHandler.class);
+        //MinecraftForge.EVENT_BUS.register(HUDHandler.class);
+        MinecraftForge.EVENT_BUS.register(new HUDHandler());
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_SPEC, "simplyjetpacks.toml");
 
