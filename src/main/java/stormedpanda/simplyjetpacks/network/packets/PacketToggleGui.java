@@ -1,4 +1,4 @@
-package stormedpanda.simplyjetpacks.network;
+package stormedpanda.simplyjetpacks.network.packets;
 
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -6,15 +6,15 @@ import stormedpanda.simplyjetpacks.gui.GuiJetpackScreen;
 
 import java.util.function.Supplier;
 
-public class PacketOpenGui {
+public class PacketToggleGui {
 
-    public PacketOpenGui(PacketBuffer buf) {
+    public PacketToggleGui(PacketBuffer buf) {
     }
 
     public void toBytes(PacketBuffer buf) {
     }
 
-    public PacketOpenGui() {
+    public PacketToggleGui() {
     }
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {

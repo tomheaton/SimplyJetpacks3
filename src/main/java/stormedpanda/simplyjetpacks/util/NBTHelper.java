@@ -2,186 +2,146 @@ package stormedpanda.simplyjetpacks.util;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
 
-public final class NBTHelper {
-    private NBTHelper() {
-    }
+public class NBTHelper {
+    public static void setTag(ItemStack stack, String key, INBT value) {
+        validateCompound(stack);
 
-    public static CompoundNBT getTagCompound(ItemStack stack) {
-        if (stack.isEmpty()) {
-            return null;
-        }
-        if (!stack.hasTag()) {
-            stack.setTag(new CompoundNBT());
-        }
-        return stack.getTag();
-    }
-
-    public static boolean getBoolean(ItemStack stack, String key, boolean defaultValue) {
-        if (!keyExists(stack, key)) {
-            return defaultValue;
-        }
-        return getTagCompound(stack).getBoolean(key);
-    }
-
-    public static void setBoolean(ItemStack stack, String key, boolean value) {
-        getTagCompound(stack).putBoolean(key, value);
-    }
-
-    public static boolean keyExists(ItemStack stack, String key) {
-        if (stack.isEmpty()) {
-            return false;
-        }
-        return getTagCompound(stack).contains(key);
-    }
-
-    /*public static boolean keyExists(ItemStack stack, String key) {
-
-        if (stack.isEmpty()) {
-            return false;
-        }
-        return getTagCompound(stack).hasKey(key);
-    }
-
-    public static int getInt(ItemStack stack, String key, int defaultValue) {
-
-        if (!keyExists(stack, key)) {
-            return defaultValue;
-        }
-        return getTagCompound(stack).getInteger(key);
-    }
-
-    public static void setInt(ItemStack stack, String key, int value) {
-        getTagCompound(stack).setInteger(key, value);
-    }
-
-    public static long getLong(ItemStack stack, String key, long defaultValue) {
-
-        if (!keyExists(stack, key)) {
-            return defaultValue;
-        }
-        return getTagCompound(stack).getLong(key);
-    }
-
-    public static void setLong(ItemStack stack, String key, Long value) {
-
-        getTagCompound(stack).setLong(key, value);
-    }
-
-    public static byte getByte(ItemStack stack, String key, byte defaultValue) {
-
-        if (!keyExists(stack, key)) {
-            return defaultValue;
-        }
-        return getTagCompound(stack).getByte(key);
+        stack.getTag().put(key, value);
     }
 
     public static void setByte(ItemStack stack, String key, byte value) {
+        validateCompound(stack);
 
-        getTagCompound(stack).setByte(key, value);
-    }
-
-    public static byte[] getByteArray(ItemStack stack, String key, byte[] defaultValue) {
-
-        if (!keyExists(stack, key)) {
-            return defaultValue;
-        }
-        return getTagCompound(stack).getByteArray(key);
-    }
-
-    public static void setByteArray(ItemStack stack, String key, byte[] value) {
-
-        getTagCompound(stack).setByteArray(key, value);
-    }
-
-    public static double getDouble(ItemStack stack, String key, double defaultValue) {
-
-        if (!keyExists(stack, key)) {
-            return defaultValue;
-        }
-        return getTagCompound(stack).getDouble(key);
-    }
-
-    public static void setDouble(ItemStack stack, String key, double value) {
-
-        getTagCompound(stack).setDouble(key, value);
-    }
-
-    public static float getFloat(ItemStack stack, String key, float defaultValue) {
-
-        if (!keyExists(stack, key)) {
-            return defaultValue;
-        }
-        return getTagCompound(stack).getFloat(key);
-    }
-
-    public static void setFloat(ItemStack stack, String key, float value) {
-
-        getTagCompound(stack).setFloat(key, value);
-    }
-
-    public static int[] getIntArray(ItemStack stack, String key, int[] defaultValue) {
-
-        if (!keyExists(stack, key)) {
-            return defaultValue;
-        }
-        return getTagCompound(stack).getIntArray(key);
-    }
-
-    public static void setIntArray(ItemStack stack, String key, int[] value) {
-
-        getTagCompound(stack).setIntArray(key, value);
-    }
-
-    public static short getShort(ItemStack stack, String key, short defaultValue) {
-
-        if (!keyExists(stack, key)) {
-            return defaultValue;
-        }
-        return getTagCompound(stack).getShort(key);
+        stack.getTag().putByte(key, value);
     }
 
     public static void setShort(ItemStack stack, String key, short value) {
+        validateCompound(stack);
 
-        getTagCompound(stack).setShort(key, value);
+        stack.getTag().putShort(key, value);
     }
 
-    public static String getString(ItemStack stack, String key, String defaultValue) {
+    public static void setInt(ItemStack stack, String key, int value) {
+        validateCompound(stack);
 
-        if (!keyExists(stack, key)) {
-            return defaultValue;
-        }
-        return getTagCompound(stack).getString(key);
+        stack.getTag().putInt(key, value);
+    }
+
+    public static void setLong(ItemStack stack, String key, long value) {
+        validateCompound(stack);
+
+        stack.getTag().putLong(key, value);
+    }
+
+    public static void setFloat(ItemStack stack, String key, float value) {
+        validateCompound(stack);
+
+        stack.getTag().putFloat(key, value);
+    }
+
+    public static void setDouble(ItemStack stack, String key, double value) {
+        validateCompound(stack);
+
+        stack.getTag().putDouble(key, value);
     }
 
     public static void setString(ItemStack stack, String key, String value) {
+        validateCompound(stack);
 
-        getTagCompound(stack).setString(key, value);
+        stack.getTag().putString(key, value);
     }
 
-    public static NBTTypes getTag(ItemStack stack, String key) {
+    public static void setByteArray(ItemStack stack, String key, byte[] value) {
+        validateCompound(stack);
 
-        if (!keyExists(stack, key)) {
-            return null;
-        }
-        return getTagCompound(stack).getTagId(key);
+        stack.getTag().putByteArray(key, value);
     }
 
-    public static void setTag(ItemStack stack, String key, NBTTypes value) {
+    public static void setIntArray(ItemStack stack, String key, int[] value) {
+        validateCompound(stack);
 
-        getTagCompound(stack).setTagId(key, value);
+        stack.getTag().putIntArray(key, value);
     }
 
-    public static CompoundNBT getCompoundTag(ItemStack stack, String key) {
+    public static void setBoolean(ItemStack stack, String key, boolean value) {
+        validateCompound(stack);
 
-        if (!keyExists(stack, key)) {
-            return null;
-        }
-        return getTagCompound(stack).getTagId(key);
+        stack.getTag().putBoolean(key, value);
+    }
+
+    public static INBT getTag(ItemStack stack, String key) {
+        return stack.hasTag() ? stack.getTag().get(key) : null;
+    }
+
+    public static byte getByte(ItemStack stack, String key) {
+        return stack.hasTag() ? stack.getTag().getByte(key) : 0;
+    }
+
+    public static short getShort(ItemStack stack, String key) {
+        return stack.hasTag() ? stack.getTag().getShort(key) : 0;
+    }
+
+    public static int getInt(ItemStack stack, String key) {
+        return stack.hasTag() ? stack.getTag().getInt(key) : 0;
+    }
+
+    public static long getLong(ItemStack stack, String key) {
+        return stack.hasTag() ? stack.getTag().getLong(key) : 0L;
+    }
+
+    public static float getFloat(ItemStack stack, String key) {
+        return stack.hasTag() ? stack.getTag().getFloat(key) : 0.0F;
+    }
+
+    public static double getDouble(ItemStack stack, String key) {
+        return stack.hasTag() ? stack.getTag().getDouble(key) : 0.0D;
+    }
+
+    public static String getString(ItemStack stack, String key) {
+        return stack.hasTag() ? stack.getTag().getString(key) : "";
+    }
+
+    public static byte[] getByteArray(ItemStack stack, String key) {
+        return stack.hasTag() ? stack.getTag().getByteArray(key) : new byte[0];
+    }
+
+    public static int[] getIntArray(ItemStack stack, String key) {
+        return stack.hasTag() ? stack.getTag().getIntArray(key) : new int[0];
+    }
+
+    public static boolean getBoolean(ItemStack stack, String key) {
+        return stack.hasTag() ? stack.getTag().getBoolean(key) : false;
+    }
+
+    public static boolean hasKey(ItemStack stack, String key) {
+        return stack.hasTag() && stack.getTag().contains(key);
+    }
+
+    public static void flipBoolean(ItemStack stack, String key) {
+        validateCompound(stack);
+
+        setBoolean(stack, key, !getBoolean(stack, key));
     }
 
     public static void removeTag(ItemStack stack, String key) {
+        if (hasKey(stack, key)) {
+            stack.getTag().remove(key);
+        }
+    }
 
-        getTagCompound(stack).remove(key);
-    }*/
+    public static void validateCompound(ItemStack stack) {
+        if (!stack.hasTag()) {
+            CompoundNBT tag = new CompoundNBT();
+            stack.setTag(tag);
+        }
+    }
+
+    public static CompoundNBT getTagCompound(ItemStack stack) {
+        validateCompound(stack);
+        return stack.getTag();
+    }
+
+    //public static CompoundTagHelper newCompoundTagHelper(String name) { return new CompoundTagHelper(name); }
 }

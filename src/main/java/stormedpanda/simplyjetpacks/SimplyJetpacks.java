@@ -16,7 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import stormedpanda.simplyjetpacks.client.handlers.HUDHandler;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
-import stormedpanda.simplyjetpacks.network.Networking;
+import stormedpanda.simplyjetpacks.network.NetworkHandler;
 
 import java.util.stream.Collectors;
 
@@ -40,8 +40,7 @@ public class SimplyJetpacks {
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(KeyBindHandler.class);
-        //MinecraftForge.EVENT_BUS.register(HUDHandler.class);
-        MinecraftForge.EVENT_BUS.register(new HUDHandler());
+        MinecraftForge.EVENT_BUS.register(HUDHandler.class);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_SPEC, "simplyjetpacks.toml");
 
@@ -51,7 +50,7 @@ public class SimplyJetpacks {
     private void setup(final FMLCommonSetupEvent event) {
         LOGGER.info("Setup Method registered.");
         KeyBindHandler.setup();
-        Networking.registerMessages();
+        NetworkHandler.registerMessages();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

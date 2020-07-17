@@ -6,8 +6,11 @@ import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
+import stormedpanda.simplyjetpacks.network.packets.PacketToggleGui;
+import stormedpanda.simplyjetpacks.network.packets.PacketToggleEngine;
+import stormedpanda.simplyjetpacks.network.packets.PacketToggleHover;
 
-public class Networking {
+public class NetworkHandler {
 
     public static SimpleChannel CHANNEL_INSTANCE;
     private static int ID = 0;
@@ -19,10 +22,21 @@ public class Networking {
     public static void registerMessages() {
         CHANNEL_INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(SimplyJetpacks.MODID, "simplyjetpacks"), () -> "1.0", s -> true, s -> true);
 
-        CHANNEL_INSTANCE.messageBuilder(PacketOpenGui.class, nextID())
-                .encoder((packetOpenGui, packetBuffer) -> {})
-                .decoder(buf -> new PacketOpenGui())
-                .consumer(PacketOpenGui::handle)
+        CHANNEL_INSTANCE.messageBuilder(PacketToggleGui.class, nextID())
+                .encoder((packetToggleGui, packetBuffer) -> {})
+                .decoder(buf -> new PacketToggleGui())
+                .consumer(PacketToggleGui::handle)
+                .add();
+
+        CHANNEL_INSTANCE.messageBuilder(PacketToggleEngine.class, nextID())
+                .encoder(PacketToggleEngine::toBytes)
+                .decoder(PacketToggleEngine::new)
+                .consumer(PacketToggleEngine::handle)
+                .add();
+        CHANNEL_INSTANCE.messageBuilder(PacketToggleHover.class, nextID())
+                .encoder(PacketToggleHover::toBytes)
+                .decoder(PacketToggleHover::new)
+                .consumer(PacketToggleHover::handle)
                 .add();
     }
 

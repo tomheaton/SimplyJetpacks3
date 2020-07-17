@@ -36,8 +36,10 @@ import java.util.function.BiFunction;
 
 public class TestItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyContainerItem {//IEnergyStorage {
 
-    public static final String TAG_ON = "PackOn";
     public static final String TAG_ENERGY = "Energy";
+    public static final String TAG_ENGINE = "Engine";
+    public static final String TAG_HOVER = "Hover";
+    public static final String TAG_E_HOVER = "EmergencyHover";
 
     protected int capacity = 1000;;
     protected int maxReceive = 100;
@@ -83,10 +85,6 @@ public class TestItemJetpack extends ArmorItem implements IHUDInfoProvider, IEne
             tooltip.add(new StringTextComponent("Press shift"));
         }
     }*/
-
-    public boolean isOn(ItemStack stack) {
-        return NBTHelper.getBoolean(stack, TAG_ON, true);
-    }
 
     public void toggleState(boolean on, ItemStack stack, String type, String tag, PlayerEntity player, boolean showState) {
         NBTHelper.setBoolean(stack, tag, !on);
@@ -193,6 +191,10 @@ public class TestItemJetpack extends ArmorItem implements IHUDInfoProvider, IEne
 
         stack.getCapability(CapabilityEnergy.ENERGY).ifPresent(e ->
                 tooltip.add(TextUtil.energyWithMax(e.getEnergyStored(), e.getMaxEnergyStored())));
+
+        tooltip.add(new StringTextComponent("Engine: " + (NBTHelper.getBoolean(stack, TAG_ENGINE) ? "on" : "off")));
+        tooltip.add(new StringTextComponent("Hover: " + (NBTHelper.getBoolean(stack, TAG_HOVER) ? "on" : "off")));
+        tooltip.add(new StringTextComponent("Emergency Hover: " + (NBTHelper.getBoolean(stack, TAG_E_HOVER) ? "on" : "off")));
     }
 
     @Override
@@ -201,7 +203,7 @@ public class TestItemJetpack extends ArmorItem implements IHUDInfoProvider, IEne
             items.add(new ItemStack(this));
 
             ItemStack full = new ItemStack(this);
-            full.getOrCreateTag().putInt("Energy", capacity);
+            full.getOrCreateTag().putInt(TAG_ENERGY, capacity);
             items.add(full);
         }
     }
@@ -236,54 +238,23 @@ public class TestItemJetpack extends ArmorItem implements IHUDInfoProvider, IEne
         list.add(new StringTextComponent("Energy: " + getEnergyStored(stack) + " FE"));
     }
 
-    /*public void flyUser(PlayerEntity user, ItemStack stack, ItemJetpack item, boolean force) {
-        int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
-        Item chestItem = StackUtil.getItem(stack);
-        ItemJetpack jetpack = (ItemJetpack) chestItem;
-        if (jetpack.isOn(stack)) {
-            boolean hoverMode = true
-            double hoverSpeed = 10.00;
-            boolean flyKeyDown = force || SyncHandler.isFlyKeyDown(user);
-            boolean descendKeyDown = SyncHandler.isDescendKeyDown(user);
-            double currentAccel = Jetpack.values()[i].accelVertical * (user.motionY < 0.3D ? 2.5D : 1.0D);
-            double currentSpeedVertical = Jetpack.values()[i].speedVertical * (user.isInWater() ? 0.4D : 1.0D);
+    public boolean isEngineOn(ItemStack stack) {
+        return NBTHelper.getBoolean(stack, TAG_ENGINE);
+    }
 
-            if (flyKeyDown || hoverMode && !user.onGround) {
-                if (Jetpack.values()[i].usesFuel) {
-                    item.useFuel(stack, (int) (user.isSprinting() ? Math.round(this.getFuelUsage(stack) * Jetpack.values()[i].sprintFuelModifier) : this.getFuelUsage(stack)), false);
-                }
+    public boolean toggleEngine(ItemStack stack) {
+        boolean current = NBTHelper.getBoolean(stack, TAG_ENGINE);
+        NBTHelper.flipBoolean(stack, TAG_ENGINE);
+        return !current;
+    }
 
-                if (item.getFuelStored(stack) > 0) {
-                    if (flyKeyDown) {
-                        if (!hoverMode) {
-                            user.motionY = Math.min(user.motionY + currentAccel, currentSpeedVertical);
-                        } else {
-                            if (descendKeyDown) {
-                                user.motionY = Math.min(user.motionY + currentAccel, -Jetpack.values()[i].speedVerticalHoverSlow);
-                            } else {
-                                user.motionY = Math.min(user.motionY + currentAccel, Jetpack.values()[i].speedVerticalHover);
-                            }
-                        }
-                    } else {
-                        user.motionY = Math.min(user.motionY + currentAccel, -hoverSpeed);
-                    }
+    public boolean isHovering(ItemStack stack) {
+        return NBTHelper.getBoolean(stack, TAG_HOVER);
+    }
 
-                    float speedSideways = (float) (user.isSneaking() ? Jetpack.values()[i].speedSideways * 0.5F : Jetpack.values()[i].speedSideways);
-                    float speedForward = (float) (user.isSprinting() ? speedSideways * Jetpack.values()[i].sprintSpeedModifier : speedSideways);
-                    if (SyncHandler.isForwardKeyDown(user)) {
-                        user.moveRelative(0, 0, speedForward, speedForward);
-                    }
-                    if (SyncHandler.isBackwardKeyDown(user)) {
-                        user.moveRelative(0, 0, -speedSideways, speedSideways * 0.8F);
-                    }
-                    if (SyncHandler.isLeftKeyDown(user)) {
-                        user.moveRelative(speedSideways, 0, 0, speedSideways);
-                    }
-                    if (SyncHandler.isRightKeyDown(user)) {
-                        user.moveRelative(-speedSideways, 0, 0, speedSideways);
-                    }
-                }
-            }
-        }
-    }*/
+    public boolean toggleHover(ItemStack stack) {
+        boolean current = NBTHelper.getBoolean(stack, TAG_HOVER);
+        NBTHelper.flipBoolean(stack, TAG_HOVER);
+        return !current;
+    }
 }

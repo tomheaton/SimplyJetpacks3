@@ -69,7 +69,7 @@ public class ItemJetpack extends ArmorItem {
     }
 
     public boolean isOn(ItemStack stack) {
-        return NBTHelper.getBoolean(stack, TAG_ON, true);
+        return NBTHelper.getBoolean(stack, TAG_ON);
     }
 
     public void toggleState(boolean on, ItemStack stack, String type, String tag, PlayerEntity player, boolean showState) {
