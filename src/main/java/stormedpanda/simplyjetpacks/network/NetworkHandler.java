@@ -6,10 +6,7 @@ import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
-import stormedpanda.simplyjetpacks.network.packets.PacketToggleGui;
-import stormedpanda.simplyjetpacks.network.packets.PacketToggleEngine;
-import stormedpanda.simplyjetpacks.network.packets.PacketToggleHover;
-import stormedpanda.simplyjetpacks.network.packets.PacketToggleTestGui;
+import stormedpanda.simplyjetpacks.network.packets.*;
 
 public class NetworkHandler {
 
@@ -44,6 +41,12 @@ public class NetworkHandler {
                 .encoder(PacketToggleHover::toBytes)
                 .decoder(PacketToggleHover::new)
                 .consumer(PacketToggleHover::handle)
+                .add();
+
+        CHANNEL_INSTANCE.messageBuilder(PacketToggleEHover.class, nextID())
+                .encoder(PacketToggleEHover::toBytes)
+                .decoder(PacketToggleEHover::new)
+                .consumer(PacketToggleEHover::handle)
                 .add();
     }
 

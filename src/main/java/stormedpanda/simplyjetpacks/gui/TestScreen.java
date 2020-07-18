@@ -3,15 +3,11 @@ package stormedpanda.simplyjetpacks.gui;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
-import stormedpanda.simplyjetpacks.network.NetworkHandler;
-import stormedpanda.simplyjetpacks.network.packets.PacketToggleEngine;
-import stormedpanda.simplyjetpacks.network.packets.PacketToggleHover;
 
 public class TestScreen extends ContainerScreen<TestContainer> {
 
@@ -19,6 +15,9 @@ public class TestScreen extends ContainerScreen<TestContainer> {
 
     private static final int WIDTH = 176;
     private static final int HEIGHT = 100;
+
+    private float mousePosX;
+    private float mousePosY;
 
     public TestScreen(TestContainer container, PlayerInventory playerInventory, ITextComponent title)
     {
@@ -28,17 +27,10 @@ public class TestScreen extends ContainerScreen<TestContainer> {
         this.field_238745_s_ = this.ySize - 94;
     }
 
-/*    @Override
-    protected void init() {
-        int relX = (this.width - WIDTH) / 2;
-        int relY = (this.height - HEIGHT) / 2;
-
-        addButton(new Button(relX + 10, relY + 10, 60, 20, new StringTextComponent("Engine"), button -> NetworkHandler.sendToServer(new PacketToggleEngine())));
-        addButton(new Button(relX + 10, relY + 30, 60, 20, new StringTextComponent("HoverMode"), button -> NetworkHandler.sendToServer(new PacketToggleHover())));
-    }*/
-
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
+        this.mousePosX = (float) mouseX;
+        this.mousePosY = (float) mouseY;
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         this.func_230459_a_(matrixStack, mouseX, mouseY);
     }
@@ -55,5 +47,8 @@ public class TestScreen extends ContainerScreen<TestContainer> {
         int width = slots * 18;
         int x = 7 + ((9 - slots) * 18) / 2;
         this.blit(matrixStack,i + x, j + 19, 0, this.ySize, width, 18);
+
+        assert this.minecraft.player != null;
+        InventoryScreen.drawEntityOnScreen(i + 51, j + 60, 17, (float)(i + 51) - this.mousePosX, (float)(j + 75 - 50) - this.mousePosY, this.minecraft.player);
     }
 }
