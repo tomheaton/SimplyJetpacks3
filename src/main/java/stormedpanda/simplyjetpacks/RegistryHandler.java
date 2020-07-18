@@ -8,7 +8,6 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import stormedpanda.simplyjetpacks.gui.TestModContainer;
 import stormedpanda.simplyjetpacks.items.TestItemBattery;
 
 public class RegistryHandler {
@@ -24,8 +23,8 @@ public class RegistryHandler {
     }
 
     // TESTING:
-    public static final RegistryObject<ContainerType<TestModContainer>> MY_CONTAINER = CONTAINERS.register("mod_container", () -> IForgeContainerType.create((id, inv, data) -> new TestModContainer(id)));
-
+    //public static final RegistryObject<ContainerType<JetpackGuiContainer>> JETPACK_GUI = CONTAINERS.register("jetpack_gui", () -> IForgeContainerType.create((id, inv, data) -> new JetpackGuiContainer(inv)));
+    //public static final RegistryObject<ContainerType<TestGuiContainer>> JETPACK_GUI_2 = CONTAINERS.register("jetpack_gui_2", () -> IForgeContainerType.create((id, inv, data) -> new TestGuiContainer(null, id, inv, inv)));
     public static final RegistryObject<Item> TEST_BATTERY = ITEMS.register("battery", TestItemBattery::new);
 
     // THRUSTERS:

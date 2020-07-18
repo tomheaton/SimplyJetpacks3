@@ -55,6 +55,7 @@
   "keybind.simplyjetpacks.jetpack_engine": "Toggle Jetpack Engine (ON/OFF)",
   "keybind.simplyjetpacks.jetpack_hover": "Toggle Jetpack Hover (ON/OFF)",
   "keybind.simplyjetpacks.jetpack_e_hover": "Toggle Jetpack Emergency Hover (ON/OFF)",
+  "keybind.simplyjetpacks.jetpack_test": "Toggle TEST GUI (ON/OFF)",
 
   "misc.simplyjetpacks.empty": "Empty",
   "misc.simplyjetpacks.energy": "%s FE",

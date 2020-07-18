@@ -40,7 +40,7 @@ public class SimplyJetpacks {
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(KeyBindHandler.class);
-        MinecraftForge.EVENT_BUS.register(HUDHandler.class);
+        MinecraftForge.EVENT_BUS.register(new HUDHandler());
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_SPEC, "simplyjetpacks.toml");
 

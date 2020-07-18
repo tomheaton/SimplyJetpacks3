@@ -34,7 +34,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.BiFunction;
 
-public class TestItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyContainerItem {//IEnergyStorage {
+public class TestItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyContainerItem { //IEnergyStorage {
 
     public static final String TAG_ENERGY = "Energy";
     public static final String TAG_ENGINE = "Engine";
@@ -44,6 +44,7 @@ public class TestItemJetpack extends ArmorItem implements IHUDInfoProvider, IEne
     protected int capacity = 1000;;
     protected int maxReceive = 100;
     protected int maxExtract = 100;
+
     public String name;
     @SuppressWarnings("rawtypes")
     private BiFunction<BipedModel, EquipmentSlotType, BipedModel<?>> armorApplier;
@@ -107,7 +108,9 @@ public class TestItemJetpack extends ArmorItem implements IHUDInfoProvider, IEne
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         super.onArmorTick(stack, world, player);
-        useEnergy(stack);
+        if (NBTHelper.getBoolean(stack, TAG_ENGINE) && NBTHelper.getInt(stack, TAG_ENERGY) > 0) {
+            useEnergy(stack);
+        }
     }
 
     public void useEnergy(ItemStack container) {
@@ -218,9 +221,14 @@ public class TestItemJetpack extends ArmorItem implements IHUDInfoProvider, IEne
         return 1 - getChargeRatio(stack);
     }
 
-    @Override
+/*    @Override // TODO: Fix this because it crashes the game
     public int getRGBDurabilityForDisplay(ItemStack stack) {
         return MathHelper.hsvToRGB((1 + getChargeRatio(stack)) / 3.0F, 1.0F, 1.0F);
+    }*/
+
+    @Override
+    public int getRGBDurabilityForDisplay(ItemStack stack) {
+        return 0x23e232;
     }
 
     @Override
