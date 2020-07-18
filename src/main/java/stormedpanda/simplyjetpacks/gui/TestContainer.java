@@ -2,6 +2,7 @@ package stormedpanda.simplyjetpacks.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
@@ -20,25 +21,24 @@ public class TestContainer extends Container {
     public TestContainer(int id, PlayerInventory inv) {
         super(RegistryHandler.TEST_CONTAINER.get(), id);
         this.inv = inv;
-        bindPlayerInventory(inv, 1);
+        bindPlayerInventory(inv);
+        addSlots();
     }
 
-    private void bindPlayerInventory(IInventory playerInventory, int blockedSlot) {
-        for (int l = 0; l < 3; ++l) {
-            for (int j1 = 0; j1 < 9; ++j1) {
-                int index = j1 + l * 9 + 9;
-                this.addSlot(new Slot(playerInventory, index, 8 + j1 * 18, l * 18 + 51));
-            }
-        }
+    private void addSlots() {
+        Slot mySlot = new Slot(inv, 69, 50, 50);
+        mySlot.putStack(this.inv.armorInventory.get(EquipmentSlotType.CHEST.getIndex()));
+        addSlot(new Slot(inv, 69, 20, 20));
+        addSlot(mySlot);
 
-
+    }
+    private void bindPlayerInventory(IInventory playerInventory) {
+        this.addSlot(new Slot(playerInventory, 69, 8 + 24 * 18, 5 * 18 + 51));
     }
 
     @Override
     public void onContainerClosed(PlayerEntity playerIn) {
         super.onContainerClosed(playerIn);
-        /*if (!playerIn.world.isRemote)
-            BeltFinder.sendSync(playerIn);*/
     }
 
     @Override
@@ -55,11 +55,9 @@ public class TestContainer extends Container {
     public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(index);
-
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
-
             if (index < 1) {
                 if (!this.mergeItemStack(itemstack1, 1, this.inventorySlots.size(), true)) {
                     return ItemStack.EMPTY;
@@ -67,14 +65,12 @@ public class TestContainer extends Container {
             } else if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
                 return ItemStack.EMPTY;
             }
-
             if (itemstack1.getCount() == 0) {
                 slot.putStack(ItemStack.EMPTY);
             } else {
                 slot.onSlotChanged();
             }
         }
-
         return itemstack;
     }
 }

@@ -22,13 +22,8 @@ public class PacketToggleTestGui {
     }
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {
-        //ctx.get().enqueueWork(TestScreenContainer::open);
         ServerPlayerEntity player = ctx.get().getSender();
-        //PlayerEntity player = NetworkHandler.getPlayer(ctx);
-        if (player == null) {
-            return;
-        }
-        //ctx.get().enqueueWork(() -> NetworkHooks.openGui((ServerPlayerEntity) player, GuiType.TEST_GUI.containerSupplier.get()));
+        if (player == null) { return; }
         ctx.get().enqueueWork(() -> NetworkHooks.openGui(player, new SimpleNamedContainerProvider(
                 (id, inv, data) -> new TestContainer(id, inv), new StringTextComponent("test_container"))
         ));

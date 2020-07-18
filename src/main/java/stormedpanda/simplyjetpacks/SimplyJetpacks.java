@@ -1,10 +1,7 @@
 package stormedpanda.simplyjetpacks;
 
 import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.extensions.IForgeContainerType;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.InterModComms;
@@ -24,7 +21,6 @@ import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.gui.TestContainer;
 import stormedpanda.simplyjetpacks.gui.TestScreen;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
-
 import java.util.stream.Collectors;
 
 @Mod(SimplyJetpacks.MODID)
