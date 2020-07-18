@@ -16,6 +16,7 @@ import stormedpanda.simplyjetpacks.network.NetworkHandler;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleEngine;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleGui;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleHover;
+import stormedpanda.simplyjetpacks.network.packets.PacketToggleTestGui;
 
 @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class KeyBindHandler {
@@ -63,7 +64,7 @@ public class KeyBindHandler {
             }
             if (TEST_KEY.isPressed()) {
                 SimplyJetpacks.LOGGER.info("TEST key pressed");
-                //NetworkHandler.sendToServer(new PacketToggleGui2());
+                NetworkHandler.sendToServer(new PacketToggleTestGui());
             }
         }
     }

@@ -1,7 +1,12 @@
 package stormedpanda.simplyjetpacks;
 
+import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.extensions.IForgeContainerType;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -16,6 +21,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import stormedpanda.simplyjetpacks.client.handlers.HUDHandler;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
+import stormedpanda.simplyjetpacks.gui.TestContainer;
+import stormedpanda.simplyjetpacks.gui.TestScreen;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
 
 import java.util.stream.Collectors;
@@ -42,6 +49,7 @@ public class SimplyJetpacks {
         MinecraftForge.EVENT_BUS.register(KeyBindHandler.class);
         MinecraftForge.EVENT_BUS.register(new HUDHandler());
 
+
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_SPEC, "simplyjetpacks.toml");
 
         RegistryHandler.init();
@@ -55,6 +63,9 @@ public class SimplyJetpacks {
 
     private void doClientStuff(final FMLClientSetupEvent event) {
         LOGGER.info("Client Setup Method registered.");
+        DeferredWorkQueue.runLater(() -> {
+            ScreenManager.registerFactory(TestContainer.TYPE, TestScreen::new);
+        });
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {

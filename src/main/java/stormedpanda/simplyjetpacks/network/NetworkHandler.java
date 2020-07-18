@@ -9,6 +9,7 @@ import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleGui;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleEngine;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleHover;
+import stormedpanda.simplyjetpacks.network.packets.PacketToggleTestGui;
 
 public class NetworkHandler {
 
@@ -26,6 +27,12 @@ public class NetworkHandler {
                 .encoder((packetToggleGui, packetBuffer) -> {})
                 .decoder(buf -> new PacketToggleGui())
                 .consumer(PacketToggleGui::handle)
+                .add();
+
+        CHANNEL_INSTANCE.messageBuilder(PacketToggleTestGui.class, nextID())
+                .encoder((packetToggleTestGui, packetBuffer) -> {})
+                .decoder(buf -> new PacketToggleTestGui())
+                .consumer(PacketToggleTestGui::handle)
                 .add();
 
         CHANNEL_INSTANCE.messageBuilder(PacketToggleEngine.class, nextID())

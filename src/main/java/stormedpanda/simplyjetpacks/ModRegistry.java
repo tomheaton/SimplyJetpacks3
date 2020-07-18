@@ -25,6 +25,18 @@ public class ModRegistry {
 
 	private static String location(String name) { return SimplyJetpacks.MODID + ":" + name; }
 
+
+/*	@SubscribeEvent
+	public static void registerContainers(RegistryEvent.Register<ContainerType<?>> event)
+	{
+		event.getRegistry().registerAll(
+				//IForgeContainerType.create(TestContainer::new).setRegistryName("test_container")
+				new ContainerType<>(BeltSlotContainer::new).setRegistryName("belt_slot_container"),
+				IForgeContainerType.create(new TestContainer()).setRegistryName("test_container")
+				new container
+		);
+	}*/
+
 	@SubscribeEvent
 	public static void registerItems(final RegistryEvent.Register<Item> event) {
 		event.getRegistry().registerAll (
