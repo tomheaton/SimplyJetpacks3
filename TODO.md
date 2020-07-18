@@ -2,25 +2,21 @@
 
 ### General
 - Make the creative jetpack glow 
-- Add armored variants of jetpacks
-    - make the armor retrievable 
-    - render normal chest armor + jetpack model _(this will also help with normal jetpacks showing the leather strap around the player)_
+- Make armor returnable recipes
 - Actually make jetpacks fly
-- Then make them need energy _(start with ForgeEnergy (FE))_
 - Add Mekanism Integration (special variants, recipes, energy compatibility)
-
+- Set up hud properly
+- energy gauge, jetpack image, button status in jetpack gui
+- energy storage carry over when upgrading jetpack 
+- move the more info to `shift` tooltips 
 
 ### Bugs to squash
 - **_No known bugs yet_**
 
 ### Far in the Future _(waiting on mods getting updated to 1.16.1)_
-- Integrate RedstoneFlux API
 - Integration with EnderIO, Applied Energistics, and Thermal Dynamics
 
-
 ##### Quick Todo:
-- create custom netherite jetpack related sprites
-- update thruster sprites
 - add custom sprite to dragon armor
 - create armored jetpack sprites
 - redesign the creative jetpack + create armor
