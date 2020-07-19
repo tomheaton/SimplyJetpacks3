@@ -70,9 +70,9 @@
   "chat.simplyjetpacks.disabled": "disabled",
   "chat.simplyjetpacks.itemJetpack.on": "Jetpack engine %s",
   "chat.simplyjetpacks.itemJetpack.hoverMode": "Hover Mode %s",
+  "chat.simplyjetpacks.itemJetpack.emergencyHoverMode": "Emergency Hover Mode %s",
   "chat.simplyjetpacks.itemJetpack.chargerMode": "JetPlate Charger %s",
   "chat.simplyjetpacks.itemFluxpack.on": "Flux Pack Charger %s",
-  "chat.simplyjetpacks.itemJetpack.emergencyHoverMode": "Emergency Hover Mode %s",
 
   "tooltip.simplyjetpacks.itemJetpack": "Jetpack Tooltip",
 

@@ -1,28 +1,16 @@
 package stormedpanda.simplyjetpacks.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.HangingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Quaternion;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import stormedpanda.simplyjetpacks.KeyBindHandler;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
-import stormedpanda.simplyjetpacks.client.models.ModelJetpack;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleEHover;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleEngine;
@@ -50,12 +38,7 @@ public class JetpackGuiScreen extends Screen {
 
         addButton(new Button(relX + 108, relY + 10, 60, 20, new StringTextComponent("Engine"), button -> NetworkHandler.sendToServer(new PacketToggleEngine())));
         addButton(new Button(relX + 108, relY + 40, 60, 20, new StringTextComponent("Hover"), button -> NetworkHandler.sendToServer(new PacketToggleHover())));
-        addButton(new Button(relX + 78, relY + 70, 90, 20, new StringTextComponent("Emergency Hover"), button -> NetworkHandler.sendToServer(new PacketToggleEHover())));
-    }
-
-    @Override
-    public boolean isPauseScreen() {
-        return false;
+        addButton(new Button(relX + 68, relY + 70, 100, 20, new StringTextComponent("Emergency Hover"), button -> NetworkHandler.sendToServer(new PacketToggleEHover())));
     }
 
     @Override
@@ -68,14 +51,36 @@ public class JetpackGuiScreen extends Screen {
         this.mousePosY = (float) mouseY;
         this.blit(stack, relX, relY, 0, 0, WIDTH, HEIGHT);
         super.render(stack, mouseX, mouseY, partialTicks);
-        FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+        //FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
         //drawString(stack, fontRenderer, new StringTextComponent("ENGINE: "), relX + 80, relY + 70, 0xFFFFFF );
         //drawString(stack, fontRenderer, new StringTextComponent("HOVER: "), relX + 80, relY + 40, 0xFFFFFF );
         assert this.minecraft.player != null;
         InventoryScreen.drawEntityOnScreen(relX + 40, relY + 90, 40, (float)(relX + 51) - this.mousePosX, (float)(relY + 75 - 50) - this.mousePosY, this.minecraft.player);
     }
 
-    public static void open() {
-        Minecraft.getInstance().displayGuiScreen(new JetpackGuiScreen());
+    public static void open() { Minecraft.getInstance().displayGuiScreen(new JetpackGuiScreen()); }
+
+    @Override
+    public boolean isPauseScreen() {
+        return false;
+    }
+
+    @Override
+    public boolean keyPressed(int p_231046_1_, int p_231046_2_, int p_231046_3_) {
+        if (p_231046_1_ == 256 && this.shouldCloseOnEsc()) {
+            this.onClose();
+            return true;
+        } else if (KeyBindHandler.JETPACK_GUI_KEY.matchesKey(p_231046_1_, p_231046_2_)) {
+            this.onClose();
+            return true;
+        } else if (p_231046_1_ == 258) {
+            boolean flag = !hasShiftDown();
+            if (!this.changeFocus(flag)) {
+                this.changeFocus(flag);
+            }
+            return true;
+        } else {
+            return super.keyPressed(p_231046_1_, p_231046_2_, p_231046_3_);
+        }
     }
 }

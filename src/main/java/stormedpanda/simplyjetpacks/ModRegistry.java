@@ -13,7 +13,6 @@ import stormedpanda.simplyjetpacks.client.models.ModelDragonArmor;
 import stormedpanda.simplyjetpacks.client.models.ModelJetpack;
 import stormedpanda.simplyjetpacks.items.ItemDragonArmor;
 import stormedpanda.simplyjetpacks.items.ItemJetpack;
-import stormedpanda.simplyjetpacks.items.TestItemJetpack;
 import stormedpanda.simplyjetpacks.lists.ListArmorMaterial;
 import stormedpanda.simplyjetpacks.lists.ItemList;
 
@@ -25,28 +24,16 @@ public class ModRegistry {
 
 	private static String location(String name) { return SimplyJetpacks.MODID + ":" + name; }
 
-
-/*	@SubscribeEvent
-	public static void registerContainers(RegistryEvent.Register<ContainerType<?>> event)
-	{
-		event.getRegistry().registerAll(
-				//IForgeContainerType.create(TestContainer::new).setRegistryName("test_container")
-				new ContainerType<>(BeltSlotContainer::new).setRegistryName("belt_slot_container"),
-				IForgeContainerType.create(new TestContainer()).setRegistryName("test_container")
-				new container
-		);
-	}*/
-
 	@SubscribeEvent
 	public static void registerItems(final RegistryEvent.Register<Item> event) {
 		event.getRegistry().registerAll (
+				// TESTING:
+
 				// ARMOR:
 				ItemList.dragon_helmet = new ItemDragonArmor(ListArmorMaterial.DRAGON, EquipmentSlotType.HEAD, new Item.Properties().group(tabSimplyJetpacks), new ModelDragonArmor()::applyData, new ResourceLocation("simplyjetpacks:textures/models/armor/dragon_armor.png")).setRegistryName(location("dragon_helmet")),
 				ItemList.dragon_chestplate = new ItemDragonArmor(ListArmorMaterial.DRAGON, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new ModelDragonArmor()::applyData, new ResourceLocation("simplyjetpacks:textures/models/armor/dragon_armor.png")).setRegistryName(location("dragon_chestplate")),
 				ItemList.dragon_leggings = new ItemDragonArmor(ListArmorMaterial.DRAGON, EquipmentSlotType.LEGS, new Item.Properties().group(tabSimplyJetpacks), new ModelDragonArmor()::applyData, new ResourceLocation("simplyjetpacks:textures/models/armor/dragon_armor.png")).setRegistryName(location("dragon_leggings")),
 				ItemList.dragon_boots = new ItemDragonArmor(ListArmorMaterial.DRAGON, EquipmentSlotType.FEET, new Item.Properties().group(tabSimplyJetpacks), new ModelDragonArmor()::applyData, new ResourceLocation("simplyjetpacks:textures/models/armor/dragon_armor.png")).setRegistryName(location("dragon_boots")),
-
-				// TESTING:
 
 				// JETPACKS:
 				ItemList.jetpack_iron = new ItemJetpack("jetpack_iron", ListArmorMaterial.JETPACK, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_iron.png")).setRegistryName(location("jetpack_iron")),
@@ -55,13 +42,13 @@ public class ModRegistry {
 				ItemList.jetpack_gold_armored = new ItemJetpack("jetpack_gold_armored", ListArmorMaterial.JETPACK_ARMORED, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_gold_armored.png")).setRegistryName(location("jetpack_gold_armored")),
 				ItemList.jetpack_diamond = new ItemJetpack("jetpack_diamond", ListArmorMaterial.JETPACK, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_diamond.png")).setRegistryName(location("jetpack_diamond")),
 				ItemList.jetpack_diamond_armored = new ItemJetpack("jetpack_diamond_armored", ListArmorMaterial.JETPACK_ARMORED, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_diamond_armored.png")).setRegistryName(location("jetpack_diamond_armored")),
-				ItemList.jetpack_netherite = new TestItemJetpack("jetpack_netherite", ListArmorMaterial.JETPACK, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_netherite.png")).setRegistryName(location("jetpack_netherite")),
-				ItemList.jetpack_netherite_armored = new TestItemJetpack("jetpack_netherite_armored", ListArmorMaterial.JETPACK_ARMORED, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_netherite_armored.png")).setRegistryName(location("jetpack_netherite_armored")),
+				ItemList.jetpack_netherite = new ItemJetpack("jetpack_netherite", ListArmorMaterial.JETPACK, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_netherite.png")).setRegistryName(location("jetpack_netherite")),
+				ItemList.jetpack_netherite_armored = new ItemJetpack("jetpack_netherite_armored", ListArmorMaterial.JETPACK_ARMORED, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_netherite_armored.png")).setRegistryName(location("jetpack_netherite_armored")),
 
 				ItemList.jetpack_creative = new ItemJetpack("jetpack_creative", ListArmorMaterial.JETPACK, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_creative.png")).setRegistryName(location("jetpack_creative")),
 				ItemList.jetpack_creative_armored = new ItemJetpack("jetpack_creative_armored", ListArmorMaterial.JETPACK_ARMORED, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_creative_armored.png")).setRegistryName(location("jetpack_creative_armored")),
 
-				ItemList.jetpack_test = new TestItemJetpack("jetpack_test", ListArmorMaterial.JETPACK, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_test.png")).setRegistryName(location("jetpack_test")),
+				ItemList.jetpack_test = new ItemJetpack("jetpack_test", ListArmorMaterial.JETPACK, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_test.png")).setRegistryName(location("jetpack_test")),
 				ItemList.jetpack_test_armored = new ItemJetpack("jetpack_test_armored", ListArmorMaterial.JETPACK_ARMORED, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_test_armored.png")).setRegistryName(location("jetpack_test_armored"))
 		);
 		LOGGER.info("Items registered.");

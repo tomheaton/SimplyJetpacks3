@@ -26,12 +26,6 @@ public class NetworkHandler {
                 .consumer(PacketToggleGui::handle)
                 .add();
 
-        CHANNEL_INSTANCE.messageBuilder(PacketToggleTestGui.class, nextID())
-                .encoder((packetToggleTestGui, packetBuffer) -> {})
-                .decoder(buf -> new PacketToggleTestGui())
-                .consumer(PacketToggleTestGui::handle)
-                .add();
-
         CHANNEL_INSTANCE.messageBuilder(PacketToggleEngine.class, nextID())
                 .encoder(PacketToggleEngine::toBytes)
                 .decoder(PacketToggleEngine::new)
@@ -47,6 +41,13 @@ public class NetworkHandler {
                 .encoder(PacketToggleEHover::toBytes)
                 .decoder(PacketToggleEHover::new)
                 .consumer(PacketToggleEHover::handle)
+                .add();
+
+        // TESTING
+        CHANNEL_INSTANCE.messageBuilder(PacketToggleTestGui.class, nextID())
+                .encoder((packetToggleTestGui, packetBuffer) -> {})
+                .decoder(buf -> new PacketToggleTestGui())
+                .consumer(PacketToggleTestGui::handle)
                 .add();
     }
 

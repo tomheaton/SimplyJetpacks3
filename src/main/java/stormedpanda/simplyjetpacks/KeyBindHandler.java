@@ -11,7 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
-import stormedpanda.simplyjetpacks.items.TestItemJetpack;
+import stormedpanda.simplyjetpacks.items.ItemJetpack;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleEngine;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleGui;
@@ -45,11 +45,11 @@ public class KeyBindHandler {
 
         ItemStack chestStack = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
         Item chestItem = null;
-        TestItemJetpack jetpack;
+        ItemJetpack jetpack;
         if(!chestStack.isEmpty()) { chestItem = chestStack.getItem(); }
 
-        if (chestItem instanceof TestItemJetpack) {
-            jetpack = (TestItemJetpack) chestItem;
+        if (chestItem instanceof ItemJetpack) {
+            jetpack = (ItemJetpack) chestItem;
             if(JETPACK_GUI_KEY.isPressed()) {
                 SimplyJetpacks.LOGGER.info("Jetpack GUI key pressed");
                 NetworkHandler.sendToServer(new PacketToggleGui());

@@ -9,13 +9,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.apache.logging.log4j.Logger;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.client.IHUDInfoProvider;
-import stormedpanda.simplyjetpacks.items.TestItemJetpack;
+import stormedpanda.simplyjetpacks.items.ItemJetpack;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,8 +44,8 @@ public class HUDHandler {
             ItemStack chestplate = minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
             Item item = chestplate.getItem();
 
-            if (!chestplate.isEmpty() && item instanceof TestItemJetpack) {
-                TestItemJetpack jetpack = (TestItemJetpack) item;
+            if (!chestplate.isEmpty() && item instanceof ItemJetpack) {
+                ItemJetpack jetpack = (ItemJetpack) item;
 
                 IHUDInfoProvider provider = (IHUDInfoProvider) chestplate.getItem();
 
