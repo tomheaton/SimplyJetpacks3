@@ -36,10 +36,8 @@ public class KeyboardUtil {
  }
 ```
 
-- A GUI
-- A Container
-- An inventory
-- Something that can open the container and the GUI, store the inventory
+### Colours
+- 0x23e232
 
 ### Credits:
 Silk, Caltinor, Commoble

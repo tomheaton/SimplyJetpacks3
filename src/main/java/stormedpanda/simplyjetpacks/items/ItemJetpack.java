@@ -84,7 +84,7 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
         }
     }*/
 
-    public void toggleState(boolean on, ItemStack stack, String type, String tag, PlayerEntity player, boolean showState) {
+/*    public void toggleState(boolean on, ItemStack stack, String type, String tag, PlayerEntity player, boolean showState) {
         NBTHelper.setBoolean(stack, tag, !on);
         if (player != null && showState) {
             ITextComponent stateText = SJStringHelper.localizeNew(on ? "disabled" : "enabled");
@@ -100,7 +100,7 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
             ITextComponent msg = new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.on", stateText);
             player.sendStatusMessage(msg, true);
         }
-    }
+    }*/
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
@@ -214,7 +214,6 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
         if (this.isInGroup(group)) {
             items.add(new ItemStack(this));
-
             ItemStack full = new ItemStack(this);
             full.getOrCreateTag().putInt(TAG_ENERGY, capacity);
             items.add(full);
@@ -243,17 +242,9 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     @Override
     public void addHUDInfo(List<ITextComponent> list, ItemStack stack) {
-        Style cachedStyle = Style.EMPTY;
-        IFormattableTextComponent result = null;
-
-        IFormattableTextComponent current = null;
-        current = new StringTextComponent("TESTING");
-
-        cachedStyle = cachedStyle.setColor(Color.func_240745_a_("#0f0"));
-        current.func_230530_a_(cachedStyle);
-        result = current;
-        list.add(result);
         list.add(new StringTextComponent("Energy: " + getEnergyStored(stack) + " FE"));
+        list.add(new StringTextComponent("Engine: " + isEngineOn(stack)));
+        list.add(new StringTextComponent("Hover: " + isHoverOn(stack)));
     }
 
     public boolean isEngineOn(ItemStack stack) {

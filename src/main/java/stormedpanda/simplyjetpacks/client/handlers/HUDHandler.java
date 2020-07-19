@@ -7,7 +7,6 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -23,16 +22,13 @@ public class HUDHandler {
     public final Minecraft minecraft = Minecraft.getInstance();
     public static final Logger LOGGER = SimplyJetpacks.LOGGER;
 
-    private static final ResourceLocation HUD_TEXTURE = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/hud.png");
+    //private static final ResourceLocation HUD_TEXTURE = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/hud.png");
 
-    private void drawString(MainWindow window, MatrixStack matrix, ITextComponent text, boolean leftSide, int y, int color) {
+    private void drawString(MainWindow window, MatrixStack matrix, ITextComponent text, int x, int y, int color) {
         FontRenderer font = minecraft.fontRenderer;
-        if (leftSide) {
-            font.func_238407_a_(matrix, text, 2, y, color);
-        } else {
-            int width = font.func_238414_a_(text) + 2;
-            font.func_238407_a_(matrix, text, window.getScaledWidth() - width, y, color);
-        }
+        int windowScaleHeight = window.getScaledHeight();
+        int windowScaleWidth = window.getScaledWidth();
+        font.func_238407_a_(matrix, text, x, y, color);
     }
 
     @SubscribeEvent()
@@ -55,24 +51,16 @@ public class HUDHandler {
                     LOGGER.error("EMPTY");
                     return;
                 }
-                int start = (renderStrings.size() * 2) + (0 * 9);
+                int count = 10;
 
-                //StringTextComponent basicText = new StringTextComponent("Energy: " + jetpack.getEnergyStored(chestplate) + " FE");
-
-                int count = 0;
                 MatrixStack matrix = event.getMatrixStack();
                 matrix.push();
-                matrix.scale(0.6F, 0.6F, 0.6F);
-                FontRenderer font = minecraft.fontRenderer;
+                matrix.scale(1.0F, 1.0F, 1.0F);
                 MainWindow window = event.getWindow();
-                int y = window.getScaledHeight();
                 for (ITextComponent text : renderStrings) {
-                    //font.func_238407_a_(matrix, someText, 2, y, 0xc8c8c8);
-                    //drawString(window, matrix, text, true, (int) (y * (1 / 0.6F)) - start, 0x10F4D3);
-                    drawString(window, matrix, text, true, y + count, 0x10F4D3);
+                    drawString(window, matrix, text, 10, count, 0x10F4D3);
                     count += 10;
                 }
-                //font.func_238407_a_(matrix, basicText, 2, y, 0xc8c8c8);
                 matrix.pop();
             }
         }
