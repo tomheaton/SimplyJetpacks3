@@ -7,7 +7,7 @@ import net.minecraft.item.Items;
 public class CreativeTabSimplyJetpacks extends ItemGroup {
 
     public CreativeTabSimplyJetpacks() {
-        super(SimplyJetpacks.MODID);
+        super(SimplyJetpacks.MODID + ".main");
     }
 
     @Override

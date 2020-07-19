@@ -1,6 +1,7 @@
 package stormedpanda.simplyjetpacks.crafting;
 
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -21,9 +22,14 @@ public class PlatingReturnHandler {
         }
 
         if (evt.getCrafting().getItem() instanceof ItemJetpack) {
-            Jetpack outputPack = Jetpack.getTypeFromMeta(evt.getCrafting().getItem().getMaxDamage(evt.getCrafting()));
+            Jetpack outputPack = Jetpack.getTypeFromMeta(evt.getCrafting().getItem().getDamage(evt.getCrafting()));
             SimplyJetpacks.LOGGER.info(outputPack.getString());
+            SimplyJetpacks.LOGGER.info("OUTPUT ITEM: " + evt.getCrafting().getItem().getName().toString());
+            SimplyJetpacks.LOGGER.info("MAX DAMAGE: " + evt.getCrafting().getItem().getDamage(evt.getCrafting()));
+            ItemEntity item2 = evt.getPlayer().entityDropItem(new ItemStack(Items.DIAMOND, 64), 0.0F);
+            item2.setNoPickupDelay();
             if (outputPack.getIsArmored()) {
+                SimplyJetpacks.LOGGER.info("Jetpack was not armored");
                 return;
             }
             for (int i = 0; i < evt.getInventory().getSizeInventory(); i++) {

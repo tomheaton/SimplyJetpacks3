@@ -1,6 +1,7 @@
 {
-  "itemGroup.simplyjetpacks": "Simply Jetpacks 3",
+  "itemGroup.simplyjetpacks.main": "Simply Jetpacks 3",
 
+  "item.simplyjetpacks.pilot_goggles": "Pilot Goggles",
   "item.simplyjetpacks.leather_strap": "Leather Strap",
   "item.simplyjetpacks.thruster_iron": "Iron Thruster",
   "item.simplyjetpacks.thruster_gold": "Gold Thruster",
@@ -76,5 +77,14 @@
 
   "tooltip.simplyjetpacks.itemJetpack": "Jetpack Tooltip",
 
-  "screen.simplyjetpacks.jetpack_gui.title": "Jetpack GUI"
+  "screen.simplyjetpacks.jetpack_gui.title": "Jetpack GUI",
+
+  "config.simplyjetpacks.enableIntegrationVanilla": "Enable Vanilla Integration",
+  "config.simplyjetpacks.enableIntegrationMekanism": "Enable Mekanism Integration",
+  "config.simplyjetpacks.enableIntegrationEnderIO": "Enable EnderIO Integration",
+  "config.simplyjetpacks.enableIntegrationThermalExpansion": "Enable Thermal Expansion Integration",
+  "config.simplyjetpacks.enableIntegrationThermalDynamics": "Enable Thermal Dynamics Integration",
+  "config.simplyjetpacks.enableStateMessages": "Enable State Messages",
+  "config.simplyjetpacks.hudTextColor": "Set the HUD color",
+  "config.simplyjetpacks.hudTextPosition": "Set the HUD position"
 }

@@ -2,6 +2,8 @@ package stormedpanda.simplyjetpacks.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
+import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
+import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -11,28 +13,85 @@ import stormedpanda.simplyjetpacks.SimplyJetpacks;
 @Mod.EventBusSubscriber(modid = SimplyJetpacks.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SimplyJetpacksConfig {
 
+    public static boolean enableIntegrationVanilla = Defaults.enableIntegrationVanilla;
+    public static boolean enableIntegrationMekanism = Defaults.enableIntegrationMekanism;
+    public static boolean enableIntegrationEnderIO = Defaults.enableIntegrationEnderIO;
+    public static boolean enableIntegrationThermalExpansion = Defaults.enableIntegrationThermalExpansion;
+    public static boolean enableIntegrationThermalDynamics = Defaults.enableIntegrationThermalDynamics;
+
     public static boolean enableStateMessages = Defaults.enableStateMessages;
 
     public static class Common {
 
-        public final IntValue crafting_width;
-        public final IntValue crafting_height;
+        public final BooleanValue enableIntegrationVanilla;
+        public final BooleanValue enableIntegrationMekanism;
+        public final BooleanValue enableIntegrationEnderIO;
+        public final BooleanValue enableIntegrationThermalExpansion;
+        public final BooleanValue enableIntegrationThermalDynamics;
 
         public Common(ForgeConfigSpec.Builder builder) {
-            builder.comment("Simply Jetpacks 3 - Mod Configurations")
-                    .push("simplyjetpacks");
+            builder.comment("Simply Jetpacks 3 - Common Configurations").push("simplyjetpacks");
 
-            crafting_width = builder
-                    .comment("This sets the crafting width of the game. If a value is higher declared by a different mod, this becomes obsolete.")
-                    .translation("simplyjetpacks.configgui.crafting_width")
-                    .worldRestart()
-                    .defineInRange("crafting_width", 3, 3, 5);
-
-            crafting_height = builder
+            enableIntegrationVanilla = builder
                     .comment("This sets the crafting height of the game. If a value is higher declared by a different mod, this becomes obsolete.")
-                    .translation("simplyjetpacks.configgui.crafting_height")
+                    .translation("config.simplyjetpacks.enableIntegrationVanilla")
                     .worldRestart()
-                    .defineInRange("crafting_height", 3, 3, 5);
+                    .define("enableIntegrationVanilla", Defaults.enableIntegrationVanilla);
+
+            enableIntegrationMekanism = builder
+                    .comment("This sets the crafting height of the game. If a value is higher declared by a different mod, this becomes obsolete.")
+                    .translation("config.simplyjetpacks.enableIntegrationMekanism")
+                    .worldRestart()
+                    .define("enableIntegrationMekanism", Defaults.enableIntegrationMekanism);
+
+            enableIntegrationEnderIO = builder
+                    .comment("This sets the crafting height of the game. If a value is higher declared by a different mod, this becomes obsolete.")
+                    .translation("config.simplyjetpacks.enableIntegrationEnderIO")
+                    .worldRestart()
+                    .define("enableIntegrationEnderIO", Defaults.enableIntegrationEnderIO);
+
+            enableIntegrationThermalExpansion = builder
+                    .comment("This sets the crafting height of the game. If a value is higher declared by a different mod, this becomes obsolete.")
+                    .translation("config.simplyjetpacks.enableIntegrationThermalExpansion")
+                    .worldRestart()
+                    .define("enableIntegrationThermalExpansion", Defaults.enableIntegrationThermalExpansion);
+
+            enableIntegrationThermalDynamics = builder
+                    .comment("This sets the crafting height of the game. If a value is higher declared by a different mod, this becomes obsolete.")
+                    .translation("config.simplyjetpacks.enableIntegrationThermalDynamics")
+                    .worldRestart()
+                    .define("enableIntegrationThermalDynamics", Defaults.enableIntegrationThermalDynamics);
+
+            builder.pop();
+        }
+    }
+
+    public static class Client {
+
+        public final BooleanValue enableStateMessages;
+        //public final String hudTextColor;
+        //public final EnumValue hudTextPosition;
+
+        public Client(ForgeConfigSpec.Builder builder) {
+            builder.comment("Simply Jetpacks 3 - Client Configurations").push("simplyjetpacks");
+
+            enableStateMessages = builder
+                    .comment("This sets whether or not state messages will show.")
+                    .translation("config.simplyjetpacks.enableStateMessages")
+                    .worldRestart()
+                    .define("enableStateMessages", Defaults.enableStateMessages);
+
+/*            hudTextColor = builder
+                    .comment("This sets the color of the Jetpack HUD.")
+                    .translation("config.simplyjetpacks.hudTextColor")
+                    .worldRestart()
+                    .define("hudTextColor", Defaults.hudTextColor);
+
+            hudTextPosition = builder
+                    .comment("This sets the position of the Jetpack HUD.")
+                    .translation("config.simplyjetpacks.hudTextPosition")
+                    .worldRestart()
+                    .define("hudTextPosition", Defaults.hudTextPosition);*/
 
             builder.pop();
         }
@@ -44,6 +103,14 @@ public class SimplyJetpacksConfig {
         final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
         COMMON_SPEC = specPair.getRight();
         COMMON = specPair.getLeft();
+    }
+
+    public static final ForgeConfigSpec CLIENT_SPEC;
+    public static final Client CLIENT;
+    static {
+        final Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
+        CLIENT_SPEC = specPair.getRight();
+        CLIENT = specPair.getLeft();
     }
 
     @SubscribeEvent
