@@ -1,6 +1,5 @@
 package stormedpanda.simplyjetpacks.items;
 
-import net.java.games.input.Keyboard;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -230,13 +229,9 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
         return 1 - getChargeRatio(stack);
     }
 
-/*    @Override // TODO: Fix this because it crashes the game
-    public int getRGBDurabilityForDisplay(ItemStack stack) {
-        return MathHelper.hsvToRGB((1 + getChargeRatio(stack)) / 3.0F, 1.0F, 1.0F);
-    }*/
-
     @Override
     public int getRGBDurabilityForDisplay(ItemStack stack) {
+        //return MathHelper.hsvToRGB((1 + getChargeRatio(stack)) / 3.0F, 1.0F, 1.0F);
         return 0x23e232;
     }
 
@@ -245,6 +240,7 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
         list.add(new StringTextComponent("Energy: " + getEnergyStored(stack) + " FE"));
         list.add(new StringTextComponent("Engine: " + isEngineOn(stack)));
         list.add(new StringTextComponent("Hover: " + isHoverOn(stack)));
+        list.add(new StringTextComponent("Emergency Hover: " + isEHoverOn(stack)));
     }
 
     public boolean isEngineOn(ItemStack stack) {
@@ -282,5 +278,10 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
         ITextComponent msg = new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.emergencyHoverMode", stateText);
         player.sendStatusMessage(msg, true);
         return !current;
+    }
+
+    @Override
+    public boolean isEnchantable(ItemStack stack) {
+        return true;
     }
 }

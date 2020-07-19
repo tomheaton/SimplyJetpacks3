@@ -11,9 +11,9 @@ import stormedpanda.simplyjetpacks.SimplyJetpacks;
 
 public enum ListArmorMaterial implements IArmorMaterial {
 
-	DRAGON("dragon", 66, new int[] {4, 7, 10, 4}, 12, Items.IRON_INGOT, "entity.ender_dragon.growl", 3.0f, 60.0f),
-	JETPACK("jetpack", 0, new int[] {0, 0, 0, 0}, 12, Items.IRON_INGOT, "entity.ender_dragon.growl", 0.0f, 0.0f),
-	JETPACK_ARMORED("jetpack_armored", 66, new int[] {4, 7, 10, 4}, 12, Items.IRON_INGOT, "entity.ender_dragon.growl", 3.0f, 60.0f);
+	DRAGON("dragon", 66, new int[] {4, 7, 10, 4}, 10, Items.IRON_INGOT, "entity.ender_dragon.growl", 3.0f, 60.0f),
+	JETPACK("jetpack", 0, new int[] {0, 0, 0, 0}, 0, Items.IRON_INGOT, "entity.ender_dragon.growl", 0.0f, 0.0f),
+	JETPACK_ARMORED("jetpack_armored", 66, new int[] {4, 7, 10, 4}, 10, Items.IRON_INGOT, "entity.ender_dragon.growl", 3.0f, 60.0f);
 
 	private final String name;
 	private final int durability;

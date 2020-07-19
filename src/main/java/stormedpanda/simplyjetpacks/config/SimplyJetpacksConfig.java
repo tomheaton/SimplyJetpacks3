@@ -1,9 +1,7 @@
 package stormedpanda.simplyjetpacks.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
-import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -30,7 +28,7 @@ public class SimplyJetpacksConfig {
         public final BooleanValue enableIntegrationThermalDynamics;
 
         public Common(ForgeConfigSpec.Builder builder) {
-            builder.comment("Simply Jetpacks 3 - Common Configurations").push("simplyjetpacks");
+            builder.comment("Simply Jetpacks 3 - Common Configurations").push("simplyjetpacks-common");
 
             enableIntegrationVanilla = builder
                     .comment("This sets the crafting height of the game. If a value is higher declared by a different mod, this becomes obsolete.")
@@ -73,7 +71,7 @@ public class SimplyJetpacksConfig {
         //public final EnumValue hudTextPosition;
 
         public Client(ForgeConfigSpec.Builder builder) {
-            builder.comment("Simply Jetpacks 3 - Client Configurations").push("simplyjetpacks");
+            builder.comment("Simply Jetpacks 3 - Client Configurations").push("simplyjetpacks-client");
 
             enableStateMessages = builder
                     .comment("This sets whether or not state messages will show.")

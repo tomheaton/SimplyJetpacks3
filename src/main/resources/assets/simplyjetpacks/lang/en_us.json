@@ -86,5 +86,7 @@
   "config.simplyjetpacks.enableIntegrationThermalDynamics": "Enable Thermal Dynamics Integration",
   "config.simplyjetpacks.enableStateMessages": "Enable State Messages",
   "config.simplyjetpacks.hudTextColor": "Set the HUD color",
-  "config.simplyjetpacks.hudTextPosition": "Set the HUD position"
+  "config.simplyjetpacks.hudTextPosition": "Set the HUD position",
+
+  "enchantment.simplyjetpacks.fuelEfficiency": "Fuel Efficiency"
 }

@@ -1,21 +1,11 @@
 package stormedpanda.simplyjetpacks.client.models;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.model.BakedQuad;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.ItemOverrideList;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.util.Direction;
 
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Random;
-
-public class ModelJetpack extends BipedModel<PlayerEntity> implements IBakedModel {
+public class ModelJetpack extends BipedModel<PlayerEntity> {
 
 	private final ModelRenderer middle;
 	private final ModelRenderer leftCanister;
@@ -183,40 +173,5 @@ public class ModelJetpack extends BipedModel<PlayerEntity> implements IBakedMode
 		model.rotateAngleX = x;
 		model.rotateAngleY = y;
 		model.rotateAngleZ = z;
-	}
-
-	@Override
-	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, Random rand) {
-		return null;
-	}
-
-	@Override
-	public boolean isAmbientOcclusion() {
-		return false;
-	}
-
-	@Override
-	public boolean isGui3d() {
-		return false;
-	}
-
-	@Override
-	public boolean func_230044_c_() {
-		return false;
-	}
-
-	@Override
-	public boolean isBuiltInRenderer() {
-		return false;
-	}
-
-	@Override
-	public TextureAtlasSprite getParticleTexture() {
-		return null;
-	}
-
-	@Override
-	public ItemOverrideList getOverrides() {
-		return null;
 	}
 }

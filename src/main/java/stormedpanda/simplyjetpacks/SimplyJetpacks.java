@@ -30,15 +30,15 @@ public class SimplyJetpacks {
     public static SimplyJetpacks instance;
 
     public static final String MODID = "simplyjetpacks";
-    public static final String MOD_NAME = "Simply Jetpacks 3";
+    public static final String MODNAME = "Simply Jetpacks 3";
     public static final String VERSION = "${version}";
 
     public static final Logger LOGGER = LogManager.getLogger(MODID);
     public static final CreativeTabSimplyJetpacks tabSimplyJetpacks = new CreativeTabSimplyJetpacks();
 
     public SimplyJetpacks() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::CommonSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::ClientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 
@@ -47,19 +47,20 @@ public class SimplyJetpacks {
         MinecraftForge.EVENT_BUS.register(new HUDHandler());
         MinecraftForge.EVENT_BUS.register(new PlatingReturnHandler());
 
+        // TODO: get both configs in one folder
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_SPEC, "simplyjetpacks-common.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SimplyJetpacksConfig.CLIENT_SPEC, "simplyjetpacks-client.toml");
 
         RegistryHandler.init();
     }
 
-    private void setup(final FMLCommonSetupEvent event) {
+    private void CommonSetup(final FMLCommonSetupEvent event) {
         LOGGER.info("Setup Method registered.");
         KeyBindHandler.setup();
         NetworkHandler.registerMessages();
     }
 
-    private void doClientStuff(final FMLClientSetupEvent event) {
+    private void ClientSetup(final FMLClientSetupEvent event) {
         LOGGER.info("Client Setup Method registered.");
         DeferredWorkQueue.runLater(() -> {
             ScreenManager.registerFactory(TestContainer.TYPE, TestScreen::new);
