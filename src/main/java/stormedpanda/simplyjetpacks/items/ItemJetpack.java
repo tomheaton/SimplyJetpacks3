@@ -7,6 +7,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.network.play.ServerPlayNetHandler;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
@@ -365,15 +366,13 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
                     player.moveRelative(1, new Vector3d(-speedSideways, 0, 0));
                 }
 
-                if (!player.world.isRemote()) {
+                // TODO: find out why this doesn't work
+/*                if (!player.world.isRemote()) {
                     player.fallDistance = 0.0F;
                     if (player instanceof ServerPlayerEntity) {
-                        ((ServerPlayerEntity) player).connection.floatingTickCount = 0;
+                        ((ServerPlayerEntity) player).connection.getNetworkManager(). floatingTickCount = 0;
                     }
-                    if (player instanceof ServerPlayerEntity) {
-                        ((ServerPlayerEntity) player).connection.floatingTickCount = 0;
-                    }
-                }
+                }*/
             }
         }
     }
