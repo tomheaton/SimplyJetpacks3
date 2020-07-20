@@ -44,6 +44,7 @@ public class SimplyJetpacks {
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(KeyBindHandler.class);
+        MinecraftForge.EVENT_BUS.register(new FlyHandler());
         MinecraftForge.EVENT_BUS.register(new HUDHandler());
         MinecraftForge.EVENT_BUS.register(new PlatingReturnHandler());
 

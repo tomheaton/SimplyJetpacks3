@@ -19,7 +19,6 @@ public class PacketToggleGui {
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(JetpackGuiScreen::open);
-        //ctx.get().enqueueWork(TestGuiScreen::open);
         ctx.get().setPacketHandled(true);
     }
 }

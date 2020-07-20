@@ -10,6 +10,8 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -18,6 +20,8 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import stormedpanda.simplyjetpacks.FlyHandler;
+import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.capability.CapabilityProviderEnergy;
 import stormedpanda.simplyjetpacks.capability.EnergyConversionStorage;
 import stormedpanda.simplyjetpacks.client.IHUDInfoProvider;
@@ -104,11 +108,16 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         super.onArmorTick(stack, world, player);
-        if (NBTHelper.getBoolean(stack, TAG_ENGINE) && NBTHelper.getInt(stack, TAG_ENERGY) > 0) {
+/*        if (NBTHelper.getBoolean(stack, TAG_ENGINE) && NBTHelper.getInt(stack, TAG_ENERGY) > 0) {
             useEnergy(stack);
+        }*/
+
+        if (NBTHelper.getBoolean(stack, TAG_ENGINE)) {
+            flyUser(player, stack, this);
         }
     }
 
+    // TESTING
     public void useEnergy(ItemStack container) {
         if (container.getTag() == null || !container.getTag().contains(TAG_ENERGY)) {
             //pass
@@ -284,4 +293,103 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public boolean isEnchantable(ItemStack stack) {
         return true;
     }
+
+    public void flyUser(PlayerEntity player, ItemStack stack, ItemJetpack item) {
+        if (getEnergyStored(stack) > 0) {
+            player.sendStatusMessage(new StringTextComponent("Flying"), true);
+            useEnergy(stack);
+
+            int speedForward = 8;
+            int speedSideways = 8;
+
+            if (FlyHandler.isHoldingForwards(player)) {
+                SimplyJetpacks.LOGGER.info("FORWARDS");
+                player.moveRelative(1, new Vector3d(0, 0, speedForward));
+            }
+
+            if (FlyHandler.isHoldingBackwards(player)) {
+                SimplyJetpacks.LOGGER.info("BACKWARDS");
+                player.moveRelative(1, new Vector3d(0, 0, -speedSideways * 0.8F));
+            }
+
+            if (FlyHandler.isHoldingLeft(player)) {
+                SimplyJetpacks.LOGGER.info("LEFT");
+                player.moveRelative(1, new Vector3d(speedSideways, 0, 0));
+            }
+
+            if (FlyHandler.isHoldingRight(player)) {
+                SimplyJetpacks.LOGGER.info("RIGHT");
+                player.moveRelative(1, new Vector3d(-speedSideways, 0, 0));
+            }
+
+        }
+    }
+
+    private void fly(PlayerEntity player, double x, double y, double z) {
+        Vector3d motion = player.getMotion();
+        player.setMotion(motion.getX(), y, motion.getZ());
+    }
+
+    /*public void flyUser(PlayerEntity user, ItemStack stack, ItemJetpack item, boolean force) {
+        int i = MathHelper.clamp(stack.getDamage(), 0, numItems - 1);
+        Item chestItem = StackUtil.getItem(stack);
+        ItemJetpack jetpack = (ItemJetpack) chestItem;
+        if (jetpack.isOn(stack)) {
+            boolean hoverMode = jetpack.isHoverModeOn(stack);
+            double hoverSpeed = Config.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(user) ? Jetpack.values()[i].speedVerticalHoverSlow : Jetpack.values()[i].speedVerticalHover;
+            boolean flyKeyDown = force || SyncHandler.isFlyKeyDown(user);
+            boolean descendKeyDown = SyncHandler.isDescendKeyDown(user);
+            double currentAccel = Jetpack.values()[i].accelVertical * (user.motionY < 0.3D ? 2.5D : 1.0D);
+            double currentSpeedVertical = Jetpack.values()[i].speedVertical * (user.isInWater() ? 0.4D : 1.0D);
+
+            if (flyKeyDown || hoverMode && !user.onGround) {
+                if (Jetpack.values()[i].usesFuel) {
+                    item.useFuel(stack, (int) (user.isSprinting() ? Math.round(this.getFuelUsage(stack) * Jetpack.values()[i].sprintFuelModifier) : this.getFuelUsage(stack)), false);
+                }
+
+                if (item.getFuelStored(stack) > 0) {
+                    if (flyKeyDown) {
+                        if (!hoverMode) {
+                            user.motionY = Math.min(user.getMotion().getY() + currentAccel, currentSpeedVertical);
+                        } else {
+                            if (descendKeyDown) {
+                                user.getMotion().getY() = Math.min(user.getMotion().getY() + currentAccel, -Jetpack.values()[i].speedVerticalHoverSlow);
+                            } else {
+                                user.getMotion().getY() = Math.min(user.getMotion().getY() + currentAccel, Jetpack.values()[i].speedVerticalHover);
+                            }
+                        }
+                    } else {
+                        user.getMotion().getY() = Math.min(user.getMotion().getY() + currentAccel, -hoverSpeed);
+                    }
+
+                    float speedSideways = (float) (user.isSneaking() ? Jetpack.values()[i].speedSideways * 0.5F : Jetpack.values()[i].speedSideways);
+                    float speedForward = (float) (user.isSprinting() ? speedSideways * Jetpack.values()[i].sprintSpeedModifier : speedSideways);
+                    if (SyncHandler.isForwardKeyDown(user)) {
+                        user.moveRelative(0, 0, speedForward, speedForward);
+                    }
+                    if (SyncHandler.isBackwardKeyDown(user)) {
+                        user.moveRelative(0, 0, -speedSideways, speedSideways * 0.8F);
+                    }
+                    if (SyncHandler.isLeftKeyDown(user)) {
+                        user.moveRelative(speedSideways, 0, 0, speedSideways);
+                    }
+                    if (SyncHandler.isRightKeyDown(user)) {
+                        user.moveRelative(-speedSideways, 0, 0, speedSideways);
+                    }
+
+                    if (!user.world.isRemote) {
+                        user.fallDistance = 0.0F;
+
+                        if (user instanceof EntityPlayerMP) {
+                            try {
+                                floatingTickCount.setInt(((EntityPlayerMP) user).connection, 0);
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }*/
 }

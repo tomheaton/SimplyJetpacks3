@@ -1,5 +1,6 @@
 package stormedpanda.simplyjetpacks;
 
+import net.minecraft.client.GameSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.PlayerEntity;
@@ -7,19 +8,24 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
 import stormedpanda.simplyjetpacks.items.ItemJetpack;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
-import stormedpanda.simplyjetpacks.network.packets.PacketToggleEngine;
-import stormedpanda.simplyjetpacks.network.packets.PacketToggleGui;
-import stormedpanda.simplyjetpacks.network.packets.PacketToggleHover;
-import stormedpanda.simplyjetpacks.network.packets.PacketToggleTestGui;
+import stormedpanda.simplyjetpacks.network.packets.*;
 
 @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class KeyBindHandler {
+
+    private static boolean up = false;
+    private static boolean down = false;
+    private static boolean forwards = false;
+    private static boolean backwards = false;
+    private static boolean left = false;
+    private static boolean right = false;
 
     public static KeyBinding JETPACK_GUI_KEY;
     public static KeyBinding JETPACK_ENGINE_KEY;
@@ -65,6 +71,36 @@ public class KeyBindHandler {
             if (TEST_KEY.isPressed()) {
                 SimplyJetpacks.LOGGER.info("TEST key pressed");
                 NetworkHandler.sendToServer(new PacketToggleTestGui());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onClientTick(TickEvent.ClientTickEvent event) {
+        if (event.phase == TickEvent.Phase.START) {
+            Minecraft mc = Minecraft.getInstance();
+            GameSettings settings = mc.gameSettings;
+
+            if (mc.getConnection() == null)
+                return;
+
+            boolean upNow = settings.keyBindJump.isKeyDown();
+            boolean downNow = settings.keyBindSneak.isKeyDown();
+            boolean forwardsNow = settings.keyBindForward.isKeyDown();
+            boolean backwardsNow = settings.keyBindBack.isKeyDown();
+            boolean leftNow = settings.keyBindLeft.isKeyDown();
+            boolean rightNow = settings.keyBindRight.isKeyDown();
+
+            if (upNow != up || downNow != down || forwardsNow != forwards || backwardsNow != backwards || leftNow != left || rightNow != right) {
+                up = upNow;
+                down = downNow;
+                forwards = forwardsNow;
+                backwards = backwardsNow;
+                left = leftNow;
+                right = rightNow;
+
+                NetworkHandler.CHANNEL_INSTANCE.sendToServer(new PacketUpdateInput(upNow, downNow, forwardsNow, backwardsNow, leftNow, rightNow));
+                FlyHandler.update(mc.player, upNow, downNow, forwardsNow, backwardsNow, leftNow, rightNow);
             }
         }
     }
