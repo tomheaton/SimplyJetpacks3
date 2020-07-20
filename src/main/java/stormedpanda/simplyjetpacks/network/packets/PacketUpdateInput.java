@@ -3,7 +3,8 @@ package stormedpanda.simplyjetpacks.network.packets;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
-import stormedpanda.simplyjetpacks.FlyHandler;
+import stormedpanda.simplyjetpacks.SimplyJetpacks;
+import stormedpanda.simplyjetpacks.SyncHandler;
 
 import java.util.function.Supplier;
 
@@ -39,10 +40,11 @@ public class PacketUpdateInput {
     }
 
     public static void handle(PacketUpdateInput message, Supplier<NetworkEvent.Context> ctx) {
+        SimplyJetpacks.LOGGER.info("NETWORK YES YES network messages");
         ctx.get().enqueueWork(() -> {
             PlayerEntity player = ctx.get().getSender();
             if (player != null) {
-                FlyHandler.update(player, message.up, message.down, message.forwards, message.backwards, message.left, message.right);
+                SyncHandler.processKeyUpdate(player, message.up, message.down, message.forwards, message.backwards, message.left, message.right);
             }
         });
         ctx.get().setPacketHandled(true);

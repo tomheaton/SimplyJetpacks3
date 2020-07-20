@@ -17,6 +17,8 @@ public class SimplyJetpacksConfig {
     public static boolean enableIntegrationThermalExpansion = Defaults.enableIntegrationThermalExpansion;
     public static boolean enableIntegrationThermalDynamics = Defaults.enableIntegrationThermalDynamics;
 
+    public static boolean invertHoverSneakingBehavior = Defaults.invertHoverSneakingBehavior;
+
     public static boolean enableStateMessages = Defaults.enableStateMessages;
 
     public static class Common {
@@ -66,6 +68,7 @@ public class SimplyJetpacksConfig {
 
     public static class Client {
 
+        public final BooleanValue invertHoverSneakingBehavior;
         public final BooleanValue enableStateMessages;
         //public final String hudTextColor;
         //public final EnumValue hudTextPosition;
@@ -73,11 +76,18 @@ public class SimplyJetpacksConfig {
         public Client(ForgeConfigSpec.Builder builder) {
             builder.comment("Simply Jetpacks 3 - Client Configurations").push("simplyjetpacks-client");
 
+            invertHoverSneakingBehavior = builder
+                    .comment("This sets whether you must sneak to hover")
+                    .translation("config.simplyjetpacks.invertHoverSneakingBehavior")
+                    .worldRestart()
+                    .define("invertHoverSneakingBehavior", Defaults.invertHoverSneakingBehavior);
+
             enableStateMessages = builder
                     .comment("This sets whether or not state messages will show.")
                     .translation("config.simplyjetpacks.enableStateMessages")
                     .worldRestart()
                     .define("enableStateMessages", Defaults.enableStateMessages);
+
 
 /*            hudTextColor = builder
                     .comment("This sets the color of the Jetpack HUD.")

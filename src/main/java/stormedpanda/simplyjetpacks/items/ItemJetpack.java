@@ -5,12 +5,12 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
@@ -20,11 +20,11 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import stormedpanda.simplyjetpacks.FlyHandler;
-import stormedpanda.simplyjetpacks.SimplyJetpacks;
+import stormedpanda.simplyjetpacks.SyncHandler;
 import stormedpanda.simplyjetpacks.capability.CapabilityProviderEnergy;
 import stormedpanda.simplyjetpacks.capability.EnergyConversionStorage;
 import stormedpanda.simplyjetpacks.client.IHUDInfoProvider;
+import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.util.KeyboardUtil;
 import stormedpanda.simplyjetpacks.util.NBTHelper;
 import stormedpanda.simplyjetpacks.util.SJStringHelper;
@@ -41,7 +41,7 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public static final String TAG_HOVER = "Hover";
     public static final String TAG_E_HOVER = "EmergencyHover";
 
-    protected int capacity = 1000;;
+    protected int capacity = 10000;
     protected int maxReceive = 100;
     protected int maxExtract = 100;
 
@@ -104,6 +104,15 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
             player.sendStatusMessage(msg, true);
         }
     }*/
+
+    public String getBaseName(ItemStack stack) {
+        return this.name;
+    }
+
+    @Override
+    public boolean hasEffect(ItemStack stack) {
+        return (getBaseName(stack) == "jetpack_creative" || getBaseName(stack) == "jetpack_creative_armored" || stack.isEnchanted());
+    }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
@@ -294,34 +303,78 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
         return true;
     }
 
+    private void fly2(PlayerEntity player, double y) {
+        Vector3d motion = player.getMotion();
+        player.setMotion(motion.getX(), y, motion.getZ());
+    }
+
     public void flyUser(PlayerEntity player, ItemStack stack, ItemJetpack item) {
         if (getEnergyStored(stack) > 0) {
-            player.sendStatusMessage(new StringTextComponent("Flying"), true);
-            useEnergy(stack);
+            boolean hoverMode = isHoverOn(stack); //jetpack.isHoverModeOn(stack);
+            //double hoverSpeed = 2; //Config.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(player) ? Jetpack.values()[i].speedVerticalHoverSlow : Jetpack.values()[i].speedVerticalHover;
+            //double hoverSpeed = Config.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(user) ? Jetpack.values()[i].speedVerticalHoverSlow : Jetpack.values()[i].speedVerticalHover;
+            double hoverSpeed = SimplyJetpacksConfig.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(player) ? 0.0D : 0.45D;
+            //double hoverSpeed = SyncHandler.isDescendKeyDown(player) ? 0.0D : 0.45D;
+            boolean flyKeyDown = SyncHandler.isFlyKeyDown(player); // || force;
+            boolean descendKeyDown = SyncHandler.isDescendKeyDown(player);
+            double currentAccel = 0.15D * (player.getMotion().getY() < 0.3D ? 2.5D : 1.0D);
+            double currentSpeedVertical = 0.9D * (player.isInWater() ? 0.4D : 1.0D);
+            double speedVerticalHover = 0.45D;
+            double speedVerticalHoverSlow = 0.0D;
 
-            int speedForward = 8;
-            int speedSideways = 8;
+            if ((flyKeyDown || hoverMode && !player.func_233570_aj_())) {
+                useEnergy(stack);
+                if (flyKeyDown) {
+                    if (!hoverMode) {
+                        //player.motionY = Math.min(player.motionY + currentAccel, currentSpeedVertical);
+                        fly2(player, Math.min(player.getMotion().getY() + currentAccel, currentSpeedVertical));
+                    } else {
+                        if (descendKeyDown) {
+                            //player.motionY = Math.min(player.motionY + currentAccel, -Jetpack.values()[i].speedVerticalHoverSlow);
+                            fly2(player, Math.min(player.getMotion().getY() + currentAccel, -speedVerticalHoverSlow));
+                        } else {
+                            //player.motionY = Math.min(player.motionY + currentAccel, Jetpack.values()[i].speedVerticalHover);
+                            fly2(player, Math.min(player.getMotion().getY() + currentAccel, speedVerticalHover));
+                        }
+                    }
+                } else {
+                    //player.motionY = Math.min(player.motionY + currentAccel, -hoverSpeed);
+                    fly2(player, Math.min(player.getMotion().getY() + currentAccel, -hoverSpeed));
+                }
 
-            if (FlyHandler.isHoldingForwards(player)) {
-                SimplyJetpacks.LOGGER.info("FORWARDS");
-                player.moveRelative(1, new Vector3d(0, 0, speedForward));
+                double baseSpeedSideways = 0.21D;
+                double baseSpeedForward = 2.5D;
+
+                float speedSideways = (float) (player.isSneaking() ? baseSpeedSideways * 0.5F : baseSpeedSideways);
+                float speedForward = (float) (player.isSprinting() ? speedSideways * baseSpeedForward : speedSideways);
+
+                if (SyncHandler.isForwardKeyDown(player)) {
+                    //SimplyJetpacks.LOGGER.info("Forward Key Down");
+                    player.moveRelative(1, new Vector3d(0, 0, speedForward));
+                }
+                if (SyncHandler.isBackwardKeyDown(player)) {
+                    //SimplyJetpacks.LOGGER.info("Backward Key Down");
+                    player.moveRelative(1, new Vector3d(0, 0, -speedSideways * 0.8F));
+                }
+                if (SyncHandler.isLeftKeyDown(player)) {
+                    //SimplyJetpacks.LOGGER.info("Left Key Down");
+                    player.moveRelative(1, new Vector3d(speedSideways, 0, 0));
+                }
+                if (SyncHandler.isRightKeyDown(player)) {
+                    //SimplyJetpacks.LOGGER.info("Right Key Down");
+                    player.moveRelative(1, new Vector3d(-speedSideways, 0, 0));
+                }
+
+                if (!player.world.isRemote()) {
+                    player.fallDistance = 0.0F;
+                    if (player instanceof ServerPlayerEntity) {
+                        ((ServerPlayerEntity) player).connection.floatingTickCount = 0;
+                    }
+                    if (player instanceof ServerPlayerEntity) {
+                        ((ServerPlayerEntity) player).connection.floatingTickCount = 0;
+                    }
+                }
             }
-
-            if (FlyHandler.isHoldingBackwards(player)) {
-                SimplyJetpacks.LOGGER.info("BACKWARDS");
-                player.moveRelative(1, new Vector3d(0, 0, -speedSideways * 0.8F));
-            }
-
-            if (FlyHandler.isHoldingLeft(player)) {
-                SimplyJetpacks.LOGGER.info("LEFT");
-                player.moveRelative(1, new Vector3d(speedSideways, 0, 0));
-            }
-
-            if (FlyHandler.isHoldingRight(player)) {
-                SimplyJetpacks.LOGGER.info("RIGHT");
-                player.moveRelative(1, new Vector3d(-speedSideways, 0, 0));
-            }
-
         }
     }
 

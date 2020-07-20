@@ -1,6 +1,5 @@
 package stormedpanda.simplyjetpacks;
 
-import net.minecraft.client.GameSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,12 +19,17 @@ import stormedpanda.simplyjetpacks.network.packets.*;
 @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class KeyBindHandler {
 
-    private static boolean up = false;
-    private static boolean down = false;
-    private static boolean forwards = false;
-    private static boolean backwards = false;
-    private static boolean left = false;
-    private static boolean right = false;
+    public static final KeyBindHandler instance = new KeyBindHandler();
+
+    static final Minecraft mc = Minecraft.getInstance();
+    private static int flyKey;
+    private static int descendKey;
+    private static boolean lastFlyState = false;
+    private static boolean lastDescendState = false;
+    private static boolean lastForwardState = false;
+    private static boolean lastBackwardState = false;
+    private static boolean lastLeftState = false;
+    private static boolean lastRightState = false;
 
     public static KeyBinding JETPACK_GUI_KEY;
     public static KeyBinding JETPACK_ENGINE_KEY;
@@ -75,33 +79,41 @@ public class KeyBindHandler {
         }
     }
 
-    @SubscribeEvent
-    public void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase == TickEvent.Phase.START) {
-            Minecraft mc = Minecraft.getInstance();
-            GameSettings settings = mc.gameSettings;
+    private static void tickStart() {
+        if (mc.player != null) {
+            boolean flyState;
+            boolean descendState;
+/*            if (Config.customControls) {
+                flyState = mc.isGameFocused() && Keyboard.isKeyDown(flyKey);
+                descendState = mc.isGameFocused() && Keyboard.isKeyDown(descendKey);
+            } else {
+                flyState = mc.gameSettings.keyBindJump.isKeyDown();
+                descendState = mc.gameSettings.keyBindSneak.isKeyDown();
+            }*/
+            flyState = mc.gameSettings.keyBindJump.isKeyDown();
+            descendState = mc.gameSettings.keyBindSneak.isKeyDown();
 
-            if (mc.getConnection() == null)
-                return;
-
-            boolean upNow = settings.keyBindJump.isKeyDown();
-            boolean downNow = settings.keyBindSneak.isKeyDown();
-            boolean forwardsNow = settings.keyBindForward.isKeyDown();
-            boolean backwardsNow = settings.keyBindBack.isKeyDown();
-            boolean leftNow = settings.keyBindLeft.isKeyDown();
-            boolean rightNow = settings.keyBindRight.isKeyDown();
-
-            if (upNow != up || downNow != down || forwardsNow != forwards || backwardsNow != backwards || leftNow != left || rightNow != right) {
-                up = upNow;
-                down = downNow;
-                forwards = forwardsNow;
-                backwards = backwardsNow;
-                left = leftNow;
-                right = rightNow;
-
-                NetworkHandler.CHANNEL_INSTANCE.sendToServer(new PacketUpdateInput(upNow, downNow, forwardsNow, backwardsNow, leftNow, rightNow));
-                FlyHandler.update(mc.player, upNow, downNow, forwardsNow, backwardsNow, leftNow, rightNow);
+            boolean forwardState = mc.gameSettings.keyBindForward.isKeyDown();
+            boolean backwardState = mc.gameSettings.keyBindBack.isKeyDown();
+            boolean leftState = mc.gameSettings.keyBindLeft.isKeyDown();
+            boolean rightState = mc.gameSettings.keyBindRight.isKeyDown();
+            if (flyState != lastFlyState || descendState != lastDescendState || forwardState != lastForwardState || backwardState != lastBackwardState || leftState != lastLeftState || rightState != lastRightState) {
+                lastFlyState = flyState;
+                lastDescendState = descendState;
+                lastForwardState = forwardState;
+                lastBackwardState = backwardState;
+                lastLeftState = leftState;
+                lastRightState = rightState;
+                NetworkHandler.sendToServer(new PacketKeyboardSync(flyState, descendState, forwardState, backwardState, leftState, rightState));
+                SyncHandler.processKeyUpdate(mc.player, flyState, descendState, forwardState, backwardState, leftState, rightState);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onClientTick(TickEvent.ClientTickEvent evt) {
+        if (evt.phase == TickEvent.Phase.START) {
+            tickStart();
         }
     }
 }

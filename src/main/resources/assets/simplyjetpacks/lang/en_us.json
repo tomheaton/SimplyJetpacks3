@@ -84,9 +84,14 @@
   "config.simplyjetpacks.enableIntegrationEnderIO": "Enable EnderIO Integration",
   "config.simplyjetpacks.enableIntegrationThermalExpansion": "Enable Thermal Expansion Integration",
   "config.simplyjetpacks.enableIntegrationThermalDynamics": "Enable Thermal Dynamics Integration",
+  "config.simplyjetpacks.invertHoverSneakingBehavior": "Invert Hover Sneaking",
   "config.simplyjetpacks.enableStateMessages": "Enable State Messages",
   "config.simplyjetpacks.hudTextColor": "Set the HUD color",
   "config.simplyjetpacks.hudTextPosition": "Set the HUD position",
 
-  "enchantment.simplyjetpacks.fuelEfficiency": "Fuel Efficiency"
+  "enchantment.simplyjetpacks.fuelEfficiency": "Fuel Efficiency",
+
+  "subtitle.simplyjetpacks.jetpack": "*Jetpack Noises*",
+  "subtitle.simplyjetpacks.jetpack_other": "*Jetpack Other Noises*",
+  "subtitle.simplyjetpacks.rocket": "*Rocket Noises*"
 }

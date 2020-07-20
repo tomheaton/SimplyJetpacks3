@@ -9,6 +9,9 @@ public abstract class Defaults {
     public static final boolean enableIntegrationThermalExpansion = true;
     public static final boolean enableIntegrationThermalDynamics = true;
 
+    // Controls
+    public static final boolean invertHoverSneakingBehavior = false;
+
     // GUI
     public static final boolean enableStateMessages = true;
 }

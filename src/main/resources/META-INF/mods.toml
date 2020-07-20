@@ -24,7 +24,7 @@ displayURL="https://www.curseforge.com/minecraft/mc-mods/simply-jetpacks-3" #opt
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="simplyjetpacks.png" #optional
 # A text field displayed in the mod UI
-credits="Thanks for this example mod goes to Java" #optional
+credits="Credits here" #optional
 # A text field displayed in the mod UI
 authors="StormedPanda, Tomson124, tonius11" #optional
 # The description text for the mod (multi line!) (#mandatory)

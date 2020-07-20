@@ -13,6 +13,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,12 +46,14 @@ public class SimplyJetpacks {
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(KeyBindHandler.class);
         MinecraftForge.EVENT_BUS.register(new FlyHandler());
+        MinecraftForge.EVENT_BUS.register(new SyncHandler());
         MinecraftForge.EVENT_BUS.register(new HUDHandler());
         MinecraftForge.EVENT_BUS.register(new PlatingReturnHandler());
 
         // TODO: get both configs in one folder
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_SPEC, "simplyjetpacks-common.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SimplyJetpacksConfig.CLIENT_SPEC, "simplyjetpacks-client.toml");
+        //ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SimplyJetpacksConfig.CLIENT_SPEC, "simplyjetpacks-client.toml"); // TODO: add Server Config
 
         RegistryHandler.init();
     }
@@ -79,5 +82,11 @@ public class SimplyJetpacks {
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
         LOGGER.info("Server starting...");
+    }
+
+    @SubscribeEvent
+    public void onServerStopping(FMLServerStoppingEvent event) {
+        LOGGER.info("Server stopping...");
+        SyncHandler.clearAll();
     }
 }

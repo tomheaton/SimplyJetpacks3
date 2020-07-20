@@ -55,6 +55,12 @@ public class NetworkHandler {
                 .consumer(PacketUpdateInput::handle)
                 .add();
 
+        CHANNEL_INSTANCE.messageBuilder(PacketKeyboardSync.class, nextID())
+                .encoder(PacketKeyboardSync::toBytes)
+                .decoder(PacketKeyboardSync::fromBytes)
+                .consumer(PacketKeyboardSync::handle)
+                .add();
+
         // TESTING
         CHANNEL_INSTANCE.messageBuilder(PacketToggleTestGui.class, nextID())
                 .encoder((packetToggleTestGui, packetBuffer) -> {})
