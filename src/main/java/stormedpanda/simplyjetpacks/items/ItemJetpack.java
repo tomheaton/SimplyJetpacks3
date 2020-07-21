@@ -120,13 +120,7 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         super.onArmorTick(stack, world, player);
-/*        if (NBTHelper.getBoolean(stack, TAG_ENGINE) && NBTHelper.getInt(stack, TAG_ENERGY) > 0) {
-            useEnergy(stack);
-        }*/
-
-        if (NBTHelper.getBoolean(stack, TAG_ENGINE)) {
-            flyUser(player, stack, this);
-        }
+        flyUser(player, stack, this);
     }
 
     // TESTING
@@ -311,8 +305,7 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public void doEHover(ItemStack stack, PlayerEntity player) {
         NBTHelper.setBoolean(stack, TAG_ENGINE, true);
         NBTHelper.setBoolean(stack, TAG_HOVER, true);
-
-        ITextComponent message = new StringTextComponent("EMERGENCY HOVER ACTIVATED");
+        ITextComponent message = new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.emergencyHoverModeActivated");
         message.getStyle().setColor(Color.func_240745_a_("#00f"));
         player.sendStatusMessage(message, true);
     }
@@ -328,7 +321,8 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     public void flyUser(PlayerEntity player, ItemStack stack, ItemJetpack item) {
-        if (getEnergyStored(stack) > 0) {
+        //if (getEnergyStored(stack) > 0) {
+        if (isEngineOn(stack)) {
             boolean hoverMode = isHoverOn(stack); //jetpack.isHoverModeOn(stack);
             //double hoverSpeed = 2; //Config.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(player) ? Jetpack.values()[i].speedVerticalHoverSlow : Jetpack.values()[i].speedVerticalHover;
             //double hoverSpeed = Config.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(user) ? Jetpack.values()[i].speedVerticalHoverSlow : Jetpack.values()[i].speedVerticalHover;
@@ -342,55 +336,59 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
             double speedVerticalHoverSlow = 0.0D;
 
             if ((flyKeyDown || hoverMode && !player.func_233570_aj_())) {
-                useEnergy(stack);
-                if (flyKeyDown) {
-                    if (!hoverMode) {
-                        //player.motionY = Math.min(player.motionY + currentAccel, currentSpeedVertical);
-                        fly(player, Math.min(player.getMotion().getY() + currentAccel, currentSpeedVertical));
-                    } else {
-                        if (descendKeyDown) {
-                            //player.motionY = Math.min(player.motionY + currentAccel, -Jetpack.values()[i].speedVerticalHoverSlow);
-                            fly(player, Math.min(player.getMotion().getY() + currentAccel, -speedVerticalHoverSlow));
+                // TODO: replace this with an if uses fuel check
+                if (getBaseName(stack) == "jetpack_creative" || getBaseName(stack) == "jetpack_creative_armored" ) {
+                    // TODO: add fuel usage to this
+                    useEnergy(stack);
+                }
+                if (getEnergyStored(stack) > 0) {
+                    if (flyKeyDown) {
+                        if (!hoverMode) {
+                            //player.motionY = Math.min(player.motionY + currentAccel, currentSpeedVertical);
+                            fly(player, Math.min(player.getMotion().getY() + currentAccel, currentSpeedVertical));
                         } else {
-                            //player.motionY = Math.min(player.motionY + currentAccel, Jetpack.values()[i].speedVerticalHover);
-                            fly(player, Math.min(player.getMotion().getY() + currentAccel, speedVerticalHover));
+                            if (descendKeyDown) {
+                                //player.motionY = Math.min(player.motionY + currentAccel, -Jetpack.values()[i].speedVerticalHoverSlow);
+                                fly(player, Math.min(player.getMotion().getY() + currentAccel, -speedVerticalHoverSlow));
+                            } else {
+                                //player.motionY = Math.min(player.motionY + currentAccel, Jetpack.values()[i].speedVerticalHover);
+                                fly(player, Math.min(player.getMotion().getY() + currentAccel, speedVerticalHover));
+                            }
+                        }
+                    } else {
+                        //player.motionY = Math.min(player.motionY + currentAccel, -hoverSpeed);
+                        fly(player, Math.min(player.getMotion().getY() + currentAccel, -hoverSpeed));
+                    }
+
+                    double baseSpeedSideways = 0.21D;
+                    double baseSpeedForward = 2.5D;
+                    float speedSideways = (float) (player.isSneaking() ? baseSpeedSideways * 0.5F : baseSpeedSideways);
+                    float speedForward = (float) (player.isSprinting() ? speedSideways * baseSpeedForward : speedSideways);
+
+                    if (SyncHandler.isForwardKeyDown(player)) {
+                        //SimplyJetpacks.LOGGER.info("Forward Key Down");
+                        player.moveRelative(1, new Vector3d(0, 0, speedForward));
+                    }
+                    if (SyncHandler.isBackwardKeyDown(player)) {
+                        //SimplyJetpacks.LOGGER.info("Backward Key Down");
+                        player.moveRelative(1, new Vector3d(0, 0, -speedSideways * 0.8F));
+                    }
+                    if (SyncHandler.isLeftKeyDown(player)) {
+                        //SimplyJetpacks.LOGGER.info("Left Key Down");
+                        player.moveRelative(1, new Vector3d(speedSideways, 0, 0));
+                    }
+                    if (SyncHandler.isRightKeyDown(player)) {
+                        //SimplyJetpacks.LOGGER.info("Right Key Down");
+                        player.moveRelative(1, new Vector3d(-speedSideways, 0, 0));
+                    }
+
+                    if (!player.world.isRemote()) {
+                        player.fallDistance = 0.0F;
+                        if (player instanceof ServerPlayerEntity) {
+                            ((ServerPlayerEntity) player).connection.floatingTickCount = 0;
                         }
                     }
-                } else {
-                    //player.motionY = Math.min(player.motionY + currentAccel, -hoverSpeed);
-                    fly(player, Math.min(player.getMotion().getY() + currentAccel, -hoverSpeed));
                 }
-
-                double baseSpeedSideways = 0.21D;
-                double baseSpeedForward = 2.5D;
-
-                float speedSideways = (float) (player.isSneaking() ? baseSpeedSideways * 0.5F : baseSpeedSideways);
-                float speedForward = (float) (player.isSprinting() ? speedSideways * baseSpeedForward : speedSideways);
-
-                if (SyncHandler.isForwardKeyDown(player)) {
-                    //SimplyJetpacks.LOGGER.info("Forward Key Down");
-                    player.moveRelative(1, new Vector3d(0, 0, speedForward));
-                }
-                if (SyncHandler.isBackwardKeyDown(player)) {
-                    //SimplyJetpacks.LOGGER.info("Backward Key Down");
-                    player.moveRelative(1, new Vector3d(0, 0, -speedSideways * 0.8F));
-                }
-                if (SyncHandler.isLeftKeyDown(player)) {
-                    //SimplyJetpacks.LOGGER.info("Left Key Down");
-                    player.moveRelative(1, new Vector3d(speedSideways, 0, 0));
-                }
-                if (SyncHandler.isRightKeyDown(player)) {
-                    //SimplyJetpacks.LOGGER.info("Right Key Down");
-                    player.moveRelative(1, new Vector3d(-speedSideways, 0, 0));
-                }
-
-                // TODO: find out why this doesn't work (floatingTickCount)
-/*                if (!player.world.isRemote()) {
-                    player.fallDistance = 0.0F;
-                    if (player instanceof ServerPlayerEntity) {
-                        ((ServerPlayerEntity) player).connection.getNetworkManager().floatingTickCount = 0;
-                    }
-                }*/
             }
         }
 
