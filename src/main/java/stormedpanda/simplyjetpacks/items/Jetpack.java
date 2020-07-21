@@ -8,7 +8,8 @@ import java.util.List;
 public enum Jetpack implements IStringSerializable {
 
     JETPACK_IRON("jetpack_iron", 1),
-    JETPACK_IRON_ARMORED("jetpack_iron_armored", 2, true, 1)
+    JETPACK_IRON_ARMORED("jetpack_iron_armored", 2, true, 1),
+    JETPACK_IRON_ARMORED2("jetpack_iron_armored2", 2, true, 1)
     ;
 
     public String baseName;

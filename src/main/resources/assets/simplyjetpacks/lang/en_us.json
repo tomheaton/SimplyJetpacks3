@@ -58,10 +58,10 @@
 
   "keybind.categories.simplyjetpacks": "Simply Jetpacks 3",
   "keybind.simplyjetpacks.jetpack_gui": "Toggle Jetpack GUI",
-  "keybind.simplyjetpacks.jetpack_engine": "Toggle Jetpack Engine (ON/OFF)",
-  "keybind.simplyjetpacks.jetpack_hover": "Toggle Jetpack Hover (ON/OFF)",
-  "keybind.simplyjetpacks.jetpack_e_hover": "Toggle Jetpack Emergency Hover (ON/OFF)",
-  "keybind.simplyjetpacks.jetpack_test": "Toggle TEST GUI (ON/OFF)",
+  "keybind.simplyjetpacks.jetpack_engine": "Toggle Jetpack Engine",
+  "keybind.simplyjetpacks.jetpack_hover": "Toggle Jetpack Hover",
+  "keybind.simplyjetpacks.jetpack_e_hover": "Toggle Jetpack Emergency Hover",
+  "keybind.simplyjetpacks.jetpack_test": "Toggle TEST GUI",
 
   "misc.simplyjetpacks.empty": "Empty",
   "misc.simplyjetpacks.energy": "%s FE",
@@ -72,13 +72,15 @@
   "misc.simplyjetpacks.timeInSeconds": "Time: %ss",
   "misc.simplyjetpacks.upgradeSlot": "Upgrade Slot",
 
+  "chat.simplyjetpacks.showDetails": "Hold %s for details",
   "chat.simplyjetpacks.enabled": "enabled",
   "chat.simplyjetpacks.disabled": "disabled",
-  "chat.simplyjetpacks.itemJetpack.on": "Jetpack engine %s",
-  "chat.simplyjetpacks.itemJetpack.hoverMode": "Hover Mode %s",
-  "chat.simplyjetpacks.itemJetpack.emergencyHoverMode": "Emergency Hover Mode %s",
-  "chat.simplyjetpacks.itemJetpack.chargerMode": "JetPlate Charger %s",
-  "chat.simplyjetpacks.itemFluxpack.on": "Flux Pack Charger %s",
+  "chat.simplyjetpacks.itemJetpack.engineMode": "Jetpack engine: %s",
+  "chat.simplyjetpacks.itemJetpack.hoverMode": "Hover Mode: %s",
+  "chat.simplyjetpacks.itemJetpack.emergencyHoverMode": "Emergency Hover Mode: %s",
+  "chat.simplyjetpacks.itemJetpack.chargerMode": "JetPlate Charger: %s",
+  "chat.simplyjetpacks.itemFluxpack.on": "Flux Pack Charger: %s",
+  "chat.simplyjetpacks.itemJetpack.emergencyHoverModeActivated": "WARNING: Emergency Hover Activated!",
 
   "tooltip.simplyjetpacks.itemJetpack": "Jetpack Tooltip",
 
