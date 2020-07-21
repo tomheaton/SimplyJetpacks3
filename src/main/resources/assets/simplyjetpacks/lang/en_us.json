@@ -1,6 +1,11 @@
 {
   "itemGroup.simplyjetpacks.main": "Simply Jetpacks 3",
 
+  "item.simplyjetpacks.particle_default": "Particle Customizer (Default)",
+  "item.simplyjetpacks.particle_none": "Particle Customizer (None)",
+  "item.simplyjetpacks.particle_rainbow": "Particle Customizer (Smoke Only)",
+  "item.simplyjetpacks.particle_smoke": "Particle Customizer (Rainbow Smoke)",
+
   "item.simplyjetpacks.pilot_goggles": "Pilot Goggles",
   "item.simplyjetpacks.leather_strap": "Leather Strap",
   "item.simplyjetpacks.thruster_iron": "Iron Thruster",

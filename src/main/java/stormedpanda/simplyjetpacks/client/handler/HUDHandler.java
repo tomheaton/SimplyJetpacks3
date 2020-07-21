@@ -1,4 +1,4 @@
-package stormedpanda.simplyjetpacks.client.handlers;
+package stormedpanda.simplyjetpacks.client.handler;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.MainWindow;

@@ -61,19 +61,19 @@ public class KeyBindHandler {
         if (chestItem instanceof ItemJetpack) {
             jetpack = (ItemJetpack) chestItem;
             if(JETPACK_GUI_KEY.isPressed()) {
-                SimplyJetpacks.LOGGER.info("Jetpack GUI key pressed");
+                //SimplyJetpacks.LOGGER.info("Jetpack GUI key pressed");
                 NetworkHandler.sendToServer(new PacketToggleGui());
             }
             if (JETPACK_ENGINE_KEY.isPressed()) {
-                SimplyJetpacks.LOGGER.info("Jetpack Engine key pressed");
+                //SimplyJetpacks.LOGGER.info("Jetpack Engine key pressed");
                 NetworkHandler.sendToServer(new PacketToggleEngine());
             }
             if (JETPACK_HOVER_KEY.isPressed()) {
-                SimplyJetpacks.LOGGER.info("Jetpack Hover key pressed");
+                //SimplyJetpacks.LOGGER.info("Jetpack Hover key pressed");
                 NetworkHandler.sendToServer(new PacketToggleHover());
             }
             if (TEST_KEY.isPressed()) {
-                SimplyJetpacks.LOGGER.info("TEST key pressed");
+                //SimplyJetpacks.LOGGER.info("TEST key pressed");
                 NetworkHandler.sendToServer(new PacketToggleTestGui());
             }
         }

@@ -12,6 +12,7 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
@@ -31,6 +32,7 @@ import stormedpanda.simplyjetpacks.util.NBTHelper;
 import stormedpanda.simplyjetpacks.util.SJStringHelper;
 import stormedpanda.simplyjetpacks.util.TextUtil;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.BiFunction;
@@ -60,7 +62,7 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     @Nullable
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type){
+    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
         return armorTexture;
     }
 /*    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
@@ -70,7 +72,7 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
     @SuppressWarnings("unchecked")
     @OnlyIn(Dist.CLIENT)
     @Nullable
-    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default){
+    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default) {
         return (A) armorApplier.apply(_default, armorSlot);
     }
 /*    public BipedModel getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType slot, BipedModel _default) {
@@ -184,9 +186,14 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     //@Override
-    public boolean canExtract() { return true; }
+    public boolean canExtract() {
+        return true;
+    }
+
     //@Override
-    public boolean canReceive() { return false; }
+    public boolean canReceive() {
+        return false;
+    }
 
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT nbt) {
@@ -204,7 +211,7 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
         if (CapabilityEnergy.ENERGY == null) return;
 
         information(stack, this, tooltip);
@@ -216,13 +223,13 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void information(ItemStack stack, ItemJetpack item, List tooltip) {
+    public void information(ItemStack stack, ItemJetpack item, List<ITextComponent> tooltip) {
         stack.getCapability(CapabilityEnergy.ENERGY).ifPresent(e ->
                 tooltip.add(TextUtil.energyWithMax(e.getEnergyStored(), e.getMaxEnergyStored())));
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void shiftInformation(ItemStack stack, List tooltip) {
+    public void shiftInformation(ItemStack stack, List<ITextComponent> tooltip) {
         tooltip.add(new StringTextComponent("Engine: " + (NBTHelper.getBoolean(stack, TAG_ENGINE) ? "on" : "off")));
         tooltip.add(new StringTextComponent("Hover: " + (NBTHelper.getBoolean(stack, TAG_HOVER) ? "on" : "off")));
         tooltip.add(new StringTextComponent("Emergency Hover: " + (NBTHelper.getBoolean(stack, TAG_E_HOVER) ? "on" : "off")));
@@ -288,7 +295,9 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
         return !current;
     }
 
-    public boolean isEHoverOn(ItemStack stack) { return NBTHelper.getBoolean(stack, TAG_E_HOVER); }
+    public boolean isEHoverOn(ItemStack stack) {
+        return NBTHelper.getBoolean(stack, TAG_E_HOVER);
+    }
 
     public boolean toggleEHover(ItemStack stack, PlayerEntity player) {
         boolean current = NBTHelper.getBoolean(stack, TAG_E_HOVER);
@@ -299,12 +308,21 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
         return !current;
     }
 
+    public void doEHover(ItemStack stack, PlayerEntity player) {
+        NBTHelper.setBoolean(stack, TAG_ENGINE, true);
+        NBTHelper.setBoolean(stack, TAG_HOVER, true);
+
+        ITextComponent message = new StringTextComponent("EMERGENCY HOVER ACTIVATED");
+        message.getStyle().setColor(Color.func_240745_a_("#00f"));
+        player.sendStatusMessage(message, true);
+    }
+
     @Override
     public boolean isEnchantable(ItemStack stack) {
         return true;
     }
 
-    private void fly2(PlayerEntity player, double y) {
+    private void fly(PlayerEntity player, double y) {
         Vector3d motion = player.getMotion();
         player.setMotion(motion.getX(), y, motion.getZ());
     }
@@ -328,19 +346,19 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
                 if (flyKeyDown) {
                     if (!hoverMode) {
                         //player.motionY = Math.min(player.motionY + currentAccel, currentSpeedVertical);
-                        fly2(player, Math.min(player.getMotion().getY() + currentAccel, currentSpeedVertical));
+                        fly(player, Math.min(player.getMotion().getY() + currentAccel, currentSpeedVertical));
                     } else {
                         if (descendKeyDown) {
                             //player.motionY = Math.min(player.motionY + currentAccel, -Jetpack.values()[i].speedVerticalHoverSlow);
-                            fly2(player, Math.min(player.getMotion().getY() + currentAccel, -speedVerticalHoverSlow));
+                            fly(player, Math.min(player.getMotion().getY() + currentAccel, -speedVerticalHoverSlow));
                         } else {
                             //player.motionY = Math.min(player.motionY + currentAccel, Jetpack.values()[i].speedVerticalHover);
-                            fly2(player, Math.min(player.getMotion().getY() + currentAccel, speedVerticalHover));
+                            fly(player, Math.min(player.getMotion().getY() + currentAccel, speedVerticalHover));
                         }
                     }
                 } else {
                     //player.motionY = Math.min(player.motionY + currentAccel, -hoverSpeed);
-                    fly2(player, Math.min(player.getMotion().getY() + currentAccel, -hoverSpeed));
+                    fly(player, Math.min(player.getMotion().getY() + currentAccel, -hoverSpeed));
                 }
 
                 double baseSpeedSideways = 0.21D;
@@ -366,82 +384,35 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
                     player.moveRelative(1, new Vector3d(-speedSideways, 0, 0));
                 }
 
-                // TODO: find out why this doesn't work
+                // TODO: find out why this doesn't work (floatingTickCount)
 /*                if (!player.world.isRemote()) {
                     player.fallDistance = 0.0F;
                     if (player instanceof ServerPlayerEntity) {
-                        ((ServerPlayerEntity) player).connection.getNetworkManager(). floatingTickCount = 0;
+                        ((ServerPlayerEntity) player).connection.getNetworkManager().floatingTickCount = 0;
                     }
                 }*/
             }
         }
-    }
 
-    private void fly(PlayerEntity player, double x, double y, double z) {
-        Vector3d motion = player.getMotion();
-        player.setMotion(motion.getX(), y, motion.getZ());
-    }
-
-    /*public void flyUser(PlayerEntity user, ItemStack stack, ItemJetpack item, boolean force) {
-        int i = MathHelper.clamp(stack.getDamage(), 0, numItems - 1);
-        Item chestItem = StackUtil.getItem(stack);
-        ItemJetpack jetpack = (ItemJetpack) chestItem;
-        if (jetpack.isOn(stack)) {
-            boolean hoverMode = jetpack.isHoverModeOn(stack);
-            double hoverSpeed = Config.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(user) ? Jetpack.values()[i].speedVerticalHoverSlow : Jetpack.values()[i].speedVerticalHover;
-            boolean flyKeyDown = force || SyncHandler.isFlyKeyDown(user);
-            boolean descendKeyDown = SyncHandler.isDescendKeyDown(user);
-            double currentAccel = Jetpack.values()[i].accelVertical * (user.motionY < 0.3D ? 2.5D : 1.0D);
-            double currentSpeedVertical = Jetpack.values()[i].speedVertical * (user.isInWater() ? 0.4D : 1.0D);
-
-            if (flyKeyDown || hoverMode && !user.onGround) {
-                if (Jetpack.values()[i].usesFuel) {
-                    item.useFuel(stack, (int) (user.isSprinting() ? Math.round(this.getFuelUsage(stack) * Jetpack.values()[i].sprintFuelModifier) : this.getFuelUsage(stack)), false);
-                }
-
-                if (item.getFuelStored(stack) > 0) {
-                    if (flyKeyDown) {
-                        if (!hoverMode) {
-                            user.motionY = Math.min(user.getMotion().getY() + currentAccel, currentSpeedVertical);
-                        } else {
-                            if (descendKeyDown) {
-                                user.getMotion().getY() = Math.min(user.getMotion().getY() + currentAccel, -Jetpack.values()[i].speedVerticalHoverSlow);
-                            } else {
-                                user.getMotion().getY() = Math.min(user.getMotion().getY() + currentAccel, Jetpack.values()[i].speedVerticalHover);
-                            }
-                        }
-                    } else {
-                        user.getMotion().getY() = Math.min(user.getMotion().getY() + currentAccel, -hoverSpeed);
-                    }
-
-                    float speedSideways = (float) (user.isSneaking() ? Jetpack.values()[i].speedSideways * 0.5F : Jetpack.values()[i].speedSideways);
-                    float speedForward = (float) (user.isSprinting() ? speedSideways * Jetpack.values()[i].sprintSpeedModifier : speedSideways);
-                    if (SyncHandler.isForwardKeyDown(user)) {
-                        user.moveRelative(0, 0, speedForward, speedForward);
-                    }
-                    if (SyncHandler.isBackwardKeyDown(user)) {
-                        user.moveRelative(0, 0, -speedSideways, speedSideways * 0.8F);
-                    }
-                    if (SyncHandler.isLeftKeyDown(user)) {
-                        user.moveRelative(speedSideways, 0, 0, speedSideways);
-                    }
-                    if (SyncHandler.isRightKeyDown(user)) {
-                        user.moveRelative(-speedSideways, 0, 0, speedSideways);
-                    }
-
-                    if (!user.world.isRemote) {
-                        user.fallDistance = 0.0F;
-
-                        if (user instanceof EntityPlayerMP) {
-                            try {
-                                floatingTickCount.setInt(((EntityPlayerMP) user).connection, 0);
-                            } catch (IllegalAccessException e) {
-                                e.printStackTrace();
+        //if (!player.world.isRemote && Jetpack.values()[i].emergencyHoverMode && this.isEHoverOn(stack)) {
+        if (!player.world.isRemote && this.isEHoverOn(stack)) {
+            if (item.getEnergyStored(stack) > 0 && (!this.isHoverOn(stack) || !this.isEngineOn(stack))) {
+                if (player.getPositionVec().getY() < -5) {
+                    this.doEHover(stack, player);
+                } else {
+                    if (!player.isCreative() && player.fallDistance - 1.2F >= player.getHealth()) {
+                        for (int j = 0; j <= 16; j++) {
+                            int x = Math.round((float) player.getPositionVec().getX() - 0.5F);
+                            int y = Math.round((float) player.getPositionVec().getY()) - j;
+                            int z = Math.round((float) player.getPositionVec().getZ() - 0.5F);
+                            if (!player.world.isAirBlock(new BlockPos(x, y, z))) {
+                                this.doEHover(stack, player);
+                                break;
                             }
                         }
                     }
                 }
             }
         }
-    }*/
+    }
 }

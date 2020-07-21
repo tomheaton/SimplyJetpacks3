@@ -1,4 +1,4 @@
-package stormedpanda.simplyjetpacks.client.models;
+package stormedpanda.simplyjetpacks.client.model;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
