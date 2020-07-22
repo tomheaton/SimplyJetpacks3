@@ -7,14 +7,16 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.*;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.*;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -22,8 +24,6 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import stormedpanda.simplyjetpacks.SimplyJetpacks;
-import stormedpanda.simplyjetpacks.util.Styles;
 import stormedpanda.simplyjetpacks.SyncHandler;
 import stormedpanda.simplyjetpacks.capability.CapabilityProviderEnergy;
 import stormedpanda.simplyjetpacks.capability.EnergyConversionStorage;
@@ -31,6 +31,7 @@ import stormedpanda.simplyjetpacks.client.IHUDInfoProvider;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.util.KeyboardUtil;
 import stormedpanda.simplyjetpacks.util.NBTHelper;
+import stormedpanda.simplyjetpacks.util.Styles;
 import stormedpanda.simplyjetpacks.util.TextUtil;
 
 import javax.annotation.Nonnull;
@@ -45,32 +46,38 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public static final String TAG_HOVER = "Hover";
     public static final String TAG_E_HOVER = "EmergencyHover";
 
-    protected int capacity = 10000;
-    protected int maxReceive = 100;
-    protected int maxExtract = 100;
+    private final int capacity;// = 10000;
+    private final int maxReceive;// = 100;
+    private final int maxExtract;// = 100;
 
-    private final int numItems;
+    private final JetpackType type;
 
     public String name;
     @SuppressWarnings("rawtypes")
     private BiFunction<BipedModel, EquipmentSlotType, BipedModel<?>> armorApplier;
     private String armorTexture;
+    public final int tier;
 
-    @SuppressWarnings("rawtypes")
+/*    @SuppressWarnings("rawtypes")
     public ItemJetpack(String name, IArmorMaterial material, EquipmentSlotType slot, Properties properties, BiFunction<BipedModel, EquipmentSlotType, BipedModel<?>> armorApplier, ResourceLocation armorTexture) {
         super(material, slot, properties);
         this.name = name;
         this.armorApplier = armorApplier;
         this.armorTexture = armorTexture.toString();
+    }*/
 
-        numItems = Jetpack.values().length;
-    }
+    public ItemJetpack(String name, JetpackType type) {
+        //super(material, EquipmentSlotType.CHEST, properties);
+        super(type.getArmorMaterial(), EquipmentSlotType.CHEST, type.getProperties());
+        this.name = name;
+        this.tier = type.getTier();
+        this.armorApplier = type.getArmorApplier();
+        this.armorTexture = type.getArmorTexture();//armorTexture.toString();
+        this.type = type;
 
-    // TESTING:
-    public void getDamageNumber(ItemStack stack) {
-        int i = MathHelper.clamp(stack.getDamage(), 0, numItems - 1);
-        SimplyJetpacks.LOGGER.info("Details: " + i);
-        SimplyJetpacks.LOGGER.info("Details: " + Jetpack.values()[i].baseName);
+        this.capacity = type.getCapacity();
+        this.maxReceive = type.getMaxReceive();
+        this.maxExtract = type.getMaxExtract();
     }
 
     @Nullable
@@ -107,13 +114,19 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     // TESTING
-    public void useEnergy(ItemStack container) {
+    public int getFuelUsage() {
+        int usage = type.getFuelUsage();
+        // TODO: add fuel efficiency enchantment effects
+        return usage;
+    }
+    public void useEnergy(ItemStack container, int amount) {
         if (container.getTag() == null || !container.getTag().contains(TAG_ENERGY)) {
             //pass
         } else {
             int stored = Math.min(container.getTag().getInt(TAG_ENERGY), getMaxEnergyStored(container));
             //int energyExtracted = Math.min(stored, Math.min(this.maxExtract, maxExtract));
-            int energyExtracted = 1;
+            //int energyExtracted = 1;
+            int energyExtracted = amount;
             stored -= energyExtracted;
             container.getTag().putInt(TAG_ENERGY, stored);
         }
@@ -202,6 +215,7 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
     // TODO: make this check if fuel is used
     @OnlyIn(Dist.CLIENT)
     public void information(ItemStack stack, ItemJetpack item, List<ITextComponent> tooltip) {
+        tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.tier", tier));
         if (!getBaseName(stack).equals("jetpack_creative") || !getBaseName(stack).equals("jetpack_creative_armored")) {
             stack.getCapability(CapabilityEnergy.ENERGY).ifPresent(e ->
                     tooltip.add(TextUtil.energyWithMax(e.getEnergyStored(), e.getMaxEnergyStored())));
@@ -217,7 +231,12 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
         tooltip.add(new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.engineMode", (NBTHelper.getBoolean(stack, TAG_ENGINE) ? on : off)));
         tooltip.add(new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.hoverMode", (NBTHelper.getBoolean(stack, TAG_HOVER) ? on : off)));
-        tooltip.add(new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.emergencyHoverMode", (NBTHelper.getBoolean(stack, TAG_E_HOVER) ? on : off)));
+        if (type.canEHover()) {
+            tooltip.add(new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.emergencyHoverMode", (NBTHelper.getBoolean(stack, TAG_E_HOVER) ? on : off)));
+        }
+        if (!getBaseName(stack).equals("jetpack_creative") || !getBaseName(stack).equals("jetpack_creative_armored")) {
+            tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.itemJetpack.fuelUsage", type.getFuelUsage()));
+        }
     }
 
     // TODO: get the full variants to show up in NEI
@@ -289,13 +308,22 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     public void toggleEHover(ItemStack stack, PlayerEntity player) {
-        boolean current = NBTHelper.getBoolean(stack, TAG_E_HOVER);
+        if (type.canEHover()) {
+            boolean current = NBTHelper.getBoolean(stack, TAG_E_HOVER);
+            NBTHelper.flipBoolean(stack, TAG_E_HOVER);
+            //ITextComponent stateText = SJStringHelper.localizeNew(current ? "disabled" : "enabled");
+            ITextComponent on = new TranslationTextComponent("chat.simplyjetpacks.enabled").func_230530_a_(Styles.GREEN);
+            ITextComponent off = new TranslationTextComponent("chat.simplyjetpacks.disabled").func_230530_a_(Styles.RED);
+            ITextComponent msg = new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.emergencyHoverMode", (!current ? on : off));
+            player.sendStatusMessage(msg, true);
+        }
+/*        boolean current = NBTHelper.getBoolean(stack, TAG_E_HOVER);
         NBTHelper.flipBoolean(stack, TAG_E_HOVER);
         //ITextComponent stateText = SJStringHelper.localizeNew(current ? "disabled" : "enabled");
         ITextComponent on = new TranslationTextComponent("chat.simplyjetpacks.enabled").func_230530_a_(Styles.GREEN);
         ITextComponent off = new TranslationTextComponent("chat.simplyjetpacks.disabled").func_230530_a_(Styles.RED);
         ITextComponent msg = new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.emergencyHoverMode", (!current ? on : off));
-        player.sendStatusMessage(msg, true);
+        player.sendStatusMessage(msg, true);*/
     }
 
     public void doEHover(ItemStack stack, PlayerEntity player) {
@@ -322,20 +350,28 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
             boolean hoverMode = isHoverOn(stack); //jetpack.isHoverModeOn(stack);
             //double hoverSpeed = 2; //Config.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(player) ? Jetpack.values()[i].speedVerticalHoverSlow : Jetpack.values()[i].speedVerticalHover;
             //double hoverSpeed = Config.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(user) ? Jetpack.values()[i].speedVerticalHoverSlow : Jetpack.values()[i].speedVerticalHover;
-            double hoverSpeed = SimplyJetpacksConfig.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(player) ? 0.0D : 0.45D;
+
+            //double hoverSpeed = SimplyJetpacksConfig.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(player) ? 0.0D : 0.45D;
+            double hoverSpeed = SimplyJetpacksConfig.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(player) ? type.getSpeedVerticalHoverSlow() : type.getSpeedVerticalHover();
             //double hoverSpeed = SyncHandler.isDescendKeyDown(player) ? 0.0D : 0.45D;
             boolean flyKeyDown = SyncHandler.isFlyKeyDown(player); // || force;
             boolean descendKeyDown = SyncHandler.isDescendKeyDown(player);
-            double currentAccel = 0.15D * (player.getMotion().getY() < 0.3D ? 2.5D : 1.0D);
-            double currentSpeedVertical = 0.9D * (player.isInWater() ? 0.4D : 1.0D);
-            double speedVerticalHover = 0.45D;
-            double speedVerticalHoverSlow = 0.0D;
+            //double currentAccel = 0.15D * (player.getMotion().getY() < 0.3D ? 2.5D : 1.0D);
+            //double currentSpeedVertical = 0.9D * (player.isInWater() ? 0.4D : 1.0D);
+            double currentAccel = type.getAccelVertical() * (player.getMotion().getY() < 0.3D ? 2.5D : 1.0D);
+            double currentSpeedVertical = type.getSpeedVertical() * (player.isInWater() ? 0.4D : 1.0D);
+            //double speedVerticalHover = 0.45D;
+            //double speedVerticalHoverSlow = 0.0D;
+            double speedVerticalHover = type.getSpeedVerticalHover();
+            double speedVerticalHoverSlow = type.getSpeedVerticalHoverSlow();
 
             if ((flyKeyDown || hoverMode && !player.func_233570_aj_())) {
                 // TODO: replace this with an if uses fuel check
                 if (!getBaseName(stack).equals("jetpack_creative") || !getBaseName(stack).equals("jetpack_creative_armored")) {
                     // TODO: add fuel usage to this
-                    useEnergy(stack);
+                    //item.useFuel(stack, (int) (user.isSprinting() ? Math.round(this.getFuelUsage(stack) * Jetpack.values()[i].sprintFuelModifier) : this.getFuelUsage(stack)), false);
+                    int amount = (int) (player.isSprinting() ? Math.round(getFuelUsage() * type.getSprintFuelModifier()) : getFuelUsage());
+                    useEnergy(stack, amount);
                 }
                 if (getEnergyStored(stack) > 0) {
                     if (flyKeyDown) {
@@ -356,8 +392,10 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
                         fly(player, Math.min(player.getMotion().getY() + currentAccel, -hoverSpeed));
                     }
 
-                    double baseSpeedSideways = 0.21D;
-                    double baseSpeedForward = 2.5D;
+                    //double baseSpeedSideways = 0.21D;
+                    //double baseSpeedForward = 2.5D;
+                    double baseSpeedSideways = type.getSpeedSideways();
+                    double baseSpeedForward = type.getSprintSpeedModifier();
                     float speedSideways = (float) (player.isSneaking() ? baseSpeedSideways * 0.5F : baseSpeedSideways);
                     float speedForward = (float) (player.isSprinting() ? speedSideways * baseSpeedForward : speedSideways);
 

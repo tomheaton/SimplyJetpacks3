@@ -48,7 +48,7 @@ public class DefaultJetpackConfig {
         d.speedVertical = 0.9D;
         d.accelVertical = 0.5D;
 
-        d = new DefaultJetpackConfig("jetpack_creative", "Creative Jetpack");
+        d = new DefaultJetpackConfig("jetpackCreative", "Creative Jetpack");
         d.fuelCapacity = 200000;
         d.fuelPerTickOut = 50000;
         d.fuelPerTickIn = 0;

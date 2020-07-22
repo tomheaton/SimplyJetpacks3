@@ -85,6 +85,8 @@
   "chat.simplyjetpacks.itemJetpack.emergencyHoverModeActivated": "WARNING: Emergency Hover Activated!",
 
   "tooltip.simplyjetpacks.itemJetpack": "Jetpack Tooltip",
+  "tooltip.simplyjetpacks.tier": "Tier %s",
+  "tooltip.simplyjetpacks.itemJetpack.fuelUsage": "%s FE/t",
 
   "screen.simplyjetpacks.jetpack_gui.title": "Jetpack GUI",
 

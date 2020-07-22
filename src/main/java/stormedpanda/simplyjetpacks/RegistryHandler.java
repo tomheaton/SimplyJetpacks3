@@ -11,7 +11,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import stormedpanda.simplyjetpacks.enchantments.EnchantmentFuelEfficiency;
 import stormedpanda.simplyjetpacks.gui.TestContainer;
-import stormedpanda.simplyjetpacks.items.TestItemBattery;
 
 public class RegistryHandler {
 
@@ -32,7 +31,7 @@ public class RegistryHandler {
 
     // TESTING:
     public static final RegistryObject<ContainerType<TestContainer>> TEST_CONTAINER = CONTAINERS.register("test_container", () -> IForgeContainerType.create((id, inv, data) -> new TestContainer(id, inv)));
-    public static final RegistryObject<Item> TEST_BATTERY = ITEMS.register("battery", TestItemBattery::new);
+    //public static final RegistryObject<Item> TEST_BATTERY = ITEMS.register("battery", TestItemBattery::new);
 
     // THRUSTERS:
     public static final RegistryObject<Item> THRUSTER_IRON = ITEMS.register("thruster_iron", () ->
@@ -45,6 +44,9 @@ public class RegistryHandler {
             new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
 
     // MISC:
+    public static final RegistryObject<Item> PILOT_GOGGLES = ITEMS.register("pilot_goggles", () ->
+            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+
     public static final RegistryObject<Item> LEATHER_STRAP = ITEMS.register("leather_strap", () ->
             new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
 

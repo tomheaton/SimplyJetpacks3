@@ -10,10 +10,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.Logger;
 import stormedpanda.simplyjetpacks.client.model.ModelDragonArmor;
-import stormedpanda.simplyjetpacks.client.model.ModelJetpack;
 import stormedpanda.simplyjetpacks.items.ItemDragonArmor;
 import stormedpanda.simplyjetpacks.items.ItemJetpack;
-import stormedpanda.simplyjetpacks.items.ItemJetpackTest;
 import stormedpanda.simplyjetpacks.items.JetpackType;
 import stormedpanda.simplyjetpacks.lists.ListArmorMaterial;
 import stormedpanda.simplyjetpacks.lists.ItemList;
@@ -38,22 +36,20 @@ public class ModRegistry {
 				ItemList.dragon_boots = new ItemDragonArmor(ListArmorMaterial.DRAGON, EquipmentSlotType.FEET, new Item.Properties().group(tabSimplyJetpacks), new ModelDragonArmor()::applyData, new ResourceLocation("simplyjetpacks:textures/models/armor/dragon_armor.png")).setRegistryName(location("dragon_boots")),
 
 				// JETPACKS:
-				ItemList.jetpack_iron = new ItemJetpack("jetpack_iron", ListArmorMaterial.JETPACK, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks).maxDamage(0), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_iron.png")).setRegistryName(location("jetpack_iron")),
-				ItemList.jetpack_iron_armored = new ItemJetpack("jetpack_iron_armored", ListArmorMaterial.JETPACK_ARMORED, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks).maxDamage(0), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_iron_armored.png")).setRegistryName(location("jetpack_iron_armored")),
-				ItemList.jetpack_gold = new ItemJetpack("jetpack_gold", ListArmorMaterial.JETPACK, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks).maxDamage(0), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_gold.png")).setRegistryName(location("jetpack_gold")),
-				ItemList.jetpack_gold_armored = new ItemJetpack("jetpack_gold_armored", ListArmorMaterial.JETPACK_ARMORED, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks).maxDamage(0), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_gold_armored.png")).setRegistryName(location("jetpack_gold_armored")),
-				ItemList.jetpack_diamond = new ItemJetpack("jetpack_diamond", ListArmorMaterial.JETPACK, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks).maxDamage(0), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_diamond.png")).setRegistryName(location("jetpack_diamond")),
-				ItemList.jetpack_diamond_armored = new ItemJetpack("jetpack_diamond_armored", ListArmorMaterial.JETPACK_ARMORED, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks).maxDamage(0), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_diamond_armored.png")).setRegistryName(location("jetpack_diamond_armored")),
-				ItemList.jetpack_netherite = new ItemJetpack("jetpack_netherite", ListArmorMaterial.JETPACK, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks).maxDamage(0), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_netherite.png")).setRegistryName(location("jetpack_netherite")),
-				ItemList.jetpack_netherite_armored = new ItemJetpack("jetpack_netherite_armored", ListArmorMaterial.JETPACK_ARMORED, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks).maxDamage(0), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_netherite_armored.png")).setRegistryName(location("jetpack_netherite_armored")),
+				//ItemList.jetpack_iron = new ItemJetpack("jetpack_iron", ListArmorMaterial.JETPACK, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_iron.png")).setRegistryName(location("jetpack_iron")),
 
-				ItemList.jetpack_creative = new ItemJetpack("jetpack_creative", ListArmorMaterial.JETPACK, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks).maxDamage(0), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_creative.png")).setRegistryName(location("jetpack_creative")),
-				ItemList.jetpack_creative_armored = new ItemJetpack("jetpack_creative_armored", ListArmorMaterial.JETPACK_ARMORED, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks).maxDamage(0), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_creative_armored.png")).setRegistryName(location("jetpack_creative_armored")),
-
-				ItemList.jetpack_test = new ItemJetpackTest("jetpack_test", JetpackType.TEST).setRegistryName("jetpack_test"),
-				ItemList.jetpack_test_armored = new ItemJetpackTest("jetpack_test_armored", JetpackType.TEST_ARMORED).setRegistryName("jetpack_test_armored")
-				//ItemList.jetpack_test = new ItemJetpackTest("jetpack_test", JetpackType.IRON, ListArmorMaterial.JETPACK, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks).maxDamage(0), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_test.png")).setRegistryName(location("jetpack_test")),
-				//ItemList.jetpack_test_armored = new ItemJetpackTest("jetpack_test_armored", JetpackType.GOLD, ListArmorMaterial.JETPACK_ARMORED, EquipmentSlotType.CHEST, new Item.Properties().group(tabSimplyJetpacks).maxDamage(0), new ModelJetpack()::applyData, new ResourceLocation("simplyjetpacks:textures/armor/jetpack_test_armored.png")).setRegistryName(location("jetpack_test_armored"))
+				ItemList.jetpack_iron = new ItemJetpack("jetpack_iron", JetpackType.IRON).setRegistryName("jetpack_iron"),
+				ItemList.jetpack_iron_armored = new ItemJetpack("jetpack_iron_armored", JetpackType.IRON_ARMORED).setRegistryName("jetpack_iron_armored"),
+				ItemList.jetpack_gold = new ItemJetpack("jetpack_gold", JetpackType.GOLD).setRegistryName("jetpack_gold"),
+				ItemList.jetpack_gold_armored = new ItemJetpack("jetpack_gold_armored", JetpackType.GOLD_ARMORED).setRegistryName("jetpack_gold_armored"),
+				ItemList.jetpack_diamond = new ItemJetpack("jetpack_diamond", JetpackType.DIAMOND).setRegistryName("jetpack_diamond"),
+				ItemList.jetpack_diamond_armored = new ItemJetpack("jetpack_diamond_armored", JetpackType.DIAMOND_ARMORED).setRegistryName("jetpack_diamond_armored"),
+				ItemList.jetpack_netherite = new ItemJetpack("jetpack_netherite", JetpackType.NETHERITE).setRegistryName("jetpack_netherite"),
+				ItemList.jetpack_netherite_armored = new ItemJetpack("jetpack_netherite_armored",JetpackType.NETHERITE_ARMORED).setRegistryName("jetpack_netherite_armored"),
+				ItemList.jetpack_creative = new ItemJetpack("jetpack_creative", JetpackType.CREATIVE).setRegistryName("jetpack_creative"),
+				ItemList.jetpack_creative_armored = new ItemJetpack("jetpack_creative_armored", JetpackType.CREATIVE_ARMORED).setRegistryName("jetpack_creative_armored"),
+				ItemList.jetpack_test = new ItemJetpack("jetpack_test", JetpackType.TEST).setRegistryName("jetpack_test"),
+				ItemList.jetpack_test_armored = new ItemJetpack("jetpack_test_armored", JetpackType.TEST_ARMORED).setRegistryName("jetpack_test_armored")
 		);
 		LOGGER.info("Items registered.");
 	}

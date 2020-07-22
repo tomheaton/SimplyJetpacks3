@@ -57,13 +57,14 @@ public class SimplyJetpacks {
         //ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SimplyJetpacksConfig.CLIENT_SPEC, "simplyjetpacks-client.toml"); // TODO: add Server Config
 
         RegistryHandler.init();
+        JetpackType.loadAllConfigs();
     }
 
     private void CommonSetup(final FMLCommonSetupEvent event) {
         LOGGER.info("Setup Method registered.");
         KeyBindHandler.setup();
         NetworkHandler.registerMessages();
-        JetpackType.loadAllConfigs();
+        //JetpackType.loadAllConfigs();
     }
 
     private void ClientSetup(final FMLClientSetupEvent event) {

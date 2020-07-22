@@ -38,6 +38,7 @@ public class JetpackGuiScreen extends Screen {
 
         addButton(new Button(relX + 108, relY + 10, 60, 20, new StringTextComponent("Engine"), button -> NetworkHandler.sendToServer(new PacketToggleEngine())));
         addButton(new Button(relX + 108, relY + 40, 60, 20, new StringTextComponent("Hover"), button -> NetworkHandler.sendToServer(new PacketToggleHover())));
+        // TODO: disable button if jetpack cannot perform emergency hover
         addButton(new Button(relX + 68, relY + 70, 100, 20, new StringTextComponent("Emergency Hover"), button -> NetworkHandler.sendToServer(new PacketToggleEHover())));
     }
 

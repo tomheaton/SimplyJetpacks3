@@ -14,8 +14,6 @@ import org.apache.logging.log4j.Logger;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.client.IHUDInfoProvider;
 import stormedpanda.simplyjetpacks.items.ItemJetpack;
-import stormedpanda.simplyjetpacks.items.ItemJetpackTest;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,9 +40,8 @@ public class HUDHandler {
             ItemStack chestplate = minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
             Item item = chestplate.getItem();
 
-            // TODO: remove this later
-            if (!chestplate.isEmpty() && item instanceof ItemJetpack || item instanceof ItemJetpackTest) {
-                //ItemJetpack jetpack = (ItemJetpack) item;
+            if (!chestplate.isEmpty() && item instanceof ItemJetpack) {
+                ItemJetpack jetpack = (ItemJetpack) item;
 
                 IHUDInfoProvider provider = (IHUDInfoProvider) chestplate.getItem();
 
