@@ -7,6 +7,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import org.apache.commons.lang3.tuple.Pair;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
+import stormedpanda.simplyjetpacks.items.Jetpack;
+import stormedpanda.simplyjetpacks.items.JetpackType;
 
 @Mod.EventBusSubscriber(modid = SimplyJetpacks.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SimplyJetpacksConfig {
@@ -32,6 +34,7 @@ public class SimplyJetpacksConfig {
         public Common(ForgeConfigSpec.Builder builder) {
             builder.comment("Simply Jetpacks 3 - Common Configurations").push("simplyjetpacks-common");
 
+            builder.comment("Simply Jetpacks 3 - Client Configurations").push("integration");
             enableIntegrationVanilla = builder
                     .comment("This sets the crafting height of the game. If a value is higher declared by a different mod, this becomes obsolete.")
                     .translation("config.simplyjetpacks.enableIntegrationVanilla")
@@ -61,6 +64,8 @@ public class SimplyJetpacksConfig {
                     .translation("config.simplyjetpacks.enableIntegrationThermalDynamics")
                     .worldRestart()
                     .define("enableIntegrationThermalDynamics", Defaults.enableIntegrationThermalDynamics);
+
+            builder.comment("Simply Jetpacks 3 - Client Configurations").push("tuning");
 
             builder.pop();
         }
@@ -123,7 +128,6 @@ public class SimplyJetpacksConfig {
 
     @SubscribeEvent
     public static void onLoad(final ModConfig.Loading event) {
-
     }
 
     @SubscribeEvent

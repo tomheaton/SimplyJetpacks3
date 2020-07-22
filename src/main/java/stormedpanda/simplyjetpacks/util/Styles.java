@@ -1,4 +1,4 @@
-package stormedpanda.simplyjetpacks;
+package stormedpanda.simplyjetpacks.util;
 
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.Style;

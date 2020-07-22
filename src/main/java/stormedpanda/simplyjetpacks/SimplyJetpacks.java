@@ -22,6 +22,7 @@ import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.crafting.PlatingReturnHandler;
 import stormedpanda.simplyjetpacks.gui.TestContainer;
 import stormedpanda.simplyjetpacks.gui.TestScreen;
+import stormedpanda.simplyjetpacks.items.JetpackType;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
 import java.util.stream.Collectors;
 
@@ -50,7 +51,7 @@ public class SimplyJetpacks {
         MinecraftForge.EVENT_BUS.register(new HUDHandler());
         MinecraftForge.EVENT_BUS.register(new PlatingReturnHandler());
 
-        // TODO: get both configs in one folder
+        // TODO: get all configs in one folder
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_SPEC, "simplyjetpacks-common.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SimplyJetpacksConfig.CLIENT_SPEC, "simplyjetpacks-client.toml");
         //ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SimplyJetpacksConfig.CLIENT_SPEC, "simplyjetpacks-client.toml"); // TODO: add Server Config
@@ -62,6 +63,7 @@ public class SimplyJetpacks {
         LOGGER.info("Setup Method registered.");
         KeyBindHandler.setup();
         NetworkHandler.registerMessages();
+        JetpackType.loadAllConfigs();
     }
 
     private void ClientSetup(final FMLClientSetupEvent event) {

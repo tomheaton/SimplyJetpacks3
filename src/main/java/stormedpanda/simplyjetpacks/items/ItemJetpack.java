@@ -23,7 +23,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
-import stormedpanda.simplyjetpacks.Styles;
+import stormedpanda.simplyjetpacks.util.Styles;
 import stormedpanda.simplyjetpacks.SyncHandler;
 import stormedpanda.simplyjetpacks.capability.CapabilityProviderEnergy;
 import stormedpanda.simplyjetpacks.capability.EnergyConversionStorage;
@@ -218,7 +218,7 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
     // TODO: get the full variants to show up in NEI
     @Override
     public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-        super.fillItemGroup(group, items);
+        //super.fillItemGroup(group, items);
         if (this.isInGroup(group)) {
             items.add(new ItemStack(this));
             ItemStack full = new ItemStack(this);
