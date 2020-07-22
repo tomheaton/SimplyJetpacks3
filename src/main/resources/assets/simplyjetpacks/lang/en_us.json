@@ -63,6 +63,8 @@
   "keybind.simplyjetpacks.jetpack_e_hover": "Toggle Jetpack Emergency Hover",
   "keybind.simplyjetpacks.jetpack_test": "Toggle TEST GUI",
 
+  "tooltip.simplyjetpacks.infiniteEnergy": "Infinite Energy",
+
   "misc.simplyjetpacks.empty": "Empty",
   "misc.simplyjetpacks.energy": "%s FE",
   "misc.simplyjetpacks.energyPerTick": "%s FE/t",

@@ -199,10 +199,15 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
         }
     }
 
+    // TODO: make this check if fuel is used
     @OnlyIn(Dist.CLIENT)
     public void information(ItemStack stack, ItemJetpack item, List<ITextComponent> tooltip) {
-        stack.getCapability(CapabilityEnergy.ENERGY).ifPresent(e ->
-                tooltip.add(TextUtil.energyWithMax(e.getEnergyStored(), e.getMaxEnergyStored())));
+        if (!getBaseName(stack).equals("jetpack_creative") || !getBaseName(stack).equals("jetpack_creative_armored")) {
+            stack.getCapability(CapabilityEnergy.ENERGY).ifPresent(e ->
+                    tooltip.add(TextUtil.energyWithMax(e.getEnergyStored(), e.getMaxEnergyStored())));
+        } else {
+            tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.infiniteEnergy"));
+        }
     }
 
     @OnlyIn(Dist.CLIENT)
