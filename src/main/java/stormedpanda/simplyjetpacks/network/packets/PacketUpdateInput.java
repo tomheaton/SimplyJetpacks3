@@ -44,7 +44,7 @@ public class PacketUpdateInput {
         ctx.get().enqueueWork(() -> {
             PlayerEntity player = ctx.get().getSender();
             if (player != null) {
-                SyncHandler.processKeyUpdate(player, message.up, message.down, message.forwards, message.backwards, message.left, message.right);
+                SyncHandler.update(player, message.up, message.down, message.forwards, message.backwards, message.left, message.right);
             }
         });
         ctx.get().setPacketHandled(true);

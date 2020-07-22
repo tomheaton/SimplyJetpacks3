@@ -7,6 +7,7 @@ public enum ModType {
 
     SIMPLY_JETPACKS(SimplyJetpacks.MODID),
     MEKANISM("mekanism"),
+    IMMERSIVE_ENGINEERING("immersiveengineering"),
     ENDER_IO("enderio"),
     THERMAL_EXPANSION("thermalexpansion"),
     THERMAL_DYNAMICS("thermaldynamics");

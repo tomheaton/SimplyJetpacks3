@@ -216,11 +216,11 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
     @OnlyIn(Dist.CLIENT)
     public void information(ItemStack stack, ItemJetpack item, List<ITextComponent> tooltip) {
         tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.tier", tier));
-        if (!getBaseName(stack).equals("jetpack_creative") || !getBaseName(stack).equals("jetpack_creative_armored")) {
+        if (getBaseName(stack).equals("jetpack_creative") || getBaseName(stack).equals("jetpack_creative_armored")) {
+            tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.infiniteEnergy"));
+        } else {
             stack.getCapability(CapabilityEnergy.ENERGY).ifPresent(e ->
                     tooltip.add(TextUtil.energyWithMax(e.getEnergyStored(), e.getMaxEnergyStored())));
-        } else {
-            tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.infiniteEnergy"));
         }
     }
 
@@ -234,7 +234,9 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
         if (type.canEHover()) {
             tooltip.add(new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.emergencyHoverMode", (NBTHelper.getBoolean(stack, TAG_E_HOVER) ? on : off)));
         }
-        if (!getBaseName(stack).equals("jetpack_creative") || !getBaseName(stack).equals("jetpack_creative_armored")) {
+        if (getBaseName(stack).equals("jetpack_creative") || getBaseName(stack).equals("jetpack_creative_armored")) {
+
+        } else {
             tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.itemJetpack.fuelUsage", type.getFuelUsage()));
         }
     }
@@ -272,7 +274,9 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
         list.add(new StringTextComponent("Energy: " + getEnergyStored(stack) + " FE"));
         list.add(new StringTextComponent("Engine: " + isEngineOn(stack)));
         list.add(new StringTextComponent("Hover: " + isHoverOn(stack)));
-        list.add(new StringTextComponent("Emergency Hover: " + isEHoverOn(stack)));
+        //if (type.canEHover()) { list.add(new StringTextComponent("Emergency Hover: " + isEHoverOn(stack))); }
+        // TESTING
+        list.add(new StringTextComponent("Emergency Hover: " + (type.canEHover() ? isEHoverOn(stack) : "NOT AVAILABLE")));
     }
 
     public boolean isEngineOn(ItemStack stack) {
@@ -352,10 +356,10 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
             //double hoverSpeed = Config.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(user) ? Jetpack.values()[i].speedVerticalHoverSlow : Jetpack.values()[i].speedVerticalHover;
 
             //double hoverSpeed = SimplyJetpacksConfig.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(player) ? 0.0D : 0.45D;
-            double hoverSpeed = SimplyJetpacksConfig.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(player) ? type.getSpeedVerticalHoverSlow() : type.getSpeedVerticalHover();
+            double hoverSpeed = SimplyJetpacksConfig.invertHoverSneakingBehavior == SyncHandler.isHoldingDown(player) ? type.getSpeedVerticalHoverSlow() : type.getSpeedVerticalHover();
             //double hoverSpeed = SyncHandler.isDescendKeyDown(player) ? 0.0D : 0.45D;
-            boolean flyKeyDown = SyncHandler.isFlyKeyDown(player); // || force;
-            boolean descendKeyDown = SyncHandler.isDescendKeyDown(player);
+            boolean flyKeyDown = SyncHandler.isHoldingUp(player); // || force;
+            boolean descendKeyDown = SyncHandler.isHoldingDown(player);
             //double currentAccel = 0.15D * (player.getMotion().getY() < 0.3D ? 2.5D : 1.0D);
             //double currentSpeedVertical = 0.9D * (player.isInWater() ? 0.4D : 1.0D);
             double currentAccel = type.getAccelVertical() * (player.getMotion().getY() < 0.3D ? 2.5D : 1.0D);
@@ -399,19 +403,19 @@ public class ItemJetpack extends ArmorItem implements IHUDInfoProvider, IEnergyC
                     float speedSideways = (float) (player.isSneaking() ? baseSpeedSideways * 0.5F : baseSpeedSideways);
                     float speedForward = (float) (player.isSprinting() ? speedSideways * baseSpeedForward : speedSideways);
 
-                    if (SyncHandler.isForwardKeyDown(player)) {
+                    if (SyncHandler.isHoldingForwards(player)) {
                         //SimplyJetpacks.LOGGER.info("Forward Key Down");
                         player.moveRelative(1, new Vector3d(0, 0, speedForward));
                     }
-                    if (SyncHandler.isBackwardKeyDown(player)) {
+                    if (SyncHandler.isHoldingBackwards(player)) {
                         //SimplyJetpacks.LOGGER.info("Backward Key Down");
                         player.moveRelative(1, new Vector3d(0, 0, -speedSideways * 0.8F));
                     }
-                    if (SyncHandler.isLeftKeyDown(player)) {
+                    if (SyncHandler.isHoldingLeft(player)) {
                         //SimplyJetpacks.LOGGER.info("Left Key Down");
                         player.moveRelative(1, new Vector3d(speedSideways, 0, 0));
                     }
-                    if (SyncHandler.isRightKeyDown(player)) {
+                    if (SyncHandler.isHoldingRight(player)) {
                         //SimplyJetpacks.LOGGER.info("Right Key Down");
                         player.moveRelative(1, new Vector3d(-speedSideways, 0, 0));
                     }

@@ -105,7 +105,7 @@ public class KeyBindHandler {
                 lastLeftState = leftState;
                 lastRightState = rightState;
                 NetworkHandler.sendToServer(new PacketKeyboardSync(flyState, descendState, forwardState, backwardState, leftState, rightState));
-                SyncHandler.processKeyUpdate(mc.player, flyState, descendState, forwardState, backwardState, leftState, rightState);
+                SyncHandler.update(mc.player, flyState, descendState, forwardState, backwardState, leftState, rightState);
             }
         }
     }

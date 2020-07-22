@@ -42,7 +42,7 @@ public class PacketKeyboardSync {
             PlayerEntity player = ctx.get().getSender();
             if (player != null) {
                 //SimplyJetpacks.LOGGER.info("running updater");
-                SyncHandler.processKeyUpdate(player, message.flyState, message.descendState, message.forwardState, message.backwardState, message.leftState, message.rightState);
+                SyncHandler.update(player, message.flyState, message.descendState, message.forwardState, message.backwardState, message.leftState, message.rightState);
             }
         });
         ctx.get().setPacketHandled(true);
