@@ -45,7 +45,7 @@ public class SimplyJetpacks {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(KeyBindHandler.class);
+        MinecraftForge.EVENT_BUS.register(KeybindHandler.class);
         MinecraftForge.EVENT_BUS.register(new SyncHandler());
         MinecraftForge.EVENT_BUS.register(new HUDHandler());
         MinecraftForge.EVENT_BUS.register(new PlatingReturnHandler());
@@ -61,7 +61,7 @@ public class SimplyJetpacks {
 
     private void CommonSetup(final FMLCommonSetupEvent event) {
         LOGGER.info("Setup Method registered.");
-        KeyBindHandler.setup();
+        KeybindHandler.setup();
         NetworkHandler.registerMessages();
         //JetpackType.loadAllConfigs();
     }

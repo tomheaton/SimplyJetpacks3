@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "pmp",
+    "wcw",
+    "php"
+  ],
+  "key": {
+    "x": { "item": "immersiveengineering:plate_iron" },
+    "p": { "item": "forge:plates/iron" },
+    "m": { "item": "immersiveengineering:component_iron" },
+    "w": { "item": "immersiveengineering:wirecoil_copper" },
+    "c": { "item": "immersiveengineering:coil_lv" },
+    "h": { "item": "immersiveengineering:furnace_heater" }
+  },
+  "result": {
+    "item": "simplyjetpacks:thruster_ie1",
+    "count": 1
+  }
+}

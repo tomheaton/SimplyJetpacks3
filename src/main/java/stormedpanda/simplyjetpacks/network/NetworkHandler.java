@@ -20,12 +20,6 @@ public class NetworkHandler {
     public static void registerMessages() {
         CHANNEL_INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(SimplyJetpacks.MODID, "simplyjetpacks"), () -> "1.0", s -> true, s -> true);
 
-/*        CHANNEL_INSTANCE.messageBuilder(PacketToggleGui.class, nextID())
-                .encoder((packetToggleGui, packetBuffer) -> {})
-                .decoder(buf -> new PacketToggleGui())
-                .consumer(PacketToggleGui::handle)
-                .add();*/
-
         CHANNEL_INSTANCE.messageBuilder(PacketToggleGui.class, nextID())
                 .encoder(PacketToggleGui::toBytes)
                 .decoder(PacketToggleGui::new)
@@ -50,15 +44,9 @@ public class NetworkHandler {
                 .add();
 
         CHANNEL_INSTANCE.messageBuilder(PacketUpdateInput.class, nextID())
-                .encoder(PacketUpdateInput::write)
-                .decoder(PacketUpdateInput::read)
+                .encoder(PacketUpdateInput::toBytes)
+                .decoder(PacketUpdateInput::fromBytes)
                 .consumer(PacketUpdateInput::handle)
-                .add();
-
-        CHANNEL_INSTANCE.messageBuilder(PacketKeyboardSync.class, nextID())
-                .encoder(PacketKeyboardSync::toBytes)
-                .decoder(PacketKeyboardSync::fromBytes)
-                .consumer(PacketKeyboardSync::handle)
                 .add();
 
         // TESTING

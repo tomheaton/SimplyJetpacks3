@@ -15,6 +15,7 @@ public class SimplyJetpacksConfig {
 
     public static boolean enableIntegrationVanilla = Defaults.enableIntegrationVanilla;
     public static boolean enableIntegrationMekanism = Defaults.enableIntegrationMekanism;
+    public static boolean enableIntegrationImmersiveEngineering = Defaults.enableIntegrationImmersiveEngineering;
     public static boolean enableIntegrationEnderIO = Defaults.enableIntegrationEnderIO;
     public static boolean enableIntegrationThermalExpansion = Defaults.enableIntegrationThermalExpansion;
     public static boolean enableIntegrationThermalDynamics = Defaults.enableIntegrationThermalDynamics;
@@ -27,6 +28,7 @@ public class SimplyJetpacksConfig {
 
         public final BooleanValue enableIntegrationVanilla;
         public final BooleanValue enableIntegrationMekanism;
+        public final BooleanValue enableIntegrationImmersiveEngineering;
         public final BooleanValue enableIntegrationEnderIO;
         public final BooleanValue enableIntegrationThermalExpansion;
         public final BooleanValue enableIntegrationThermalDynamics;
@@ -46,6 +48,12 @@ public class SimplyJetpacksConfig {
                     .translation("config.simplyjetpacks.enableIntegrationMekanism")
                     .worldRestart()
                     .define("enableIntegrationMekanism", Defaults.enableIntegrationMekanism);
+
+            enableIntegrationImmersiveEngineering = builder
+                    .comment("This sets the crafting height of the game. If a value is higher declared by a different mod, this becomes obsolete.")
+                    .translation("config.simplyjetpacks.enableIntegrationMekanism")
+                    .worldRestart()
+                    .define("enableIntegrationMekanism", Defaults.enableIntegrationImmersiveEngineering);
 
             enableIntegrationEnderIO = builder
                     .comment("This sets the crafting height of the game. If a value is higher declared by a different mod, this becomes obsolete.")

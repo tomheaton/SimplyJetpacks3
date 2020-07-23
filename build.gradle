@@ -18,8 +18,8 @@ group = 'stormedpanda.simplyjetpacks'
 archivesBaseName = 'simplyjetpacks3'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+//println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 
-println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
     mappings channel: 'snapshot', version: "${mappings_version}"
 
@@ -67,17 +67,22 @@ repositories {
     // Mekanism
     maven {
         name = "ModMaven"
-        url = 'https://modmaven.k-4u.nl/'
+        url = "https://modmaven.k-4u.nl/"
     }
     // JEI
     maven {
         name = "Progwm16 maven"
-        url = 'http://dvs1.progwml6.com/files/maven/'
+        url = "http://dvs1.progwml6.com/files/maven/"
     }
     // TOP
     maven {
         name = "tterrag maven"
         url = "https://maven.tterrag.com/"
+    }
+    // Immersive Engineering
+    maven {
+        name = "blamejared maven"
+        url = "https://maven.blamejared.com/"
     }
 }
 
@@ -95,6 +100,8 @@ dependencies {
 
     compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${top_version}:api")
     runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${top_version}")
+
+    runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${immersiveengineering_version}")
 }
 
 jar {

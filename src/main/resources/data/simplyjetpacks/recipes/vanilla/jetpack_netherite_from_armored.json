@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "simplyjetpacks:jetpack_netherite_armored"
+    }
+  ],
+  "result": {
+    "item": "simplyjetpacks:jetpack_netherite",
+    "count": 1
+  }
+}

@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
-import stormedpanda.simplyjetpacks.items.ItemJetpack;
+import stormedpanda.simplyjetpacks.items.JetpackItem;
 
 import java.util.function.Supplier;
 
@@ -28,8 +28,8 @@ public class PacketToggleEngine {
             if (player != null) {
                 ItemStack stack = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
                 Item item = stack.getItem();
-                if (item instanceof ItemJetpack) {
-                    ItemJetpack jetpack = (ItemJetpack) item;
+                if (item instanceof JetpackItem) {
+                    JetpackItem jetpack = (JetpackItem) item;
                     jetpack.toggleEngine(stack, (PlayerEntity) player);
                 }
             }

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " d ",
+    "dfd",
+    "dbd"
+  ],
+  "key": {
+    "d": { "tag": "forge:gems/diamond" },
+    "f": { "item": "minecraft:furnace" },
+    "b": { "item": "minecraft:blaze_powder"}
+  },
+  "result": {
+    "item": "simplyjetpacks:thruster_diamond",
+    "count": 1
+  }
+}

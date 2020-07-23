@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "fff",
+    "fwf",
+    "fff"
+  ],
+  "key": {
+    "x": { "item": "immersiveengineering:hemp_fabric" },
+    "f": { "item": "forge:fabric_hemp" },
+    "w": { "item": "minecraft:wool" }
+  },
+  "result": {
+    "item": "simplyjetpacks:armorplating_ie1",
+    "count": 1
+  }
+}

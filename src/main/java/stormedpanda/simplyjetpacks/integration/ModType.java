@@ -1,7 +1,7 @@
 package stormedpanda.simplyjetpacks.integration;
 
-import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import net.minecraftforge.fml.ModList;
+import stormedpanda.simplyjetpacks.SimplyJetpacks;
 
 public enum ModType {
 

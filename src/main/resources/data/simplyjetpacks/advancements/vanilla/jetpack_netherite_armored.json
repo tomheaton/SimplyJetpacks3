@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "simplyjetpacks:jetpack_netherite_armored"
+    },
+    "title": {
+      "translate": "advancements.simplyjetpacks.jetpack_netherite_armored.title"
+    },
+    "description": {
+      "translate": "advancements.simplyjetpacks.jetpack_netherite_armored.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "jetpack_netherite_armored": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "simplyjetpacks:jetpack_netherite_armored",
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 1
+  },
+  "parent": "simplyjetpacks:vanilla/jetpack_netherite"
+}

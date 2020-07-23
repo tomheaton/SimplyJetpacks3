@@ -9,7 +9,7 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import stormedpanda.simplyjetpacks.KeyBindHandler;
+import stormedpanda.simplyjetpacks.KeybindHandler;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleEHover;
@@ -71,7 +71,7 @@ public class JetpackGuiScreen extends Screen {
         if (p_231046_1_ == 256 && this.shouldCloseOnEsc()) {
             this.onClose();
             return true;
-        } else if (KeyBindHandler.JETPACK_GUI_KEY.matchesKey(p_231046_1_, p_231046_2_)) {
+        } else if (KeybindHandler.JETPACK_GUI_KEY.matchesKey(p_231046_1_, p_231046_2_)) {
             this.onClose();
             return true;
         } else if (p_231046_1_ == 258) {

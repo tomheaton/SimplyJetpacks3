@@ -7,25 +7,32 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
-import stormedpanda.simplyjetpacks.client.model.ModelJetpack;
+import stormedpanda.simplyjetpacks.client.model.JetpackModel;
 import stormedpanda.simplyjetpacks.config.DefaultJetpackConfig;
-import stormedpanda.simplyjetpacks.lists.ListArmorMaterial;
+import stormedpanda.simplyjetpacks.lists.ArmorMaterialList;
 import java.util.EnumSet;
 import java.util.function.BiFunction;
 
 public enum JetpackType {
-    TEST("jetpack_test", 69, "jetpackIron"),
-    TEST_ARMORED("jetpack_test_armored", 69, "jetpackDiamond", true, 1),
     IRON("jetpack_iron", 1, "jetpackIron"),
-    IRON_ARMORED("jetpack_iron_armored", 1, "jetpackIron", true, 1),
+    IRON_ARMORED("jetpack_iron_armored", 1, "jetpackIron", true, 0),
     GOLD("jetpack_gold", 2, "jetpackGold"),
     GOLD_ARMORED("jetpack_gold_armored", 2, "jetpackGold", true, 1),
     DIAMOND("jetpack_diamond", 3, "jetpackDiamond"),
-    DIAMOND_ARMORED("jetpack_diamond_armored", 3, "jetpackDiamond", true, 1),
-    NETHERITE("jetpack_netherite", 4, "jetpackDiamond", true, 1),
-    NETHERITE_ARMORED("jetpack_netherite_armored", 4, "jetpackDiamond", true, 1),
+    DIAMOND_ARMORED("jetpack_diamond_armored", 3, "jetpackDiamond", true, 2),
+    NETHERITE("jetpack_netherite", 4, "jetpackDiamond"),
+    NETHERITE_ARMORED("jetpack_netherite_armored", 4, "jetpackDiamond", true, 3),
     CREATIVE("jetpack_creative", 6, "jetpackCreative"),
-    CREATIVE_ARMORED("jetpack_creative_armored", 6, "jetpackCreative", true, 1)
+    CREATIVE_ARMORED("jetpack_creative_armored", 6, "jetpackCreative", true),
+    TEST("jetpack_test", 69, "jetpackDiamond"),
+    TEST_ARMORED("jetpack_test_armored", 69, "jetpackDiamond", true),
+
+    IE1("jetpack_ie1", 1, "jetpackIron"),
+    IE1_ARMORED("jetpack_ie1_armored", 1, "jetpackIron", true, 4),
+    IE2("jetpack_ie2", 2, "jetpackGold"),
+    IE2_ARMORED("jetpack_ie2_armored", 2, "jetpackGold", true, 5),
+    IE3("jetpack_ie3", 3, "jetpackDiamond"),
+    IE3_ARMORED("jetpack_ie3_armored", 3, "jetpackDiamond", true, 6)
     ;
 
     private final String name;
@@ -37,6 +44,7 @@ public enum JetpackType {
     private final ResourceLocation armorTexture;
     private boolean isArmored;
     private int platingID;
+    private Item platingItem;
     private final Item.Properties properties;
     private boolean usesFuel;
     private Rarity rarity;
@@ -73,12 +81,13 @@ public enum JetpackType {
         this(name, tier, defaultConfigKey);
         this.isArmored = isArmored;
         this.platingID = platingID;
+        //this.platingItem = platingItem;
     }
 
     JetpackType(String name, int tier, String defaultConfigKey) {
         this.name = name;
         this.tier = tier;
-        this.getArmorApplier = new ModelJetpack()::applyData;
+        this.getArmorApplier = new JetpackModel()::applyData;
         this.armorTexture = new ResourceLocation(("simplyjetpacks:textures/armor/" + name + ".png"));
         this.isArmored = false;
         this.properties = new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks).maxStackSize(1);
@@ -152,8 +161,8 @@ public enum JetpackType {
 
     public IArmorMaterial getArmorMaterial() {
         if (isArmored) {
-            return ListArmorMaterial.JETPACK_ARMORED;
-        } else { return ListArmorMaterial.JETPACK; }
+            return ArmorMaterialList.JETPACK_ARMORED;
+        } else { return ArmorMaterialList.JETPACK; }
     }
 
     public boolean getIsArmored() {
@@ -166,6 +175,10 @@ public enum JetpackType {
 
     public int getPlatingID() {
         return platingID;
+    }
+
+    public Item getPlatingItem() {
+        return platingItem;
     }
 
     public static void loadAllConfigs() {

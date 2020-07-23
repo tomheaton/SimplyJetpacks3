@@ -9,7 +9,7 @@ public class DefaultJetpackConfig {
     private static final Map<String, DefaultJetpackConfig> DEFAULTS = new HashMap<>();
     //public final Section section;
 
-    // PackBase
+    // Base
     public int fuelCapacity;
     public int fuelUsage;
     public int fuelPerTickIn;
@@ -38,19 +38,20 @@ public class DefaultJetpackConfig {
         return DEFAULTS.get(key);
     }
 
-    // the great mighty List of Defaults
-    static
-    {
+    static {
         // Simply Jetpacks
-        DefaultJetpackConfig d = new DefaultJetpackConfig("jetpack_potato", "Tuberous Jetpack");
+        DefaultJetpackConfig d = new DefaultJetpackConfig("jetpackPotato", "Tuberous Jetpack");
         d.fuelCapacity = 1200;
         d.fuelUsage = 45;
         d.speedVertical = 0.9D;
         d.accelVertical = 0.5D;
 
         d = new DefaultJetpackConfig("jetpackCreative", "Creative Jetpack");
-        d.fuelCapacity = 200000;
-        d.fuelPerTickOut = 50000;
+        //d.fuelCapacity = 200000;
+        //d.fuelPerTickOut = 50000;
+        //d.fuelPerTickIn = 0;
+        d.fuelCapacity = 0;
+        d.fuelPerTickOut = 0;
         d.fuelPerTickIn = 0;
         d.armorReduction = 12;
         d.enchantability = 20;
