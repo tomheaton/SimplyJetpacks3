@@ -15,6 +15,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import stormedpanda.simplyjetpacks.SyncHandler;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
+import stormedpanda.simplyjetpacks.sound.JetpackSound;
 
 import java.util.Random;
 
@@ -83,6 +84,10 @@ public class ParticleHandler {
                             v = playerPos.add(vRight).add(new Vector3d(mc.player.getMotion().getX(), mc.player.getMotion().getY(), mc.player.getMotion().getZ()));
                             mc.particles.addParticle(ParticleTypes.FLAME, v.x, v.y, v.z, random, -0.2D, random);
                             //ParticleUtils.spawnParticle(particle, world, v.x, v.y, v.z, random, -0.2D, random);
+
+                            if (!JetpackSound.playing(mc.player.getEntityId())) {
+                                mc.getSoundHandler().play(new JetpackSound(mc.player));
+                            }
                         }
                     }
                 }

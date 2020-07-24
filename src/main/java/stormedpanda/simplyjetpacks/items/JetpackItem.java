@@ -365,7 +365,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
                     int amount = (int) (player.isSprinting() ? Math.round(getFuelUsage() * type.getSprintFuelModifier()) : getFuelUsage());
                     useEnergy(stack, amount);
                 }
-                if (getEnergyStored(stack) > 0) {
+                if (getEnergyStored(stack) > 0 || getBaseName().contains("creative")) {
                     if (flyKeyDown) {
                         if (!hoverMode) {
                             fly(player, Math.min(player.getMotion().getY() + currentAccel, currentSpeedVertical));

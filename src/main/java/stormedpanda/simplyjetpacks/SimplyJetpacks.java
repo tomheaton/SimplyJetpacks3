@@ -20,11 +20,13 @@ import org.apache.logging.log4j.Logger;
 import stormedpanda.simplyjetpacks.client.handler.HUDHandler;
 import stormedpanda.simplyjetpacks.client.handler.ParticleHandler;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
+import stormedpanda.simplyjetpacks.crafting.EnergyTransferHandler;
 import stormedpanda.simplyjetpacks.crafting.PlatingReturnHandler;
 import stormedpanda.simplyjetpacks.gui.TestContainer;
 import stormedpanda.simplyjetpacks.gui.TestScreen;
 import stormedpanda.simplyjetpacks.items.JetpackType;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
+import stormedpanda.simplyjetpacks.sound.ModSounds;
 
 import java.util.stream.Collectors;
 
@@ -51,21 +53,22 @@ public class SimplyJetpacks {
         MinecraftForge.EVENT_BUS.register(new SyncHandler());
         MinecraftForge.EVENT_BUS.register(new HUDHandler());
         MinecraftForge.EVENT_BUS.register(new PlatingReturnHandler());
+        MinecraftForge.EVENT_BUS.register(new EnergyTransferHandler());
+        MinecraftForge.EVENT_BUS.register(new ModSounds());
 
         // TODO: get all configs in one folder
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_SPEC, "simplyjetpacks-common.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SimplyJetpacksConfig.CLIENT_SPEC, "simplyjetpacks-client.toml");
-        //ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SimplyJetpacksConfig.CLIENT_SPEC, "simplyjetpacks-client.toml"); // TODO: add Server Config
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_SPEC, "simplyjetpacks-common.toml");
+        //ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SimplyJetpacksConfig.SERVER_SPEC, "simplyjetpacks-server.toml"); // TODO: add Server Config
 
         RegistryHandler.init();
         JetpackType.loadAllConfigs();
     }
 
     private void CommonSetup(final FMLCommonSetupEvent event) {
-        LOGGER.info("Setup Method registered.");
+        LOGGER.info("Common Setup Method registered.");
         KeybindHandler.setup();
         NetworkHandler.registerMessages();
-        //JetpackType.loadAllConfigs();
     }
 
     private void ClientSetup(final FMLClientSetupEvent event) {
