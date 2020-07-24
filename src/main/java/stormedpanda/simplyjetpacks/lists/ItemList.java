@@ -28,4 +28,15 @@ public class ItemList {
 	public static Item jetpack_ie2_armored;
 	public static Item jetpack_ie3;
 	public static Item jetpack_ie3_armored;
+
+	// Mekanism:
+	public static Item jetpack_mek1;
+	public static Item jetpack_mek1_armored;
+	public static Item jetpack_mek2;
+	public static Item jetpack_mek2_armored;
+	public static Item jetpack_mek3;
+	public static Item jetpack_mek3_armored;
+	public static Item jetpack_mek4;
+	public static Item jetpack_mek4_armored;
+
 }

@@ -32,7 +32,16 @@ public enum JetpackType {
     IE2("jetpack_ie2", 2, "jetpackGold"),
     IE2_ARMORED("jetpack_ie2_armored", 2, "jetpackGold", true, 5),
     IE3("jetpack_ie3", 3, "jetpackDiamond"),
-    IE3_ARMORED("jetpack_ie3_armored", 3, "jetpackDiamond", true, 6)
+    IE3_ARMORED("jetpack_ie3_armored", 3, "jetpackDiamond", true, 6),
+
+    MEK1("jetpack_mek1", 1, "jetpackIron"),
+    MEK1_ARMORED("jetpack_mek1_armored", 1, "jetpackIron", true, 7),
+    MEK2("jetpack_mek2", 2, "jetpackGold"),
+    MEK2_ARMORED("jetpack_mek2_armored", 2, "jetpackGold", true, 8),
+    MEK3("jetpack_mek3", 3, "jetpackDiamond"),
+    MEK3_ARMORED("jetpack_mek3_armored", 3, "jetpackDiamond", true, 9),
+    MEK4("jetpack_mek4", 3, "jetpackDiamond"),
+    MEK4_ARMORED("jetpack_mek4_armored", 3, "jetpackDiamond", true, 10)
     ;
 
     private final String name;

@@ -1,19 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "pmp",
-    "plp",
+    "ici",
+    "iji",
     "t t"
   ],
   "key": {
-    "x": { "item": "immersiveengineering:plate_iron" },
-    "p": { "item": "forge:plates/iron" },
-    "m": { "item": "immersiveengineering:component_iron" },
-    "l": { "item": "simplyjetpacks:leather_strap" },
-    "t": { "item": "simplyjetpacks:thruster_ie1" }
+    "i": { "tag": "forge:ingots/osmium" },
+    "c": { "tag": "forge:circuits/ultimate" },
+    "j": { "item": "simplyjetpacks:jetpack_mek3" },
+    "t": { "item": "simplyjetpacks:thruster_mek4" }
   },
   "result": {
-    "item": "simplyjetpacks:jetpack_ie1",
+    "item": "simplyjetpacks:jetpack_mek4",
     "count": 1
   }
 }

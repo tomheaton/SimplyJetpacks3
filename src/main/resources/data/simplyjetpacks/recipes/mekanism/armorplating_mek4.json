@@ -1,17 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "fff",
-    "fwf",
-    "fff"
+    "ici",
+    "cic",
+    "ici"
   ],
   "key": {
-    "x": { "item": "immersiveengineering:hemp_fabric" },
-    "f": { "item": "forge:fabric_hemp" },
-    "w": { "item": "minecraft:wool" }
+    "i": { "tag": "forge:ingots/osmium" },
+    "c": { "tag": "forge:circuits/ultimate" }
   },
   "result": {
-    "item": "simplyjetpacks:armorplating_ie1",
+    "item": "simplyjetpacks:armorplating_mek4",
     "count": 1
   }
 }

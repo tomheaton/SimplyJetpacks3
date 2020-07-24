@@ -2,7 +2,6 @@ package stormedpanda.simplyjetpacks;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -15,9 +14,6 @@ import stormedpanda.simplyjetpacks.lists.ItemList;
 public class ModRegistry {
 
 	public static final Logger LOGGER = SimplyJetpacks.LOGGER;
-	public static final ItemGroup tabSimplyJetpacks = SimplyJetpacks.tabSimplyJetpacks;
-
-	private static String location(String name) { return SimplyJetpacks.MODID + ":" + name; }
 
 	@SubscribeEvent
 	public static void registerItems(final RegistryEvent.Register<Item> event) {
@@ -42,7 +38,17 @@ public class ModRegistry {
 				ItemList.jetpack_ie2 = new JetpackItem("jetpack_ie2", JetpackType.IE2).setRegistryName("jetpack_ie2"),
 				ItemList.jetpack_ie2_armored = new JetpackItem("jetpack_ie2_armored", JetpackType.IE2_ARMORED).setRegistryName("jetpack_ie2_armored"),
 				ItemList.jetpack_ie3 = new JetpackItem("jetpack_ie3", JetpackType.IE3).setRegistryName("jetpack_ie3"),
-				ItemList.jetpack_ie3_armored = new JetpackItem("jetpack_ie3_armored", JetpackType.IE3_ARMORED).setRegistryName("jetpack_ie3_armored")
+				ItemList.jetpack_ie3_armored = new JetpackItem("jetpack_ie3_armored", JetpackType.IE3_ARMORED).setRegistryName("jetpack_ie3_armored"),
+
+				// Mekanism:
+				ItemList.jetpack_mek1 = new JetpackItem("jetpack_mek1", JetpackType.MEK1).setRegistryName("jetpack_mek1"),
+				ItemList.jetpack_mek1_armored = new JetpackItem("jetpack_mek1_armored", JetpackType.MEK1_ARMORED).setRegistryName("jetpack_mek1_armored"),
+				ItemList.jetpack_mek2 = new JetpackItem("jetpack_mek2", JetpackType.MEK2).setRegistryName("jetpack_mek2"),
+				ItemList.jetpack_mek2_armored = new JetpackItem("jetpack_mek2_armored", JetpackType.MEK2_ARMORED).setRegistryName("jetpack_mek2_armored"),
+				ItemList.jetpack_mek3 = new JetpackItem("jetpack_mek3", JetpackType.MEK3).setRegistryName("jetpack_mek3"),
+				ItemList.jetpack_mek3_armored = new JetpackItem("jetpack_mek3_armored", JetpackType.MEK3_ARMORED).setRegistryName("jetpack_mek3_armored"),
+				ItemList.jetpack_mek4 = new JetpackItem("jetpack_mek4", JetpackType.MEK4).setRegistryName("jetpack_mek4"),
+				ItemList.jetpack_mek4_armored = new JetpackItem("jetpack_mek4_armored", JetpackType.MEK4_ARMORED).setRegistryName("jetpack_mek4_armored")
 		);
 		LOGGER.info("Items registered.");
 	}

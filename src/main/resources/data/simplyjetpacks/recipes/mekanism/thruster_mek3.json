@@ -1,20 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "pmp",
-    "wcw",
-    "php"
+    "ici",
+    "ueu",
+    "iai"
   ],
   "key": {
-    "x": { "item": "immersiveengineering:plate_iron" },
-    "p": { "item": "forge:plates/iron" },
-    "m": { "item": "immersiveengineering:component_iron" },
-    "w": { "item": "immersiveengineering:wirecoil_copper" },
-    "c": { "item": "immersiveengineering:coil_lv" },
-    "h": { "item": "immersiveengineering:furnace_heater" }
+    "i": { "tag": "forge:ingots/osmium" },
+    "c": { "tag": "forge:circuits/elite" },
+    "u": { "item": "mekanism:elite_universal_cable" },
+    "e": { "item": "mekanism:elite_energy_cube" },
+    "a": { "tag": "forge:alloys/elite" }
   },
   "result": {
-    "item": "simplyjetpacks:thruster_ie1",
+    "item": "simplyjetpacks:thruster_mek3",
     "count": 1
   }
 }

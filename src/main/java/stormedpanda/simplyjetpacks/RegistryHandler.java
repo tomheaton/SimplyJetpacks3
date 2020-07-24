@@ -71,4 +71,22 @@ public class RegistryHandler {
             new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
     public static final RegistryObject<Item> ARMORPLATING_IE3 = ITEMS.register("armorplating_ie3", () ->
             new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+
+    // Mekanism:
+    public static final RegistryObject<Item> THRUSTER_MEK1 = ITEMS.register("thruster_mek1", () ->
+            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> THRUSTER_MEK2 = ITEMS.register("thruster_mek2", () ->
+            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> THRUSTER_MEK3 = ITEMS.register("thruster_mek3", () ->
+            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> THRUSTER_MEK4 = ITEMS.register("thruster_mek4", () ->
+            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> ARMORPLATING_MEK1 = ITEMS.register("armorplating_mek1", () ->
+            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> ARMORPLATING_MEK2 = ITEMS.register("armorplating_mek2", () ->
+            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> ARMORPLATING_MEK3 = ITEMS.register("armorplating_mek3", () ->
+            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> ARMORPLATING_MEK4 = ITEMS.register("armorplating_mek4", () ->
+            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
 }

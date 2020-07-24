@@ -2,7 +2,7 @@ package stormedpanda.simplyjetpacks;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import stormedpanda.simplyjetpacks.lists.ItemList;
 
 public class CreativeTabSimplyJetpacks extends ItemGroup {
 
@@ -12,7 +12,8 @@ public class CreativeTabSimplyJetpacks extends ItemGroup {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(Items.DIAMOND);
+        //return new ItemStack(Items.DIAMOND);
         //return new ItemStack(RegistryHandler.JETPACK_CREATIVE.get());
+        return new ItemStack(ItemList.jetpack_creative.getItem());
     }
 }
