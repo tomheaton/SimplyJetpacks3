@@ -97,12 +97,12 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         return new ModelJetpack(this);
     }*/
 
-    public String getBaseName(ItemStack stack) { return this.name; }
+    public String getBaseName() { return this.name; }
 
     public JetpackType getType() { return type; }
     @Override
     public boolean hasEffect(ItemStack stack) {
-        return (getBaseName(stack).contains("creative") || stack.isEnchanted());
+        return (getBaseName().contains("creative") || stack.isEnchanted());
     }
 
     @Override
@@ -215,7 +215,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public void information(ItemStack stack, JetpackItem item, List<ITextComponent> tooltip) {
         tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.tier", tier));
 
-        if (getBaseName(stack).contains("creative")) {
+        if (getBaseName().contains("creative")) {
             tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.infiniteEnergy"));
         } else {
             stack.getCapability(CapabilityEnergy.ENERGY).ifPresent(e -> tooltip.add(TextUtil.energyWithMax(e.getEnergyStored(), e.getMaxEnergyStored())));
@@ -232,7 +232,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         if (type.canEHover()) {
             tooltip.add(new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.emergencyHoverMode", (NBTHelper.getBoolean(stack, TAG_E_HOVER) ? on : off)));
         }
-        if (!getBaseName(stack).contains("creative")) {
+        if (!getBaseName().contains("creative")) {
             tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.itemJetpack.fuelUsage", type.getFuelUsage()));
         }
     }
@@ -251,7 +251,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
-        if (!getBaseName(stack).contains("creative")) {
+        if (!getBaseName().contains("creative")) {
             return true;
         } else { return false; }
     }
@@ -359,7 +359,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
             if ((flyKeyDown || hoverMode && !player.func_233570_aj_())) {
                 // TODO: replace this with an if uses fuel check
-                if (!getBaseName(stack).contains("creative")) {
+                if (!getBaseName().contains("creative")) {
                     // TODO: add fuel usage to this
                     //item.useFuel(stack, (int) (user.isSprinting() ? Math.round(this.getFuelUsage(stack) * Jetpack.values()[i].sprintFuelModifier) : this.getFuelUsage(stack)), false);
                     int amount = (int) (player.isSprinting() ? Math.round(getFuelUsage() * type.getSprintFuelModifier()) : getFuelUsage());

@@ -1,10 +1,13 @@
 package stormedpanda.simplyjetpacks;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particles.ParticleType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import stormedpanda.simplyjetpacks.integration.ModType;
+import stormedpanda.simplyjetpacks.lists.ModItemList;
+import stormedpanda.simplyjetpacks.util.AdvancementUtil;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,8 +21,6 @@ public class SyncHandler {
     private static final Map<PlayerEntity, Boolean> HOLDING_BACKWARDS = new HashMap<>();
     private static final Map<PlayerEntity, Boolean> HOLDING_LEFT = new HashMap<>();
     private static final Map<PlayerEntity, Boolean> HOLDING_RIGHT = new HashMap<>();
-
-    private static final Map<Integer, ParticleType> jetpackState = new HashMap<>();
 
     public static boolean isHoldingUp(PlayerEntity player) {
         return HOLDING_UP.containsKey(player) && HOLDING_UP.get(player);
@@ -54,19 +55,6 @@ public class SyncHandler {
         HOLDING_RIGHT.put(player, right);
     }
 
-    // TODO: particle system
-/*    public static void processJetpackUpdate(int entityId, ParticleType particleType) {
-        if(particleType != null) {
-            jetpackState.put(entityId, particleType);
-        } else {
-            jetpackState.remove(entityId);
-        }
-    }
-
-    public static Map<Integer, ParticleType> getJetpackStates() {
-        return jetpackState;
-    }*/
-
     public static void clear() {
         HOLDING_UP.clear();
         HOLDING_FORWARDS.clear();
@@ -85,6 +73,18 @@ public class SyncHandler {
         HOLDING_RIGHT.remove(player);
     }
 
+    public static void checkAdvancements(PlayerEntity player) {
+        if (ModItemList.integrateVanilla) {
+            AdvancementUtil.unlockAdvancement(player, "vanilla/root_vanilla");
+        }
+        if (ModItemList.integrateImmersiveEngineering) {
+            AdvancementUtil.unlockAdvancement(player, "immersiveengineering/root_immersiveengineering");
+        }
+        if (ModItemList.integrateMekanism) {
+            AdvancementUtil.unlockAdvancement(player, "mekanism/root_mekanism");
+        }
+    }
+
     @SubscribeEvent
     public void onLogout(PlayerEvent.PlayerLoggedOutEvent event) {
         remove(event.getPlayer());
@@ -93,5 +93,10 @@ public class SyncHandler {
     @SubscribeEvent
     public void onChangeDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
         remove(event.getPlayer());
+    }
+
+    @SubscribeEvent
+    public void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        checkAdvancements(event.getPlayer());
     }
 }

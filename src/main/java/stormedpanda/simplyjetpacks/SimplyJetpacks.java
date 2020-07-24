@@ -18,12 +18,14 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import stormedpanda.simplyjetpacks.client.handler.HUDHandler;
+import stormedpanda.simplyjetpacks.client.handler.ParticleHandler;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.crafting.PlatingReturnHandler;
 import stormedpanda.simplyjetpacks.gui.TestContainer;
 import stormedpanda.simplyjetpacks.gui.TestScreen;
 import stormedpanda.simplyjetpacks.items.JetpackType;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
+
 import java.util.stream.Collectors;
 
 @Mod(SimplyJetpacks.MODID)
@@ -67,6 +69,7 @@ public class SimplyJetpacks {
     }
 
     private void ClientSetup(final FMLClientSetupEvent event) {
+        MinecraftForge.EVENT_BUS.register(new ParticleHandler());
         LOGGER.info("Client Setup Method registered.");
         DeferredWorkQueue.runLater(() -> {
             ScreenManager.registerFactory(TestContainer.TYPE, TestScreen::new);

@@ -10,22 +10,22 @@ import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.client.model.JetpackModel;
 import stormedpanda.simplyjetpacks.config.DefaultJetpackConfig;
 import stormedpanda.simplyjetpacks.lists.ArmorMaterialList;
+
 import java.util.EnumSet;
 import java.util.function.BiFunction;
 
 public enum JetpackType {
-    IRON("jetpack_iron", 1, "jetpackIron"),
-    IRON_ARMORED("jetpack_iron_armored", 1, "jetpackIron", true, 0),
-    GOLD("jetpack_gold", 2, "jetpackGold"),
-    GOLD_ARMORED("jetpack_gold_armored", 2, "jetpackGold", true, 1),
-    DIAMOND("jetpack_diamond", 3, "jetpackDiamond"),
-    DIAMOND_ARMORED("jetpack_diamond_armored", 3, "jetpackDiamond", true, 2),
-    NETHERITE("jetpack_netherite", 4, "jetpackDiamond"),
-    NETHERITE_ARMORED("jetpack_netherite_armored", 4, "jetpackDiamond", true, 3),
     CREATIVE("jetpack_creative", 6, "jetpackCreative"),
     CREATIVE_ARMORED("jetpack_creative_armored", 6, "jetpackCreative", true),
-    TEST("jetpack_test", 69, "jetpackDiamond"),
-    TEST_ARMORED("jetpack_test_armored", 69, "jetpackDiamond", true),
+
+    VANILLA1("jetpack_vanilla1", 1, "jetpackIron"),
+    VANILLA1_ARMORED("jetpack_vanilla1_armored", 1, "jetpackIron", true, 0),
+    VANILLA2("jetpack_vanilla2", 2, "jetpackGold"),
+    VANILLA2_ARMORED("jetpack_vanilla2_armored", 2, "jetpackGold", true, 1),
+    VANILLA3("jetpack_vanilla3", 3, "jetpackDiamond"),
+    VANILLA3_ARMORED("jetpack_vanilla3_armored", 3, "jetpackDiamond", true, 2),
+    VANILLA4("jetpack_vanilla4", 4, "jetpackDiamond"),
+    VANILLA4_ARMORED("jetpack_vanilla4_armored", 4, "jetpackDiamond", true, 3),
 
     IE1("jetpack_ie1", 1, "jetpackIron"),
     IE1_ARMORED("jetpack_ie1_armored", 1, "jetpackIron", true, 4),
@@ -97,7 +97,7 @@ public enum JetpackType {
         this.name = name;
         this.tier = tier;
         this.getArmorApplier = new JetpackModel()::applyData;
-        this.armorTexture = new ResourceLocation(("simplyjetpacks:textures/armor/" + name + ".png"));
+        this.armorTexture = new ResourceLocation(("simplyjetpacks:textures/models/armor/" + name + ".png"));
         this.isArmored = false;
         this.properties = new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks).maxStackSize(1);
         //this.defaults = DefaultJetpackConfig.get(name);

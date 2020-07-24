@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "simplyjetpacks:jetpack_iron"
+      "item": "minecraft:elytra"
     },
     "title": {
       "translate": "advancements.simplyjetpacks.vanilla.title"
@@ -15,21 +15,15 @@
     "hidden": false
   },
   "criteria": {
-    "vanilla": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "simplyjetpacks:jetpack_iron",
-            "count": {
-              "min": 1,
-              "max": 1
-            }
-          }
-        ]
-      }
+    "code_trigger": {
+      "trigger": "minecraft:impossible"
     }
   },
+  "requirements": [
+    [
+      "code_trigger"
+    ]
+  ],
   "rewards": {
     "experience": 1
   },

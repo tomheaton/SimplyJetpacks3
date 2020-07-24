@@ -33,9 +33,12 @@ public class RegistryHandler {
     // Containers:
     public static final RegistryObject<ContainerType<TestContainer>> TEST_CONTAINER = CONTAINERS.register("test_container", () -> IForgeContainerType.create((id, inv, data) -> new TestContainer(id, inv)));
 
-    // Vanilla:
+    // Simply Jetpacks:
     public static final RegistryObject<Item> PILOT_GOGGLES = ITEMS.register("pilot_goggles", PilotGogglesItem::new);
-
+    public static final RegistryObject<Item> LEATHER_STRAP = ITEMS.register("leather_strap", () ->
+            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> JETPACK_POTATO = ITEMS.register("jetpack_potato", () ->
+            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
     public static final RegistryObject<Item> PARTICLE_NONE = ITEMS.register("particle_none", () ->
             new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
     public static final RegistryObject<Item> PARTICLE_DEFAULT = ITEMS.register("particle_default", () ->
@@ -45,17 +48,14 @@ public class RegistryHandler {
     public static final RegistryObject<Item> PARTICLE_RAINBOW = ITEMS.register("particle_rainbow", () ->
             new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
 
-    public static final RegistryObject<Item> LEATHER_STRAP = ITEMS.register("leather_strap", () ->
+    // Vanilla:
+    public static final RegistryObject<Item> THRUSTER_VANILLA1 = ITEMS.register("thruster_vanilla1", () ->
             new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> JETPACK_POTATO = ITEMS.register("jetpack_potato", () ->
+    public static final RegistryObject<Item> THRUSTER_VANILLA2 = ITEMS.register("thruster_vanilla2", () ->
             new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> THRUSTER_IRON = ITEMS.register("thruster_iron", () ->
+    public static final RegistryObject<Item> THRUSTER_VANILLA3 = ITEMS.register("thruster_vanilla3", () ->
             new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> THRUSTER_GOLD = ITEMS.register("thruster_gold", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> THRUSTER_DIAMOND = ITEMS.register("thruster_diamond", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> THRUSTER_NETHERITE = ITEMS.register("thruster_netherite", () ->
+    public static final RegistryObject<Item> THRUSTER_VANILLA4 = ITEMS.register("thruster_vanilla4", () ->
             new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
 
     // Immersive Engineering:

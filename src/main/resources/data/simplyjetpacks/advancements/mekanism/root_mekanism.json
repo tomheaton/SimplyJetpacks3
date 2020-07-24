@@ -12,24 +12,18 @@
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
-    "hidden": false
+    "hidden": true
   },
   "criteria": {
-    "mekanism": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "simplyjetpacks:jetpack_mek1",
-            "count": {
-              "min": 1,
-              "max": 1
-            }
-          }
-        ]
-      }
+    "code_trigger": {
+      "trigger": "minecraft:impossible"
     }
   },
+  "requirements": [
+    [
+      "code_trigger"
+    ]
+  ],
   "rewards": {
     "experience": 1
   },
