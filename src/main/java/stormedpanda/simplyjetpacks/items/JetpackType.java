@@ -1,18 +1,15 @@
 package stormedpanda.simplyjetpacks.items;
 
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
-import stormedpanda.simplyjetpacks.client.model.JetpackModel;
 import stormedpanda.simplyjetpacks.config.DefaultJetpackConfig;
+import stormedpanda.simplyjetpacks.integration.IntegrationList;
 import stormedpanda.simplyjetpacks.lists.ArmorMaterialList;
 
 import java.util.EnumSet;
-import java.util.function.BiFunction;
 
 public enum JetpackType {
     CREATIVE("jetpack_creative", 6, "jetpackCreative"),
@@ -49,18 +46,19 @@ public enum JetpackType {
     private int capacity;
     private int maxReceive;
     private int maxExtract;
-    //private final BiFunction<BipedModel, EquipmentSlotType, BipedModel<?>> getArmorApplier;
-    //private final BipedModel getArmorApplier;
     private final ResourceLocation armorTexture;
     private boolean isArmored;
     private int platingID;
-    private Item platingItem;
     private final Item.Properties properties;
     private boolean usesFuel;
     private Rarity rarity;
 
+    protected static final EnumSet<JetpackType> JETPACK_ALL = EnumSet.allOf(JetpackType.class);
+    public static final EnumSet<JetpackType> JETPACK_SJ = EnumSet.range(CREATIVE, CREATIVE_ARMORED);
+    public static final EnumSet<JetpackType> JETPACK_VANILLA = EnumSet.range(VANILLA1, VANILLA4_ARMORED);
+    public static final EnumSet<JetpackType> JETPACK_IE = EnumSet.range(IE1, IE3_ARMORED);
+    public static final EnumSet<JetpackType> JETPACK_MEK = EnumSet.range(MEK1, MEK4_ARMORED);
     // Configurations:
-    protected static final EnumSet<JetpackType> ALL_PACKS = EnumSet.allOf(JetpackType.class);
     public final DefaultJetpackConfig defaults;
     //public int fuelCapacity;
     //public int fuelPerTickIn;
@@ -91,18 +89,14 @@ public enum JetpackType {
         this(name, tier, defaultConfigKey);
         this.isArmored = isArmored;
         this.platingID = platingID;
-        //this.platingItem = platingItem;
     }
 
     JetpackType(String name, int tier, String defaultConfigKey) {
         this.name = name;
         this.tier = tier;
-        //this.getArmorApplier = new JetpackModel()::applyData;
-        //this.getArmorApplier = new JetpackModel();
         this.armorTexture = new ResourceLocation(("simplyjetpacks:textures/models/armor/" + name + ".png"));
         this.isArmored = false;
         this.properties = new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks).maxStackSize(1);
-        //this.defaults = DefaultJetpackConfig.get(name);
         this.defaults = DefaultJetpackConfig.get(defaultConfigKey);
         //this.usesFuel = true;
     }
@@ -161,22 +155,12 @@ public enum JetpackType {
         return emergencyHoverMode;
     }
 
-/*    public BiFunction<BipedModel, EquipmentSlotType, BipedModel<?>> getArmorApplier() {
-        return getArmorApplier;
-    }*/
-
-/*    public BipedModel getArmorApplier() {
-        return getArmorApplier;
-    }*/
-
     public String getArmorTexture() {
         return armorTexture.toString();
     }
 
     public IArmorMaterial getArmorMaterial() {
-        if (isArmored) {
-            return ArmorMaterialList.JETPACK_ARMORED;
-        } else { return ArmorMaterialList.JETPACK; }
+        return isArmored ? ArmorMaterialList.JETPACK_ARMORED : ArmorMaterialList.JETPACK;
     }
 
     public boolean getIsArmored() {
@@ -191,14 +175,27 @@ public enum JetpackType {
         return platingID;
     }
 
-    public Item getPlatingItem() {
-        return platingItem;
-    }
-
     public static void loadAllConfigs() {
-        for (JetpackType jetpackType : ALL_PACKS) {
+/*        for (JetpackType jetpackType : JETPACK_ALL) {
             jetpackType.loadJetpackConfigurations();
-            //SimplyJetpacks.LOGGER.info("LOADED CONFIG FOR: " + jetpackType.getName());
+        }*/
+        for (JetpackType jetpackType : JETPACK_SJ) {
+            jetpackType.loadJetpackConfigurations();
+        }
+        if (IntegrationList.integrateVanilla) {
+            for (JetpackType jetpackType : JETPACK_VANILLA) {
+                jetpackType.loadJetpackConfigurations();
+            }
+        }
+        if (IntegrationList.integrateVanilla) {
+            for (JetpackType jetpackType : JETPACK_IE) {
+                jetpackType.loadJetpackConfigurations();
+            }
+        }
+        if (IntegrationList.integrateVanilla) {
+            for (JetpackType jetpackType : JETPACK_MEK) {
+                jetpackType.loadJetpackConfigurations();
+            }
         }
     }
 

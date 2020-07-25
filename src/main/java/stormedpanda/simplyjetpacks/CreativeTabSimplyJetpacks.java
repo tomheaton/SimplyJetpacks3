@@ -2,7 +2,8 @@ package stormedpanda.simplyjetpacks;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import stormedpanda.simplyjetpacks.lists.ItemList;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class CreativeTabSimplyJetpacks extends ItemGroup {
 
@@ -10,10 +11,10 @@ public class CreativeTabSimplyJetpacks extends ItemGroup {
         super(SimplyJetpacks.MODID + ".main");
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public ItemStack createIcon() {
         //return new ItemStack(Items.DIAMOND);
-        //return new ItemStack(RegistryHandler.JETPACK_CREATIVE.get());
-        return new ItemStack(ItemList.jetpack_creative.getItem());
+        return new ItemStack(RegistryHandler.JETPACK_CREATIVE.get());
     }
 }

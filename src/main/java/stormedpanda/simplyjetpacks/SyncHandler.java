@@ -4,8 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import stormedpanda.simplyjetpacks.integration.ModType;
-import stormedpanda.simplyjetpacks.lists.ModItemList;
+import stormedpanda.simplyjetpacks.integration.IntegrationList;
 import stormedpanda.simplyjetpacks.util.AdvancementUtil;
 
 import java.util.HashMap;
@@ -74,13 +73,13 @@ public class SyncHandler {
     }
 
     public static void checkAdvancements(PlayerEntity player) {
-        if (ModItemList.integrateVanilla) {
+        if (IntegrationList.integrateVanilla) {
             AdvancementUtil.unlockAdvancement(player, "vanilla/root_vanilla");
         }
-        if (ModItemList.integrateImmersiveEngineering) {
+        if (IntegrationList.integrateImmersiveEngineering) {
             AdvancementUtil.unlockAdvancement(player, "immersiveengineering/root_immersiveengineering");
         }
-        if (ModItemList.integrateMekanism) {
+        if (IntegrationList.integrateMekanism) {
             AdvancementUtil.unlockAdvancement(player, "mekanism/root_mekanism");
         }
     }

@@ -39,60 +39,41 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyContainerItem { //IEnergyStorage {
+public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyContainerItem {
 
     public static final String TAG_ENERGY = "Energy";
     public static final String TAG_ENGINE = "Engine";
     public static final String TAG_HOVER = "Hover";
     public static final String TAG_E_HOVER = "EmergencyHover";
 
-    private final int capacity;// = 10000;
-    private final int maxReceive;// = 100;
-    private final int maxExtract;// = 100;
+    private final int capacity;
+    private final int maxReceive;
+    private final int maxExtract;
 
     private final JetpackType type;
-
     public String name;
-    //private BiFunction<BipedModel, EquipmentSlotType, BipedModel<?>> armorApplier;
-    private BipedModel armorApplier;
-    private String armorTexture;
+    private final String armorTexture;
     public final int tier;
 
-/*    @SuppressWarnings("rawtypes")
-    public ItemJetpack(String name, IArmorMaterial material, EquipmentSlotType slot, Properties properties, BiFunction<BipedModel, EquipmentSlotType, BipedModel<?>> armorApplier, ResourceLocation armorTexture) {
-        super(material, slot, properties);
-        this.name = name;
-        this.armorApplier = armorApplier;
-        this.armorTexture = armorTexture.toString();
-    }*/
-
-    public JetpackItem(String name, JetpackType type) {
-        //super(material, EquipmentSlotType.CHEST, properties);
+    public JetpackItem(JetpackType type) {
         super(type.getArmorMaterial(), EquipmentSlotType.CHEST, type.getProperties());
-        this.name = name;
+        this.name = type.getName();
         this.tier = type.getTier();
-        //this.armorApplier = type.getArmorApplier();
-        this.armorTexture = type.getArmorTexture();//armorTexture.toString();
+        this.armorTexture = type.getArmorTexture();
         this.type = type;
         this.capacity = type.getCapacity();
         this.maxReceive = type.getMaxReceive();
         this.maxExtract = type.getMaxExtract();
     }
 
-    @Nullable
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-        //return type == null ? SimplyJetpacks.MODID + ":textures/armor/jetpack.png" : SimplyJetpacks.MODID + ":textures/armor/jetpack_overlay.png";
         return armorTexture;
     }
 
-/*    @Nullable
-    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default) {
-        return (A) armorApplier.apply(_default, armorSlot);
-    }*/
+    @SuppressWarnings("rawtypes")
     @OnlyIn(Dist.CLIENT)
     @Override
     public BipedModel getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, BipedModel _default) {
-        //return new JetpackModel(this);
         return new JetpackModel().applyData(_default);
     }
 
@@ -241,9 +222,9 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     // TODO: get the energy-full variants to show up in NEI
     @Override
-    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+    public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
         super.fillItemGroup(group, items);
-        if (this.isInGroup(group) && !this.name.contains("creative")) {
+        if (this.isInGroup(group) && !getBaseName().contains("creative")) {
             //items.add(new ItemStack(this));
             ItemStack full = new ItemStack(this);
             full.getOrCreateTag().putInt(TAG_ENERGY, capacity);
@@ -253,9 +234,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
-        if (!getBaseName().contains("creative")) {
-            return true;
-        } else { return false; }
+        return !getBaseName().contains("creative");
     }
 
     @Override
@@ -269,6 +248,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         return 0x23e232;
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void addHUDInfo(List<ITextComponent> list, ItemStack stack) {
         list.add(new StringTextComponent("Energy: " + getEnergyStored(stack) + " FE"));

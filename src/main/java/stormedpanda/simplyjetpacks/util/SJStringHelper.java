@@ -156,21 +156,4 @@ public abstract class SJStringHelper {
 			return new TranslationTextComponent(toLocalize);
 		}
 	}
-
-/*	public static void addDescriptionLines(List<String> list, String base, String color) {
-		int i = 1;
-		while (true) {
-			String unlocalized = "simplyjetpacks:tooltip." + base + ".description." + i;
-			//String localized = translateToLocal(unlocalized);
-			if (unlocalized.equals(localized)) {
-				break;
-			}
-			list.add(color + localized);
-			i++;
-		}
-	}*/
-
-	/*public static void addDescriptionLines(List<String> list, String base) {
-		addDescriptionLines(list, base, "");
-	}*/
 }

@@ -20,12 +20,6 @@ public class NetworkHandler {
     public static void registerMessages() {
         CHANNEL_INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(SimplyJetpacks.MODID, "simplyjetpacks"), () -> "1.0", s -> true, s -> true);
 
-        CHANNEL_INSTANCE.messageBuilder(PacketToggleGui.class, nextID())
-                .encoder(PacketToggleGui::toBytes)
-                .decoder(PacketToggleGui::new)
-                .consumer(PacketToggleGui::handle)
-                .add();
-
         CHANNEL_INSTANCE.messageBuilder(PacketToggleEngine.class, nextID())
                 .encoder(PacketToggleEngine::toBytes)
                 .decoder(PacketToggleEngine::new)

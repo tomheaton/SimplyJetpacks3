@@ -57,7 +57,6 @@ public class KeybindHandler {
         if (chestItem instanceof JetpackItem) {
             jetpack = (JetpackItem) chestItem;
             if(JETPACK_GUI_KEY.isPressed()) {
-                //NetworkHandler.sendToServer(new PacketToggleGui());
                 Minecraft.getInstance().displayGuiScreen(new JetpackGuiScreen());
             }
             if (JETPACK_ENGINE_KEY.isPressed()) {

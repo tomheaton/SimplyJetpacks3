@@ -1,10 +1,8 @@
-package stormedpanda.simplyjetpacks.lists;
+package stormedpanda.simplyjetpacks.integration;
 
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
-import stormedpanda.simplyjetpacks.integration.ModType;
 
-public class ModItemList {
-
+public class IntegrationList {
     public static boolean integrateVanilla = SimplyJetpacksConfig.enableIntegrationVanilla;
     public static boolean integrateMekanism = ModType.MEKANISM.loaded && SimplyJetpacksConfig.enableIntegrationMekanism;
     public static boolean integrateImmersiveEngineering = ModType.IMMERSIVE_ENGINEERING.loaded && SimplyJetpacksConfig.enableIntegrationImmersiveEngineering;

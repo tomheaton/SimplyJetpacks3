@@ -19,7 +19,6 @@ public class JetpackModel extends BipedModel<PlayerEntity> {
 	private final ModelRenderer rightExhaust2;
 
 	public JetpackModel() {
-		//super(0f, 0f, 0, 0);
 		super(1f, 0f, 64, 64);
 		textureWidth = 64;
 		textureHeight = 64;
@@ -83,7 +82,6 @@ public class JetpackModel extends BipedModel<PlayerEntity> {
 	}
 
 	private void setupCustomModel() {
-
 		bipedBody.addChild(middle);
 		middle.addBox(-2F, 3F, 3.6F, 4, 5, 2);
 		bipedBody.addChild(leftCanister);
@@ -106,54 +104,15 @@ public class JetpackModel extends BipedModel<PlayerEntity> {
 		rightExhaust1.addBox(-4F, 9F, 3.1F, 3, 1, 3);
 		bipedBody.addChild(rightExhaust2);
 		rightExhaust2.addBox(-4.5F, 10F, 2.6F, 4, 3, 4);
-
 	}
 
 	@SuppressWarnings("rawtypes")
-	//public BipedModel<PlayerEntity> applyData(BipedModel defaultArmor, EquipmentSlotType slot) {
 	public BipedModel<PlayerEntity> applyData(BipedModel defaultArmor) {
 		this.isChild = defaultArmor.isChild;
 		this.isSneak = defaultArmor.isSneak;
 		this.isSitting = defaultArmor.isSitting;
 		this.rightArmPose = defaultArmor.rightArmPose;
 		this.leftArmPose = defaultArmor.leftArmPose;
-
-		middle.showModel = false;
-		leftCanister.showModel = false;
-		rightCanister.showModel = false;
-		leftTip1.showModel = false;
-		leftTip2.showModel = false;
-		rightTip1.showModel = false;
-		rightTip2.showModel = false;
-		leftExhaust1.showModel = false;
-		leftExhaust2.showModel = false;
-		rightExhaust1.showModel = false;
-		rightExhaust2.showModel = false;
-
-/*		switch(slot){
-			case HEAD:
-				break;
-			case CHEST:
-				middle.showModel = true;
-				leftCanister.showModel = true;
-				rightCanister.showModel = true;
-				leftTip1.showModel = true;
-				leftTip2.showModel = true;
-				rightTip1.showModel = true;
-				rightTip2.showModel = true;
-				leftExhaust1.showModel = true;
-				leftExhaust2.showModel = true;
-				rightExhaust1.showModel = true;
-				rightExhaust2.showModel = true;
-				break;
-			case LEGS:
-				break;
-			case FEET:
-				break;
-			default:
-				break;
-		}*/
-
 		middle.showModel = true;
 		leftCanister.showModel = true;
 		rightCanister.showModel = true;
