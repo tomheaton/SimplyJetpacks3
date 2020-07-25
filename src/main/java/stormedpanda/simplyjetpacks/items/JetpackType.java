@@ -49,7 +49,8 @@ public enum JetpackType {
     private int capacity;
     private int maxReceive;
     private int maxExtract;
-    private final BiFunction<BipedModel, EquipmentSlotType, BipedModel<?>> getArmorApplier;
+    //private final BiFunction<BipedModel, EquipmentSlotType, BipedModel<?>> getArmorApplier;
+    //private final BipedModel getArmorApplier;
     private final ResourceLocation armorTexture;
     private boolean isArmored;
     private int platingID;
@@ -96,7 +97,8 @@ public enum JetpackType {
     JetpackType(String name, int tier, String defaultConfigKey) {
         this.name = name;
         this.tier = tier;
-        this.getArmorApplier = new JetpackModel()::applyData;
+        //this.getArmorApplier = new JetpackModel()::applyData;
+        //this.getArmorApplier = new JetpackModel();
         this.armorTexture = new ResourceLocation(("simplyjetpacks:textures/models/armor/" + name + ".png"));
         this.isArmored = false;
         this.properties = new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks).maxStackSize(1);
@@ -159,10 +161,13 @@ public enum JetpackType {
         return emergencyHoverMode;
     }
 
-
-    public BiFunction<BipedModel, EquipmentSlotType, BipedModel<?>> getArmorApplier() {
+/*    public BiFunction<BipedModel, EquipmentSlotType, BipedModel<?>> getArmorApplier() {
         return getArmorApplier;
-    }
+    }*/
+
+/*    public BipedModel getArmorApplier() {
+        return getArmorApplier;
+    }*/
 
     public String getArmorTexture() {
         return armorTexture.toString();
@@ -193,7 +198,7 @@ public enum JetpackType {
     public static void loadAllConfigs() {
         for (JetpackType jetpackType : ALL_PACKS) {
             jetpackType.loadJetpackConfigurations();
-            SimplyJetpacks.LOGGER.info("LOADED CONFIG FOR: " + jetpackType.getName());
+            //SimplyJetpacks.LOGGER.info("LOADED CONFIG FOR: " + jetpackType.getName());
         }
     }
 

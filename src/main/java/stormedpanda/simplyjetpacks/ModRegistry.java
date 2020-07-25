@@ -5,15 +5,12 @@ import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.apache.logging.log4j.Logger;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
 import stormedpanda.simplyjetpacks.items.JetpackType;
 import stormedpanda.simplyjetpacks.lists.ItemList;
 
 @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class ModRegistry {
-
-	public static final Logger LOGGER = SimplyJetpacks.LOGGER;
 
 	@SubscribeEvent
 	public static void registerItems(final RegistryEvent.Register<Item> event) {
@@ -50,12 +47,12 @@ public class ModRegistry {
 				ItemList.jetpack_mek4 = new JetpackItem("jetpack_mek4", JetpackType.MEK4).setRegistryName("jetpack_mek4"),
 				ItemList.jetpack_mek4_armored = new JetpackItem("jetpack_mek4_armored", JetpackType.MEK4_ARMORED).setRegistryName("jetpack_mek4_armored")
 		);
-		LOGGER.info("Items registered.");
+		SimplyJetpacks.LOGGER.info("Items registered.");
 	}
 
 	@SubscribeEvent
 	public static void registerBlocks(final RegistryEvent.Register<Block> event) {
 		event.getRegistry().registerAll( );
-		LOGGER.info("Blocks registered.");
+		SimplyJetpacks.LOGGER.info("Blocks registered.");
 	}
 }

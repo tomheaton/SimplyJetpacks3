@@ -3,7 +3,6 @@ package stormedpanda.simplyjetpacks.client.model;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 
 public class JetpackModel extends BipedModel<PlayerEntity> {
 
@@ -111,8 +110,8 @@ public class JetpackModel extends BipedModel<PlayerEntity> {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public BipedModel<PlayerEntity> applyData(BipedModel defaultArmor, EquipmentSlotType slot) {
-	//public BipedModel<PlayerEntity> applyData(BipedModel defaultArmor) {
+	//public BipedModel<PlayerEntity> applyData(BipedModel defaultArmor, EquipmentSlotType slot) {
+	public BipedModel<PlayerEntity> applyData(BipedModel defaultArmor) {
 		this.isChild = defaultArmor.isChild;
 		this.isSneak = defaultArmor.isSneak;
 		this.isSitting = defaultArmor.isSitting;

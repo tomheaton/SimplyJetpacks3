@@ -10,18 +10,17 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
+import stormedpanda.simplyjetpacks.gui.JetpackGuiScreen;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
-import stormedpanda.simplyjetpacks.network.packets.*;
+import stormedpanda.simplyjetpacks.network.packets.PacketToggleEngine;
+import stormedpanda.simplyjetpacks.network.packets.PacketToggleHover;
+import stormedpanda.simplyjetpacks.network.packets.PacketToggleTestGui;
+import stormedpanda.simplyjetpacks.network.packets.PacketUpdateInput;
 
-@Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class KeybindHandler {
 
-    public static final KeybindHandler instance = new KeybindHandler();
-
-    static final Minecraft mc = Minecraft.getInstance();
     private static int flyKey;
     private static int descendKey;
     private static boolean lastFlyState = false;
@@ -47,39 +46,34 @@ public class KeybindHandler {
         ClientRegistry.registerKeyBinding(TEST_KEY);
     }
 
-    // TODO: Clean this up
     @SubscribeEvent
-    public static void onKeyInput(InputEvent.KeyInputEvent event) {
+    public void onKeyInput(InputEvent.KeyInputEvent event) {
         PlayerEntity player = Minecraft.getInstance().player;
         if (player == null) return;
-
         ItemStack chestStack = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
         Item chestItem = null;
         JetpackItem jetpack;
         if(!chestStack.isEmpty()) { chestItem = chestStack.getItem(); }
-
         if (chestItem instanceof JetpackItem) {
             jetpack = (JetpackItem) chestItem;
             if(JETPACK_GUI_KEY.isPressed()) {
-                //SimplyJetpacks.LOGGER.info("Jetpack GUI key pressed");
-                NetworkHandler.sendToServer(new PacketToggleGui());
+                //NetworkHandler.sendToServer(new PacketToggleGui());
+                Minecraft.getInstance().displayGuiScreen(new JetpackGuiScreen());
             }
             if (JETPACK_ENGINE_KEY.isPressed()) {
-                //SimplyJetpacks.LOGGER.info("Jetpack Engine key pressed");
                 NetworkHandler.sendToServer(new PacketToggleEngine());
             }
             if (JETPACK_HOVER_KEY.isPressed()) {
-                //SimplyJetpacks.LOGGER.info("Jetpack Hover key pressed");
                 NetworkHandler.sendToServer(new PacketToggleHover());
             }
             if (TEST_KEY.isPressed()) {
-                //SimplyJetpacks.LOGGER.info("TEST key pressed");
                 NetworkHandler.sendToServer(new PacketToggleTestGui());
             }
         }
     }
 
     private static void tickStart() {
+        Minecraft mc = Minecraft.getInstance();
         if (mc.player != null) {
             boolean flyState;
             boolean descendState;
@@ -111,7 +105,7 @@ public class KeybindHandler {
     }
 
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent evt) {
+    public void onClientTick(TickEvent.ClientTickEvent evt) {
         if (evt.phase == TickEvent.Phase.START) {
             tickStart();
         }

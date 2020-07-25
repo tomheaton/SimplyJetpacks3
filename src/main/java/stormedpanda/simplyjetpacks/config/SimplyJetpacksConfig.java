@@ -118,6 +118,14 @@ public class SimplyJetpacksConfig {
         }
     }
 
+    public static class Server {
+
+        public Server(ForgeConfigSpec.Builder builder) {
+            builder.comment("Simply Jetpacks 3 - Server Configurations").push("simplyjetpacks-server");
+            builder.pop();
+        }
+    }
+
     public static final ForgeConfigSpec COMMON_SPEC;
     public static final Common COMMON;
     static {
@@ -132,6 +140,14 @@ public class SimplyJetpacksConfig {
         final Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
         CLIENT_SPEC = specPair.getRight();
         CLIENT = specPair.getLeft();
+    }
+
+    public static final ForgeConfigSpec SERVER_SPEC;
+    public static final Server SERVER;
+    static {
+        final Pair<Server, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Server::new);
+        SERVER_SPEC = specPair.getRight();
+        SERVER = specPair.getLeft();
     }
 
     @SubscribeEvent

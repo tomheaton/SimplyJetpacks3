@@ -3,7 +3,6 @@ package stormedpanda.simplyjetpacks;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -49,9 +48,7 @@ public class SimplyJetpacks {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(KeybindHandler.class);
         MinecraftForge.EVENT_BUS.register(new SyncHandler());
-        MinecraftForge.EVENT_BUS.register(new HUDHandler());
         MinecraftForge.EVENT_BUS.register(new PlatingReturnHandler());
         MinecraftForge.EVENT_BUS.register(new EnergyTransferHandler());
         MinecraftForge.EVENT_BUS.register(new ModSounds());
@@ -59,24 +56,27 @@ public class SimplyJetpacks {
         // TODO: get all configs in one folder
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SimplyJetpacksConfig.CLIENT_SPEC, "simplyjetpacks-client.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_SPEC, "simplyjetpacks-common.toml");
-        //ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SimplyJetpacksConfig.SERVER_SPEC, "simplyjetpacks-server.toml"); // TODO: add Server Config
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SimplyJetpacksConfig.SERVER_SPEC, "simplyjetpacks-server.toml");
 
-        RegistryHandler.init();
         JetpackType.loadAllConfigs();
+        RegistryHandler.init();
     }
 
     private void CommonSetup(final FMLCommonSetupEvent event) {
         LOGGER.info("Common Setup Method registered.");
-        KeybindHandler.setup();
+
         NetworkHandler.registerMessages();
     }
 
     private void ClientSetup(final FMLClientSetupEvent event) {
-        MinecraftForge.EVENT_BUS.register(new ParticleHandler());
         LOGGER.info("Client Setup Method registered.");
-        DeferredWorkQueue.runLater(() -> {
-            ScreenManager.registerFactory(TestContainer.TYPE, TestScreen::new);
-        });
+
+        MinecraftForge.EVENT_BUS.register(new KeybindHandler());
+        MinecraftForge.EVENT_BUS.register(new ParticleHandler());
+        MinecraftForge.EVENT_BUS.register(new HUDHandler());
+        KeybindHandler.setup();
+
+        ScreenManager.registerFactory(TestContainer.TYPE, TestScreen::new);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
@@ -95,6 +95,7 @@ public class SimplyJetpacks {
     @SubscribeEvent
     public void onServerStopping(FMLServerStoppingEvent event) {
         LOGGER.info("Server stopping...");
+
         SyncHandler.clear();
     }
 }

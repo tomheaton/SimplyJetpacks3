@@ -1,8 +1,8 @@
 package stormedpanda.simplyjetpacks.network.packets;
 
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
-import stormedpanda.simplyjetpacks.gui.JetpackGuiScreen;
 
 import java.util.function.Supplier;
 
@@ -18,7 +18,8 @@ public class PacketToggleGui {
     }
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork(JetpackGuiScreen::open);
+        ServerPlayerEntity player = ctx.get().getSender();
+        //ctx.get().enqueueWork(JetpackGuiScreen::open);
         ctx.get().setPacketHandled(true);
     }
 }

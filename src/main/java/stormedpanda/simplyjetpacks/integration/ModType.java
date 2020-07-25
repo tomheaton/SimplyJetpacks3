@@ -20,7 +20,6 @@ public enum ModType {
 
         for (String s : this.modids) {
             if (!ModList.get().isLoaded(s)) {
-                SimplyJetpacks.LOGGER.info("mod is loaded : " + s + ModList.get().isLoaded(s) );
                 this.loaded = false;
                 return;
             }

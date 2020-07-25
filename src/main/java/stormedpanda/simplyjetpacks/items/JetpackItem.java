@@ -28,6 +28,7 @@ import stormedpanda.simplyjetpacks.SyncHandler;
 import stormedpanda.simplyjetpacks.capability.CapabilityProviderEnergy;
 import stormedpanda.simplyjetpacks.capability.EnergyConversionStorage;
 import stormedpanda.simplyjetpacks.client.IHUDInfoProvider;
+import stormedpanda.simplyjetpacks.client.model.JetpackModel;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.util.KeyboardUtil;
 import stormedpanda.simplyjetpacks.util.NBTHelper;
@@ -37,7 +38,6 @@ import stormedpanda.simplyjetpacks.util.TextUtil;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.function.BiFunction;
 
 public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyContainerItem { //IEnergyStorage {
 
@@ -53,8 +53,8 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     private final JetpackType type;
 
     public String name;
-    @SuppressWarnings("rawtypes")
-    private BiFunction<BipedModel, EquipmentSlotType, BipedModel<?>> armorApplier;
+    //private BiFunction<BipedModel, EquipmentSlotType, BipedModel<?>> armorApplier;
+    private BipedModel armorApplier;
     private String armorTexture;
     public final int tier;
 
@@ -71,7 +71,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         super(type.getArmorMaterial(), EquipmentSlotType.CHEST, type.getProperties());
         this.name = name;
         this.tier = type.getTier();
-        this.armorApplier = type.getArmorApplier();
+        //this.armorApplier = type.getArmorApplier();
         this.armorTexture = type.getArmorTexture();//armorTexture.toString();
         this.type = type;
         this.capacity = type.getCapacity();
@@ -81,21 +81,20 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     @Nullable
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
+        //return type == null ? SimplyJetpacks.MODID + ":textures/armor/jetpack.png" : SimplyJetpacks.MODID + ":textures/armor/jetpack_overlay.png";
         return armorTexture;
     }
-/*    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-        return type == null ? SimplyJetpacks.MODID + ":textures/armor/jetpack.png" : SimplyJetpacks.MODID + ":textures/armor/jetpack_overlay.png";
-    }*/
 
-    @SuppressWarnings("unchecked")
-    @OnlyIn(Dist.CLIENT)
-    @Nullable
+/*    @Nullable
     public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default) {
         return (A) armorApplier.apply(_default, armorSlot);
-    }
-/*    public BipedModel getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType slot, BipedModel _default) {
-        return new ModelJetpack(this);
     }*/
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public BipedModel getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, BipedModel _default) {
+        //return new JetpackModel(this);
+        return new JetpackModel().applyData(_default);
+    }
 
     public String getBaseName() { return this.name; }
 
@@ -109,6 +108,10 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         super.onArmorTick(stack, world, player);
         flyUser(player, stack, this);
+    }
+
+    public int getCapacity() {
+        return capacity;
     }
 
     // TESTING
@@ -177,10 +180,9 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public boolean canExtract() {
         return true;
     }
-
     //@Override
     public boolean canReceive() {
-        return false;
+        return true;
     }
 
     @Override
@@ -319,13 +321,6 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
             ITextComponent msg = new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.emergencyHoverMode", (!current ? on : off));
             player.sendStatusMessage(msg, true);
         }
-/*        boolean current = NBTHelper.getBoolean(stack, TAG_E_HOVER);
-        NBTHelper.flipBoolean(stack, TAG_E_HOVER);
-        //ITextComponent stateText = SJStringHelper.localizeNew(current ? "disabled" : "enabled");
-        ITextComponent on = new TranslationTextComponent("chat.simplyjetpacks.enabled").func_230530_a_(Styles.GREEN);
-        ITextComponent off = new TranslationTextComponent("chat.simplyjetpacks.disabled").func_230530_a_(Styles.RED);
-        ITextComponent msg = new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.emergencyHoverMode", (!current ? on : off));
-        player.sendStatusMessage(msg, true);*/
     }
 
     public void doEHover(ItemStack stack, PlayerEntity player) {
