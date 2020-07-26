@@ -15,5 +15,11 @@
   "result": {
     "item": "simplyjetpacks:thruster_ie3",
     "count": 1
-  }
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "immersiveengineering"
+    }
+  ]
 }

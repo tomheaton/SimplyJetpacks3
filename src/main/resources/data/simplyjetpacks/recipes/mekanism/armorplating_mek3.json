@@ -12,5 +12,11 @@
   "result": {
     "item": "simplyjetpacks:armorplating_mek3",
     "count": 1
-  }
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "mekanism"
+    }
+  ]
 }

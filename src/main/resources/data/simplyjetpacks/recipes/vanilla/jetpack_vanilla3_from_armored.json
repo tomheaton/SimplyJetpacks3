@@ -8,5 +8,11 @@
   "result": {
     "item": "simplyjetpacks:jetpack_vanilla3",
     "count": 1
-  }
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "vanilla"
+    }
+  ]
 }

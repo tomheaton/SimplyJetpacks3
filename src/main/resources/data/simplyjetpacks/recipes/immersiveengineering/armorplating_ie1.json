@@ -12,5 +12,11 @@
   "result": {
     "item": "simplyjetpacks:armorplating_ie1",
     "count": 1
-  }
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "immersiveengineering"
+    }
+  ]
 }

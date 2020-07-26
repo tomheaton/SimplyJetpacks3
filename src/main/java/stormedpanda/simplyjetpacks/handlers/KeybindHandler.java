@@ -1,4 +1,4 @@
-package stormedpanda.simplyjetpacks;
+package stormedpanda.simplyjetpacks.handlers;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;

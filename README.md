@@ -12,4 +12,4 @@ Downloads for the mod can be found on [CurseForge](https://www.curseforge.com/mi
 
 Former Authors: Tonius, Tomson124
 
-Brought to 1.16.1 by Th0mas-7/StormedPanda
+Brought to 1.16.1 by Th0mas-7 (StormedPanda)

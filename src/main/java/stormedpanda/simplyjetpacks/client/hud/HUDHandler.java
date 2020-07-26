@@ -1,4 +1,4 @@
-package stormedpanda.simplyjetpacks.client.handler;
+package stormedpanda.simplyjetpacks.client.hud;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.MainWindow;
@@ -11,7 +11,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
-import stormedpanda.simplyjetpacks.client.IHUDInfoProvider;
+import stormedpanda.simplyjetpacks.client.hud.IHUDInfoProvider;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
 
 import java.util.ArrayList;

@@ -1,6 +1,5 @@
 package stormedpanda.simplyjetpacks;
 
-import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
@@ -13,20 +12,19 @@ import stormedpanda.simplyjetpacks.enchantments.EnchantmentFuelEfficiency;
 import stormedpanda.simplyjetpacks.gui.TestContainer;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
 import stormedpanda.simplyjetpacks.items.JetpackType;
+import stormedpanda.simplyjetpacks.items.MetaItem;
 import stormedpanda.simplyjetpacks.items.PilotGogglesItem;
 
 public class RegistryHandler {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, SimplyJetpacks.MODID);
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SimplyJetpacks.MODID);
-    public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, SimplyJetpacks.MODID);
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, SimplyJetpacks.MODID);
+    public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, SimplyJetpacks.MODID);
 
     public static void init() {
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ENCHANTMENTS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     // Enchantments:
@@ -49,6 +47,7 @@ public class RegistryHandler {
             new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
     public static final RegistryObject<Item> PARTICLE_RAINBOW = ITEMS.register("particle_rainbow", () ->
             new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+    
     public static final RegistryObject<Item> JETPACK_CREATIVE = ITEMS.register("jetpack_creative", () ->
             new JetpackItem(JetpackType.CREATIVE));
     public static final RegistryObject<Item> JETPACK_CREATIVE_ARMORED = ITEMS.register("jetpack_creative_armored", () ->
@@ -56,13 +55,14 @@ public class RegistryHandler {
 
     // Vanilla:
     public static final RegistryObject<Item> THRUSTER_VANILLA1 = ITEMS.register("thruster_vanilla1", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new MetaItem("vanilla"));
     public static final RegistryObject<Item> THRUSTER_VANILLA2 = ITEMS.register("thruster_vanilla2", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new MetaItem("vanilla"));
     public static final RegistryObject<Item> THRUSTER_VANILLA3 = ITEMS.register("thruster_vanilla3", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new MetaItem("vanilla"));
     public static final RegistryObject<Item> THRUSTER_VANILLA4 = ITEMS.register("thruster_vanilla4", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new MetaItem("vanilla"));
+
     public static final RegistryObject<Item> JETPACK_VANILLA1 = ITEMS.register("jetpack_vanilla1", () ->
             new JetpackItem(JetpackType.VANILLA1));
     public static final RegistryObject<Item> JETPACK_VANILLA1_ARMORED = ITEMS.register("jetpack_vanilla1_armored", () ->
@@ -82,17 +82,17 @@ public class RegistryHandler {
 
     // Immersive Engineering:
     public static final RegistryObject<Item> THRUSTER_IE1 = ITEMS.register("thruster_ie1", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new MetaItem("ie"));
     public static final RegistryObject<Item> THRUSTER_IE2 = ITEMS.register("thruster_ie2", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new MetaItem("ie"));
     public static final RegistryObject<Item> THRUSTER_IE3 = ITEMS.register("thruster_ie3", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new MetaItem("ie"));
     public static final RegistryObject<Item> ARMORPLATING_IE1 = ITEMS.register("armorplating_ie1", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new MetaItem("ie"));
     public static final RegistryObject<Item> ARMORPLATING_IE2 = ITEMS.register("armorplating_ie2", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new MetaItem("ie"));
     public static final RegistryObject<Item> ARMORPLATING_IE3 = ITEMS.register("armorplating_ie3", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new MetaItem("ie"));
 
     public static final RegistryObject<Item> JETPACK_IE1 = ITEMS.register("jetpack_ie1", () ->
             new JetpackItem(JetpackType.IE1));
@@ -109,21 +109,21 @@ public class RegistryHandler {
 
     // Mekanism:
     public static final RegistryObject<Item> THRUSTER_MEK1 = ITEMS.register("thruster_mek1", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new MetaItem("mek"));
     public static final RegistryObject<Item> THRUSTER_MEK2 = ITEMS.register("thruster_mek2", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new MetaItem("mek"));
     public static final RegistryObject<Item> THRUSTER_MEK3 = ITEMS.register("thruster_mek3", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new MetaItem("mek"));
     public static final RegistryObject<Item> THRUSTER_MEK4 = ITEMS.register("thruster_mek4", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new MetaItem("mek"));
     public static final RegistryObject<Item> ARMORPLATING_MEK1 = ITEMS.register("armorplating_mek1", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new MetaItem("mek"));
     public static final RegistryObject<Item> ARMORPLATING_MEK2 = ITEMS.register("armorplating_mek2", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new MetaItem("mek"));
     public static final RegistryObject<Item> ARMORPLATING_MEK3 = ITEMS.register("armorplating_mek3", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new MetaItem("mek"));
     public static final RegistryObject<Item> ARMORPLATING_MEK4 = ITEMS.register("armorplating_mek4", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new MetaItem("mek"));
 
     public static final RegistryObject<Item> JETPACK_MEK1 = ITEMS.register("jetpack_mek1", () ->
             new JetpackItem(JetpackType.MEK1));

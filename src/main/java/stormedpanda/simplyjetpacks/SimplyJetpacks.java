@@ -2,6 +2,7 @@ package stormedpanda.simplyjetpacks;
 
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -16,13 +17,16 @@ import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import stormedpanda.simplyjetpacks.client.handler.HUDHandler;
-import stormedpanda.simplyjetpacks.client.handler.ParticleHandler;
+import stormedpanda.simplyjetpacks.client.hud.HUDHandler;
+import stormedpanda.simplyjetpacks.client.particle.ParticleHandler;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.crafting.EnergyTransferHandler;
+import stormedpanda.simplyjetpacks.crafting.ModIntegrationCondition;
 import stormedpanda.simplyjetpacks.crafting.PlatingReturnHandler;
 import stormedpanda.simplyjetpacks.gui.TestContainer;
 import stormedpanda.simplyjetpacks.gui.TestScreen;
+import stormedpanda.simplyjetpacks.handlers.KeybindHandler;
+import stormedpanda.simplyjetpacks.handlers.SyncHandler;
 import stormedpanda.simplyjetpacks.items.JetpackType;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
 import stormedpanda.simplyjetpacks.sound.ModSounds;
@@ -58,6 +62,7 @@ public class SimplyJetpacks {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_SPEC, "simplyjetpacks-common.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SimplyJetpacksConfig.SERVER_SPEC, "simplyjetpacks-server.toml");
 
+        CraftingHelper.register(ModIntegrationCondition.Serializer.INSTANCE);
         JetpackType.loadAllConfigs();
         RegistryHandler.init();
     }

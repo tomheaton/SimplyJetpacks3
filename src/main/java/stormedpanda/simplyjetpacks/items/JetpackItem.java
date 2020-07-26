@@ -24,12 +24,13 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import stormedpanda.simplyjetpacks.SyncHandler;
+import stormedpanda.simplyjetpacks.handlers.SyncHandler;
 import stormedpanda.simplyjetpacks.capability.CapabilityProviderEnergy;
 import stormedpanda.simplyjetpacks.capability.EnergyConversionStorage;
-import stormedpanda.simplyjetpacks.client.IHUDInfoProvider;
+import stormedpanda.simplyjetpacks.client.hud.IHUDInfoProvider;
 import stormedpanda.simplyjetpacks.client.model.JetpackModel;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
+import stormedpanda.simplyjetpacks.integration.IntegrationList;
 import stormedpanda.simplyjetpacks.util.KeyboardUtil;
 import stormedpanda.simplyjetpacks.util.NBTHelper;
 import stormedpanda.simplyjetpacks.util.Styles;
@@ -223,12 +224,34 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     // TODO: get the energy-full variants to show up in NEI
     @Override
     public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
-        super.fillItemGroup(group, items);
-        if (this.isInGroup(group) && !getBaseName().contains("creative")) {
-            //items.add(new ItemStack(this));
-            ItemStack full = new ItemStack(this);
-            full.getOrCreateTag().putInt(TAG_ENERGY, capacity);
-            items.add(full);
+        if (this.isInGroup(group)) {
+            if (getBaseName().contains("creative")) {
+                items.add(new ItemStack(this));
+            }
+            if (IntegrationList.integrateVanilla) {
+                if (getBaseName().contains("vanilla")) {
+                    items.add(new ItemStack(this));
+                    ItemStack full = new ItemStack(this);
+                    full.getOrCreateTag().putInt(TAG_ENERGY, capacity);
+                    items.add(full);
+                }
+            }
+            if (IntegrationList.integrateImmersiveEngineering) {
+                if (getBaseName().contains("ie")) {
+                    items.add(new ItemStack(this));
+                    ItemStack full = new ItemStack(this);
+                    full.getOrCreateTag().putInt(TAG_ENERGY, capacity);
+                    items.add(full);
+                }
+            }
+            if (IntegrationList.integrateMekanism) {
+                if (getBaseName().contains("mek")) {
+                    items.add(new ItemStack(this));
+                    ItemStack full = new ItemStack(this);
+                    full.getOrCreateTag().putInt(TAG_ENERGY, capacity);
+                    items.add(full);
+                }
+            }
         }
     }
 

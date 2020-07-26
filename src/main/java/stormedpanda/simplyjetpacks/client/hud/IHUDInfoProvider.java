@@ -1,4 +1,4 @@
-package stormedpanda.simplyjetpacks.client;
+package stormedpanda.simplyjetpacks.client.hud;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;

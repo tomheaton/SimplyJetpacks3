@@ -11,5 +11,11 @@
   "result": {
     "item": "simplyjetpacks:jetpack_ie1_armored",
     "count": 1
-  }
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "immersiveengineering"
+    }
+  ]
 }

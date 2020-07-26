@@ -124,9 +124,11 @@ public enum JetpackType {
     public int getFuelUsage() {
         return fuelUsage;
     }
+
     public double getSpeedVertical() {
         return speedVertical;
     }
+
     public double getAccelVertical() {
         return accelVertical;
     }
@@ -187,19 +189,19 @@ public enum JetpackType {
                 jetpackType.loadJetpackConfigurations();
             }
         }
-        if (IntegrationList.integrateVanilla) {
+        if (IntegrationList.integrateImmersiveEngineering) {
             for (JetpackType jetpackType : JETPACK_IE) {
                 jetpackType.loadJetpackConfigurations();
             }
         }
-        if (IntegrationList.integrateVanilla) {
+        if (IntegrationList.integrateMekanism) {
             for (JetpackType jetpackType : JETPACK_MEK) {
                 jetpackType.loadJetpackConfigurations();
             }
         }
     }
 
-    private void loadJetpackConfigurations() {
+    protected void loadJetpackConfigurations() {
         this.capacity = this.defaults.fuelCapacity;
         this.maxReceive = this.defaults.fuelPerTickIn;
         this.maxExtract = this.defaults.fuelPerTickOut;

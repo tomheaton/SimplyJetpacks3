@@ -1,4 +1,4 @@
-package stormedpanda.simplyjetpacks.client.handler;
+package stormedpanda.simplyjetpacks.client.particle;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.ParticleStatus;
@@ -13,7 +13,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import stormedpanda.simplyjetpacks.SyncHandler;
+import stormedpanda.simplyjetpacks.handlers.SyncHandler;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
 import stormedpanda.simplyjetpacks.sound.JetpackSound;
 

@@ -3,7 +3,7 @@ package stormedpanda.simplyjetpacks.network.packets;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
-import stormedpanda.simplyjetpacks.SyncHandler;
+import stormedpanda.simplyjetpacks.handlers.SyncHandler;
 import java.util.function.Supplier;
 
 public class PacketUpdateInput {

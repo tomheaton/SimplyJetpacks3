@@ -1,4 +1,4 @@
-package stormedpanda.simplyjetpacks;
+package stormedpanda.simplyjetpacks.handlers;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.player.PlayerEvent;

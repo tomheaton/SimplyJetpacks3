@@ -13,5 +13,11 @@
   "result": {
     "item": "simplyjetpacks:thruster_vanilla4",
     "count": 1
-  }
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "vanilla"
+    }
+  ]
 }

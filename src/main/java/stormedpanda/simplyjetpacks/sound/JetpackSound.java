@@ -6,7 +6,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import stormedpanda.simplyjetpacks.client.handler.ParticleHandler;
+import stormedpanda.simplyjetpacks.client.particle.ParticleHandler;
 
 import java.util.Collections;
 import java.util.HashMap;
