@@ -6,7 +6,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 import net.minecraftforge.fml.ModList;
-import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.integration.IntegrationList;
 
 public class ModIntegrationCondition implements ICondition {

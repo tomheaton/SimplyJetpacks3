@@ -1,4 +1,4 @@
 package stormedpanda.simplyjetpacks.gui.element;
 
-public class ElementEnergyStored {
+public class ElementEnergyBar {
 }

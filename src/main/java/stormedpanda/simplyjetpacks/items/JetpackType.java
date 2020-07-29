@@ -6,6 +6,7 @@ import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.config.DefaultJetpackConfig;
+import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.integration.IntegrationList;
 import stormedpanda.simplyjetpacks.lists.ArmorMaterialList;
 
@@ -184,12 +185,18 @@ public enum JetpackType {
         for (JetpackType jetpackType : JETPACK_SJ) {
             jetpackType.loadJetpackConfigurations();
         }
-        if (IntegrationList.integrateVanilla) {
+        //if (IntegrationList.integrateVanilla) {
+        SimplyJetpacks.LOGGER.info("VAN CHECK COMMON : " + SimplyJetpacksConfig.COMMON.enableIntegrationVanilla.get());
+        if (SimplyJetpacksConfig.COMMON.enableIntegrationVanilla.get()) {
+            SimplyJetpacks.LOGGER.info("VAN IS TRUE -> LOADING TYPES");
             for (JetpackType jetpackType : JETPACK_VANILLA) {
                 jetpackType.loadJetpackConfigurations();
             }
         }
-        if (IntegrationList.integrateImmersiveEngineering) {
+        SimplyJetpacks.LOGGER.info("IE CHECK COMMON : " + SimplyJetpacksConfig.COMMON.enableIntegrationImmersiveEngineering.get());
+        if (SimplyJetpacksConfig.COMMON.enableIntegrationImmersiveEngineering.get()) {
+        //if (IntegrationList.integrateImmersiveEngineering) {
+            SimplyJetpacks.LOGGER.info("IE IS TRUE -> LOADING TYPES");
             for (JetpackType jetpackType : JETPACK_IE) {
                 jetpackType.loadJetpackConfigurations();
             }

@@ -1,4 +1,4 @@
-package stormedpanda.simplyjetpacks.gui;
+package stormedpanda.simplyjetpacks.gui.element;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
@@ -10,7 +10,7 @@ import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class CustomButton extends Button {
+public class ElementButton extends Button {
 
     private final Runnable onLeftClick;
 
@@ -21,7 +21,7 @@ public class CustomButton extends Button {
     private final int textureWidth;
     private final int textureHeight;
 
-    public CustomButton(int x, int y, int width, int height, ITextComponent title, Runnable onLeftClick, @Nullable IPressable onPress, @Nullable ITooltip onTooltip, int textureWidth, int textureHeight) {
+    public ElementButton(int x, int y, int width, int height, ITextComponent title, Runnable onLeftClick, @Nullable IPressable onPress, @Nullable ITooltip onTooltip, int textureWidth, int textureHeight) {
         super(x, y, width, height, title, onPress, onTooltip);
         this.onLeftClick = onLeftClick;
         this.onPress = onPress;

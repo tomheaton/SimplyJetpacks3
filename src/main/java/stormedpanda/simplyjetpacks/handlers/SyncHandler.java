@@ -72,6 +72,7 @@ public class SyncHandler {
         HOLDING_RIGHT.remove(player);
     }
 
+    // This is here because it does not want to be lonely.
     public static void checkAdvancements(PlayerEntity player) {
         if (IntegrationList.integrateVanilla) {
             AdvancementUtil.unlockAdvancement(player, "vanilla/root_vanilla");

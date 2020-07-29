@@ -16,13 +16,10 @@ import stormedpanda.simplyjetpacks.items.JetpackItem;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleEngine;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleHover;
-import stormedpanda.simplyjetpacks.network.packets.PacketToggleTestGui;
 import stormedpanda.simplyjetpacks.network.packets.PacketUpdateInput;
 
 public class KeybindHandler {
 
-    private static int flyKey;
-    private static int descendKey;
     private static boolean lastFlyState = false;
     private static boolean lastDescendState = false;
     private static boolean lastForwardState = false;
@@ -33,7 +30,6 @@ public class KeybindHandler {
     public static KeyBinding JETPACK_GUI_KEY;
     public static KeyBinding JETPACK_ENGINE_KEY;
     public static KeyBinding JETPACK_HOVER_KEY;
-    public static KeyBinding TEST_KEY;
 
     public static void setup() {
         JETPACK_GUI_KEY = new KeyBinding("keybind.simplyjetpacks.jetpack_gui", GLFW.GLFW_KEY_K, "keybind.categories.simplyjetpacks");
@@ -42,8 +38,6 @@ public class KeybindHandler {
         ClientRegistry.registerKeyBinding(JETPACK_ENGINE_KEY);
         JETPACK_HOVER_KEY = new KeyBinding("keybind.simplyjetpacks.jetpack_hover", GLFW.GLFW_KEY_H, "keybind.categories.simplyjetpacks");
         ClientRegistry.registerKeyBinding(JETPACK_HOVER_KEY);
-        TEST_KEY = new KeyBinding("keybind.simplyjetpacks.jetpack_test", GLFW.GLFW_KEY_M, "keybind.categories.simplyjetpacks");
-        ClientRegistry.registerKeyBinding(TEST_KEY);
     }
 
     @SubscribeEvent
@@ -65,9 +59,6 @@ public class KeybindHandler {
             if (JETPACK_HOVER_KEY.isPressed()) {
                 NetworkHandler.sendToServer(new PacketToggleHover());
             }
-            if (TEST_KEY.isPressed()) {
-                NetworkHandler.sendToServer(new PacketToggleTestGui());
-            }
         }
     }
 
@@ -76,13 +67,6 @@ public class KeybindHandler {
         if (mc.player != null) {
             boolean flyState;
             boolean descendState;
-/*            if (Config.customControls) {
-                flyState = mc.isGameFocused() && Keyboard.isKeyDown(flyKey);
-                descendState = mc.isGameFocused() && Keyboard.isKeyDown(descendKey);
-            } else {
-                flyState = mc.gameSettings.keyBindJump.isKeyDown();
-                descendState = mc.gameSettings.keyBindSneak.isKeyDown();
-            }*/
             flyState = mc.gameSettings.keyBindJump.isKeyDown();
             descendState = mc.gameSettings.keyBindSneak.isKeyDown();
 

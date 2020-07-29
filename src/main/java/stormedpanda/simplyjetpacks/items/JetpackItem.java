@@ -347,7 +347,8 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public void flyUser(PlayerEntity player, ItemStack stack, JetpackItem item) {
         if (isEngineOn(stack)) {
             boolean hoverMode = isHoverOn(stack);
-            double hoverSpeed = SimplyJetpacksConfig.invertHoverSneakingBehavior == SyncHandler.isHoldingDown(player) ? type.getSpeedVerticalHoverSlow() : type.getSpeedVerticalHover();
+            //double hoverSpeed = SimplyJetpacksConfig.invertHoverSneakingBehavior == SyncHandler.isHoldingDown(player) ? type.getSpeedVerticalHoverSlow() : type.getSpeedVerticalHover();
+            double hoverSpeed = SimplyJetpacksConfig.CLIENT.invertHoverSneakingBehavior.get() == SyncHandler.isHoldingDown(player) ? type.getSpeedVerticalHoverSlow() : type.getSpeedVerticalHover();
             boolean flyKeyDown = SyncHandler.isHoldingUp(player); // || force;
             boolean descendKeyDown = SyncHandler.isHoldingDown(player);
             double currentAccel = type.getAccelVertical() * (player.getMotion().getY() < 0.3D ? 2.5D : 1.0D);

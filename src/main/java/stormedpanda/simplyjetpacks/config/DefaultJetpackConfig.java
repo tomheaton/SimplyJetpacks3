@@ -37,6 +37,7 @@ public class DefaultJetpackConfig {
         return DEFAULTS.get(key);
     }
 
+    // TODO: add other jetpack values back in
     static {
         // Simply Jetpacks
         DefaultJetpackConfig d = new DefaultJetpackConfig("jetpackPotato", "Tuberous Jetpack");

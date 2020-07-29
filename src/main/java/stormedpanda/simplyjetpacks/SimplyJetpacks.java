@@ -1,8 +1,12 @@
 package stormedpanda.simplyjetpacks;
 
-import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -23,9 +27,8 @@ import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.crafting.EnergyTransferHandler;
 import stormedpanda.simplyjetpacks.crafting.ModIntegrationCondition;
 import stormedpanda.simplyjetpacks.crafting.PlatingReturnHandler;
-import stormedpanda.simplyjetpacks.gui.TestContainer;
-import stormedpanda.simplyjetpacks.gui.TestScreen;
 import stormedpanda.simplyjetpacks.handlers.KeybindHandler;
+import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.handlers.SyncHandler;
 import stormedpanda.simplyjetpacks.items.JetpackType;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
@@ -50,6 +53,7 @@ public class SimplyJetpacks {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::ClientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+        FMLJavaModLoadingContext.get().getModEventBus().register(this);
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new SyncHandler());
@@ -57,39 +61,35 @@ public class SimplyJetpacks {
         MinecraftForge.EVENT_BUS.register(new EnergyTransferHandler());
         MinecraftForge.EVENT_BUS.register(new ModSounds());
 
-        // TODO: get all configs in one folder
+        // TODO: Get all configs in one folder?
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SimplyJetpacksConfig.CLIENT_SPEC, "simplyjetpacks-client.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_SPEC, "simplyjetpacks-common.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SimplyJetpacksConfig.SERVER_SPEC, "simplyjetpacks-server.toml");
+        MinecraftForge.EVENT_BUS.register(SimplyJetpacksConfig.class);
 
-        CraftingHelper.register(ModIntegrationCondition.Serializer.INSTANCE);
         JetpackType.loadAllConfigs();
         RegistryHandler.init();
     }
 
     private void CommonSetup(final FMLCommonSetupEvent event) {
         LOGGER.info("Common Setup Method registered.");
-
         NetworkHandler.registerMessages();
     }
 
     private void ClientSetup(final FMLClientSetupEvent event) {
         LOGGER.info("Client Setup Method registered.");
-
         MinecraftForge.EVENT_BUS.register(new KeybindHandler());
         MinecraftForge.EVENT_BUS.register(new ParticleHandler());
         MinecraftForge.EVENT_BUS.register(new HUDHandler());
         KeybindHandler.setup();
-
-        ScreenManager.registerFactory(TestContainer.TYPE, TestScreen::new);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
-        InterModComms.sendTo("simplyjetpacks", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
+        InterModComms.sendTo(MODID, "helloworld", () -> { LOGGER.info("Hello from Simply Jetpacks 3"); return "Hello!";});
     }
 
     private void processIMC(final InterModProcessEvent event) {
-        LOGGER.info("Got IMC {}", event.getIMCStream().map(m->m.getMessageSupplier().get()).collect(Collectors.toList()));
+        LOGGER.info("Got IMC {}", event.getIMCStream().map(m -> m.getMessageSupplier().get()).collect(Collectors.toList()));
     }
 
     @SubscribeEvent
@@ -100,7 +100,13 @@ public class SimplyJetpacks {
     @SubscribeEvent
     public void onServerStopping(FMLServerStoppingEvent event) {
         LOGGER.info("Server stopping...");
-
         SyncHandler.clear();
+    }
+
+    @SubscribeEvent
+    public void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
+        LOGGER.info("Recipe Serializers Registered.");
+        CraftingHelper.register(ModIntegrationCondition.Serializer.INSTANCE);
+        event.getRegistry().register(new ConditionalRecipe.Serializer<IRecipe<?>>().setRegistryName(new ResourceLocation("simplyjetpacks", "conditional")));
     }
 }

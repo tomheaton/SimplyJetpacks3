@@ -5,7 +5,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
-import stormedpanda.simplyjetpacks.integration.IntegrationList;
 
 import javax.annotation.Nonnull;
 
@@ -20,10 +19,11 @@ public class MetaItem extends Item {
 
     @Override
     public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
-        if (this.isInGroup(group)) {
-/*            if (fromMod.equals("simplyjetpacks")) {
+        super.fillItemGroup(group, items);
+        /*if (this.isInGroup(group)) {
+            if (fromMod.equals("simplyjetpacks")) {
                 items.add(new ItemStack(this));
-            }*/
+            }
             if (IntegrationList.integrateVanilla) {
                 if (fromMod.equals("vanilla")) {
                     items.add(new ItemStack(this));
@@ -39,6 +39,6 @@ public class MetaItem extends Item {
                     items.add(new ItemStack(this));
                 }
             }
-        }
+        }*/
     }
 }

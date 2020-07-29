@@ -1,15 +1,13 @@
-package stormedpanda.simplyjetpacks;
+package stormedpanda.simplyjetpacks.handlers;
 
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
-import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.enchantments.EnchantmentFuelEfficiency;
-import stormedpanda.simplyjetpacks.gui.TestContainer;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
 import stormedpanda.simplyjetpacks.items.JetpackType;
 import stormedpanda.simplyjetpacks.items.MetaItem;
@@ -19,19 +17,14 @@ public class RegistryHandler {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, SimplyJetpacks.MODID);
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, SimplyJetpacks.MODID);
-    public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, SimplyJetpacks.MODID);
 
     public static void init() {
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ENCHANTMENTS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     // Enchantments:
     public static final RegistryObject<Enchantment> FUEL_EFFICIENCY = ENCHANTMENTS.register("fuel_efficiency", EnchantmentFuelEfficiency::new);
-
-    // Containers:
-    public static final RegistryObject<ContainerType<TestContainer>> TEST_CONTAINER = CONTAINERS.register("test_container", () -> IForgeContainerType.create((id, inv, data) -> new TestContainer(id, inv)));
 
     // Simply Jetpacks:
     public static final RegistryObject<Item> PILOT_GOGGLES = ITEMS.register("pilot_goggles", PilotGogglesItem::new);

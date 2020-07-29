@@ -9,7 +9,6 @@ import stormedpanda.simplyjetpacks.items.JetpackItem;
 public class EnchantmentFuelEfficiency extends Enchantment {
 
     public EnchantmentFuelEfficiency() {
-        //super(Rarity.RARE, EnchantmentType.ARMOR_CHEST, new EquipmentSlotType[]{ EquipmentSlotType.CHEST });
         super(Rarity.RARE, CustomEnchantmentType.JETPACK, new EquipmentSlotType[]{ EquipmentSlotType.CHEST });
     }
 

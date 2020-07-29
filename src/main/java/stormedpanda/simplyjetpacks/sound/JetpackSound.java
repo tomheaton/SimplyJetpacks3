@@ -35,7 +35,6 @@ public class JetpackSound extends TickableSound {
 		this.x = (float) pos.getX();
 		this.y = (float) pos.getY();// - 10;
 		this.z = (float) pos.getZ();
-
 		if (this.fadeOut < 0 && !ParticleHandler.isFlying(this.player)) {
 			this.fadeOut = 0;
 			synchronized (PLAYING_FOR) {
@@ -49,12 +48,5 @@ public class JetpackSound extends TickableSound {
 			this.volume = 1.0F - this.fadeOut / 5F;
 			this.fadeOut++;
 		}
-		
-		/*if (!ParticleHandler.isFlying(this.player)) {
-			synchronized (PLAYING_FOR) {
-				PLAYING_FOR.remove(this.player.getEntityId());
-				this.func_239509_o_();
-			}
-		}*/
 	}
 }

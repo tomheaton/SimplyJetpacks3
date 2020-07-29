@@ -10,8 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import stormedpanda.simplyjetpacks.SimplyJetpacks;
-import stormedpanda.simplyjetpacks.client.hud.IHUDInfoProvider;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
 
 import java.util.ArrayList;
@@ -20,8 +18,6 @@ import java.util.List;
 public class HUDHandler {
 
     public final Minecraft minecraft = Minecraft.getInstance();
-
-    //private static final ResourceLocation HUD_TEXTURE = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/hud.png");
 
     private void drawString(MainWindow window, MatrixStack matrix, ITextComponent text, int x, int y, int color) {
         FontRenderer font = minecraft.fontRenderer;
@@ -47,7 +43,6 @@ public class HUDHandler {
                 List<ITextComponent> renderStrings = new ArrayList<>();
                 provider.addHUDInfo(renderStrings, chestplate);
                 if (renderStrings.isEmpty()) {
-                    SimplyJetpacks.LOGGER.error("EMPTY");
                     return;
                 }
                 int count = 10;

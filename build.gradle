@@ -16,7 +16,7 @@ apply plugin: 'maven-publish'
 
 version = "${minecraft_version}-${mod_version}" //." + (System.env.BUILD_NUMBER ?: "homebaked")
 group = 'stormedpanda.simplyjetpacks'
-archivesBaseName = 'simplyjetpacks3'
+archivesBaseName = "SimplyJetpacks3-${mod_version}"
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
@@ -87,7 +87,8 @@ repositories {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    //minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-32.0.75"
 
     compileOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:api")
     runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")

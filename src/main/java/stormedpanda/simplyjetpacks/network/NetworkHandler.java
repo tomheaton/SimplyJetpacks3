@@ -42,13 +42,6 @@ public class NetworkHandler {
                 .decoder(PacketUpdateInput::fromBytes)
                 .consumer(PacketUpdateInput::handle)
                 .add();
-
-        // TESTING
-        CHANNEL_INSTANCE.messageBuilder(PacketToggleTestGui.class, nextID())
-                .encoder((packetToggleTestGui, packetBuffer) -> {})
-                .decoder(buf -> new PacketToggleTestGui())
-                .consumer(PacketToggleTestGui::handle)
-                .add();
     }
 
     public static void sendToClient(Object packet, ServerPlayerEntity player) {

@@ -11,17 +11,6 @@ import stormedpanda.simplyjetpacks.SimplyJetpacks;
 @Mod.EventBusSubscriber(modid = SimplyJetpacks.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SimplyJetpacksConfig {
 
-    public static boolean enableIntegrationVanilla = Defaults.enableIntegrationVanilla;
-    public static boolean enableIntegrationImmersiveEngineering = Defaults.enableIntegrationImmersiveEngineering;
-    public static boolean enableIntegrationMekanism = Defaults.enableIntegrationMekanism;
-    public static boolean enableIntegrationEnderIO = Defaults.enableIntegrationEnderIO;
-    public static boolean enableIntegrationThermalExpansion = Defaults.enableIntegrationThermalExpansion;
-    public static boolean enableIntegrationThermalDynamics = Defaults.enableIntegrationThermalDynamics;
-
-    public static boolean invertHoverSneakingBehavior = Defaults.invertHoverSneakingBehavior;
-
-    public static boolean enableStateMessages = Defaults.enableStateMessages;
-
     public static class Common {
 
         public final BooleanValue enableIntegrationVanilla;
@@ -34,9 +23,9 @@ public class SimplyJetpacksConfig {
         public Common(ForgeConfigSpec.Builder builder) {
             builder.comment("Simply Jetpacks 3 - Common Configurations").push("simplyjetpacks-common");
 
-            builder.comment("Simply Jetpacks 3 - Client Configurations").push("integration");
+            builder.comment("Simply Jetpacks 3 - Integration Configurations").push("integration");
             enableIntegrationVanilla = builder
-                    .comment("This sets the crafting height of the game. If a value is higher declared by a different mod, this becomes obsolete.")
+                    .comment("enable Vanilla Jetpacks")
                     .translation("config.simplyjetpacks.enableIntegrationVanilla")
                     .worldRestart()
                     .define("enableIntegrationVanilla", Defaults.enableIntegrationVanilla);
@@ -45,28 +34,28 @@ public class SimplyJetpacksConfig {
                     .comment("This sets the crafting height of the game. If a value is higher declared by a different mod, this becomes obsolete.")
                     .translation("config.simplyjetpacks.enableIntegrationMekanism")
                     .worldRestart()
-                    .define("enableIntegrationMekanism", Defaults.enableIntegrationImmersiveEngineering);
+                    .define("enableIntegrationImmersiveEngineering", Defaults.enableIntegrationImmersiveEngineering);
 
             enableIntegrationMekanism = builder
-                    .comment("This sets the crafting height of the game. If a value is higher declared by a different mod, this becomes obsolete.")
+                    .comment("This sets the craftidfe game. If a value is higher declared by a different mod, this becomes obsolete.")
                     .translation("config.simplyjetpacks.enableIntegrationMekanism")
                     .worldRestart()
                     .define("enableIntegrationMekanism", Defaults.enableIntegrationMekanism);
 
             enableIntegrationEnderIO = builder
-                    .comment("This sets the crafting height of the game. If a value is higher declared by a different mod, this becomes obsolete.")
+                    .comment("This sets the craftdf the game. If a value is higher declared by a different mod, this becomes obsolete.")
                     .translation("config.simplyjetpacks.enableIntegrationEnderIO")
                     .worldRestart()
                     .define("enableIntegrationEnderIO", Defaults.enableIntegrationEnderIO);
 
             enableIntegrationThermalExpansion = builder
-                    .comment("This sets the crafting height of the game. If a value is higher declared by a different mod, this becomes obsolete.")
+                    .comment("This sets the cradf the game. If a value is higher declared by a different mod, this becomes obsolete.")
                     .translation("config.simplyjetpacks.enableIntegrationThermalExpansion")
                     .worldRestart()
                     .define("enableIntegrationThermalExpansion", Defaults.enableIntegrationThermalExpansion);
 
             enableIntegrationThermalDynamics = builder
-                    .comment("This sets the crafting height of the game. If a value is higher declared by a different mod, this becomes obsolete.")
+                    .comment("This sets the crafting hd the game. If a value is higher declared by a different mod, this becomes obsolete.")
                     .translation("config.simplyjetpacks.enableIntegrationThermalDynamics")
                     .worldRestart()
                     .define("enableIntegrationThermalDynamics", Defaults.enableIntegrationThermalDynamics);
@@ -118,8 +107,55 @@ public class SimplyJetpacksConfig {
 
     public static class Server {
 
+        public final BooleanValue enableIntegrationVanilla;
+        public final BooleanValue enableIntegrationImmersiveEngineering;
+        public final BooleanValue enableIntegrationMekanism;
+        public final BooleanValue enableIntegrationEnderIO;
+        public final BooleanValue enableIntegrationThermalExpansion;
+        public final BooleanValue enableIntegrationThermalDynamics;
+
         public Server(ForgeConfigSpec.Builder builder) {
             builder.comment("Simply Jetpacks 3 - Server Configurations").push("simplyjetpacks-server");
+
+            builder.comment("Simply Jetpacks 3 - Integration Configurations").push("integration");
+            enableIntegrationVanilla = builder
+                    .comment("Tserver")
+                    .translation("config.simplyjetpacks.enableIntegrationVanilla")
+                    .worldRestart()
+                    .define("enableIntegrationVanilla", Defaults.enableIntegrationVanilla);
+
+            enableIntegrationImmersiveEngineering = builder
+                    .comment("This seterhe game. If a value is higher declared by a different mod, this becomes obsolete.")
+                    .translation("config.simplyjetpacks.enableIntegrationMekanism")
+                    .worldRestart()
+                    .define("enableIntegrationImmersiveEngineering", Defaults.enableIntegrationImmersiveEngineering);
+
+            enableIntegrationMekanism = builder
+                    .comment("This sets the crafting height of the game. If a value is higher declared by a different mod, this becomes obsolete.")
+                    .translation("config.simplyjetpacks.enableIntegrationMekanism")
+                    .worldRestart()
+                    .define("enableIntegrationMekanism", Defaults.enableIntegrationMekanism);
+
+            enableIntegrationEnderIO = builder
+                    .comment("This sets the crafting height of the game. If a value is higher declared by a different mod, this becomes obsolete.")
+                    .translation("config.simplyjetpacks.enableIntegrationEnderIO")
+                    .worldRestart()
+                    .define("enableIntegrationEnderIO", Defaults.enableIntegrationEnderIO);
+
+            enableIntegrationThermalExpansion = builder
+                    .comment("This sets the crafting height of the game. If a value is higher declared by a different mod, this becomes obsolete.")
+                    .translation("config.simplyjetpacks.enableIntegrationThermalExpansion")
+                    .worldRestart()
+                    .define("enableIntegrationThermalExpansion", Defaults.enableIntegrationThermalExpansion);
+
+            enableIntegrationThermalDynamics = builder
+                    .comment("This sets the crafting height of the game. If a value is higher declared by a different mod, this becomes obsolete.")
+                    .translation("config.simplyjetpacks.enableIntegrationThermalDynamics")
+                    .worldRestart()
+                    .define("enableIntegrationThermalDynamics", Defaults.enableIntegrationThermalDynamics);
+
+            builder.comment("Simply Jetpacks 3 - Client Configurations").push("tuning");
+
             builder.pop();
         }
     }
@@ -150,10 +186,11 @@ public class SimplyJetpacksConfig {
 
     @SubscribeEvent
     public static void onLoad(final ModConfig.Loading event) {
+        //JetpackType.loadAllConfigs();
     }
 
     @SubscribeEvent
     public static void onFileChange(final ModConfig.Reloading event) {
-
+        //JetpackType.loadAllConfigs();
     }
 }

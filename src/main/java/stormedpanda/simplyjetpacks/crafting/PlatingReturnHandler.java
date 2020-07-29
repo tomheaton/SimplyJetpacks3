@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import stormedpanda.simplyjetpacks.RegistryHandler;
+import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
 import stormedpanda.simplyjetpacks.items.JetpackType;
 
@@ -18,7 +18,7 @@ public class PlatingReturnHandler {
         if (craftedItem instanceof JetpackItem) {
             for (int i = 0; i < event.getInventory().getSizeInventory(); i++) {
                 ItemStack input = event.getInventory().getStackInSlot(i);
-                if (input == null || !(input.getItem() instanceof JetpackItem)) { continue; }
+                if (!(input.getItem() instanceof JetpackItem)) { continue; }
                 if (input.getItem() instanceof JetpackItem) {
                     JetpackType inputJetpack = ((JetpackItem) input.getItem()).getType();
                     if (inputJetpack.getIsArmored()) {
@@ -35,7 +35,7 @@ public class PlatingReturnHandler {
         }
     }
 
-    // TODO: put this somewhere else
+    // TODO: make this better
     public Item getPlating(int id) {
         if (id == 0) { return Items.IRON_CHESTPLATE; }
         if (id == 1) { return Items.GOLDEN_CHESTPLATE; }

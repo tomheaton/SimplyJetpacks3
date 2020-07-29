@@ -15,7 +15,6 @@ public class ModSounds {
     @SubscribeEvent
     public void onRegisterSounds(RegistryEvent.Register<SoundEvent> event) {
         IForgeRegistry<SoundEvent> registry = event.getRegistry();
-
         registry.register(JETPACK.setRegistryName("jetpack"));
         registry.register(JETPACK_OTHER.setRegistryName("jetpack_other"));
         registry.register(ROCKET.setRegistryName("rocket"));
