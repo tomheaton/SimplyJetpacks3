@@ -11,6 +11,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import org.lwjgl.glfw.GLFW;
+import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.gui.JetpackGuiScreen;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;

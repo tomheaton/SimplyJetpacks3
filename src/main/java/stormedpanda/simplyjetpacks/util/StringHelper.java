@@ -8,7 +8,7 @@ import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public abstract class SJStringHelper {
+public abstract class StringHelper {
 	private static final DecimalFormat formatter = new DecimalFormat("###,###");
 
 	public static String getFormattedNumber(int number) {

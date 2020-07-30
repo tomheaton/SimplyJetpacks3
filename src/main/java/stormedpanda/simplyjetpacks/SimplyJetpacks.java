@@ -30,6 +30,7 @@ import stormedpanda.simplyjetpacks.crafting.PlatingReturnHandler;
 import stormedpanda.simplyjetpacks.handlers.KeybindHandler;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.handlers.SyncHandler;
+import stormedpanda.simplyjetpacks.integration.IntegrationList;
 import stormedpanda.simplyjetpacks.items.JetpackType;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
 import stormedpanda.simplyjetpacks.sound.ModSounds;
@@ -39,7 +40,7 @@ import java.util.stream.Collectors;
 @Mod(SimplyJetpacks.MODID)
 public class SimplyJetpacks {
 
-    public static SimplyJetpacks instance;
+    public static SimplyJetpacks INSTANCE;
 
     public static final String MODID = "simplyjetpacks";
     public static final String MODNAME = "Simply Jetpacks 3";
@@ -67,6 +68,7 @@ public class SimplyJetpacks {
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SimplyJetpacksConfig.SERVER_SPEC, "simplyjetpacks-server.toml");
         MinecraftForge.EVENT_BUS.register(SimplyJetpacksConfig.class);
 
+        IntegrationList.init();
         JetpackType.loadAllConfigs();
         RegistryHandler.init();
     }
@@ -107,6 +109,6 @@ public class SimplyJetpacks {
     public void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
         LOGGER.info("Recipe Serializers Registered.");
         CraftingHelper.register(ModIntegrationCondition.Serializer.INSTANCE);
-        event.getRegistry().register(new ConditionalRecipe.Serializer<IRecipe<?>>().setRegistryName(new ResourceLocation("simplyjetpacks", "conditional")));
+        event.getRegistry().register(new ConditionalRecipe.Serializer<>().setRegistryName(new ResourceLocation(MODID, "conditional")));
     }
 }

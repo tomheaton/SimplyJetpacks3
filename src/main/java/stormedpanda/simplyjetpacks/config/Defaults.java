@@ -15,4 +15,21 @@ public abstract class Defaults {
 
     // GUI
     public static final boolean enableStateMessages = true;
+    public static final boolean enableJetpackHud = true;
+    public static final int hudTextColor = 0xFFDD4F;
+    public static final HUDPosition hudTextPosition = HUDPosition.TOP_LEFT;
+    public static final int hudXOffset = 0;
+    public static final int hudYOffset = 0;
+    public static final long hudScale = 1;
+    public static final boolean hudTextShadow = true;
+
+    public enum HUDPosition {
+        TOP_LEFT,
+        TOP_CENTER,
+        TOP_RIGHT,
+        LEFT,
+        RIGHT,
+        BOTTOM_LEFT,
+        BOTTOM_RIGHT,
+    }
 }

@@ -6,11 +6,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 import net.minecraftforge.fml.ModList;
+import stormedpanda.simplyjetpacks.SimplyJetpacks;
+import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.integration.IntegrationList;
 
 public class ModIntegrationCondition implements ICondition {
 
-    private static final ResourceLocation NAME = new ResourceLocation("simplyjetpacks", "mod_integration");
+    private static final ResourceLocation NAME = new ResourceLocation(SimplyJetpacks.MODID, "mod_integration");
     private final String modid;
 
     public ModIntegrationCondition(String modid) {
@@ -24,13 +26,19 @@ public class ModIntegrationCondition implements ICondition {
 
     @Override
     public boolean test() {
-        if (modid.equals("vanilla")) {
-            return IntegrationList.integrateVanilla;
-        } else if (modid.equals("immersiveengineering")) {
-            return ModList.get().isLoaded(modid) && IntegrationList.integrateImmersiveEngineering;
-        } else if (modid.equals("mekanism")) {
-            return ModList.get().isLoaded(modid) && IntegrationList.integrateMekanism;
-        } else return false;
+        switch (modid) {
+            case "vanilla":
+                return SimplyJetpacksConfig.COMMON.enableIntegrationVanilla.get();
+                //return IntegrationList.integrateVanilla;
+            case "immersiveengineering":
+                return ModList.get().isLoaded(modid) && SimplyJetpacksConfig.COMMON.enableIntegrationImmersiveEngineering.get();
+                //return IntegrationList.integrateImmersiveEngineering;
+            case "mekanism":
+                return ModList.get().isLoaded(modid) && SimplyJetpacksConfig.COMMON.enableIntegrationMekanism.get();
+                //return IntegrationList.integrateMekanism;
+            default:
+                return false;
+        }
     }
 
     @Override

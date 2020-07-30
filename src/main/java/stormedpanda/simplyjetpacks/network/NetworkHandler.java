@@ -37,6 +37,12 @@ public class NetworkHandler {
                 .consumer(PacketToggleEHover::handle)
                 .add();
 
+        CHANNEL_INSTANCE.messageBuilder(PacketToggleCharger.class, nextID())
+                .encoder(PacketToggleCharger::toBytes)
+                .decoder(PacketToggleCharger::new)
+                .consumer(PacketToggleCharger::handle)
+                .add();
+
         CHANNEL_INSTANCE.messageBuilder(PacketUpdateInput.class, nextID())
                 .encoder(PacketUpdateInput::toBytes)
                 .decoder(PacketUpdateInput::fromBytes)

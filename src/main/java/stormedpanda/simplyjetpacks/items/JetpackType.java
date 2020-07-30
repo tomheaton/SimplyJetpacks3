@@ -6,7 +6,6 @@ import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.config.DefaultJetpackConfig;
-import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.integration.IntegrationList;
 import stormedpanda.simplyjetpacks.lists.ArmorMaterialList;
 
@@ -75,6 +74,7 @@ public enum JetpackType {
     public double sprintSpeedModifier;
     public double sprintFuelModifier;
     public boolean emergencyHoverMode;
+    public boolean chargerMode;
 
 /*    JetpackType(String name, int tier, String defaultConfigKey, boolean usesFuel) {
         this(name, tier, defaultConfigKey);
@@ -157,6 +157,9 @@ public enum JetpackType {
     public boolean canEHover() {
         return emergencyHoverMode;
     }
+    public boolean canCharge() {
+        return chargerMode;
+    }
 
     public String getArmorTexture() {
         return armorTexture.toString();
@@ -185,23 +188,20 @@ public enum JetpackType {
         for (JetpackType jetpackType : JETPACK_SJ) {
             jetpackType.loadJetpackConfigurations();
         }
-        //if (IntegrationList.integrateVanilla) {
-        SimplyJetpacks.LOGGER.info("VAN CHECK COMMON : " + SimplyJetpacksConfig.COMMON.enableIntegrationVanilla.get());
-        if (SimplyJetpacksConfig.COMMON.enableIntegrationVanilla.get()) {
-            SimplyJetpacks.LOGGER.info("VAN IS TRUE -> LOADING TYPES");
+        if (IntegrationList.integrateVanilla) {
+        //if (SimplyJetpacksConfig.COMMON.enableIntegrationVanilla.get()) {
             for (JetpackType jetpackType : JETPACK_VANILLA) {
                 jetpackType.loadJetpackConfigurations();
             }
         }
-        SimplyJetpacks.LOGGER.info("IE CHECK COMMON : " + SimplyJetpacksConfig.COMMON.enableIntegrationImmersiveEngineering.get());
-        if (SimplyJetpacksConfig.COMMON.enableIntegrationImmersiveEngineering.get()) {
-        //if (IntegrationList.integrateImmersiveEngineering) {
-            SimplyJetpacks.LOGGER.info("IE IS TRUE -> LOADING TYPES");
+        if (IntegrationList.integrateImmersiveEngineering) {
+        //if (SimplyJetpacksConfig.COMMON.enableIntegrationImmersiveEngineering.get()) {
             for (JetpackType jetpackType : JETPACK_IE) {
                 jetpackType.loadJetpackConfigurations();
             }
         }
         if (IntegrationList.integrateMekanism) {
+        //if (SimplyJetpacksConfig.COMMON.enableIntegrationMekanism.get()) {
             for (JetpackType jetpackType : JETPACK_MEK) {
                 jetpackType.loadJetpackConfigurations();
             }
@@ -223,5 +223,6 @@ public enum JetpackType {
         this.sprintSpeedModifier = this.defaults.sprintSpeedModifier;
         this.sprintFuelModifier = this.defaults.sprintFuelModifier;
         this.emergencyHoverMode = this.defaults.emergencyHoverMode;
+        this.chargerMode = this.defaults.chargerMode;
     }
 }

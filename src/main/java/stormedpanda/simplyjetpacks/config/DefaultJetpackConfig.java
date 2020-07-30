@@ -26,6 +26,7 @@ public class DefaultJetpackConfig {
     public double sprintSpeedModifier;
     public double sprintFuelModifier;
     public boolean emergencyHoverMode;
+    public boolean chargerMode;
 
     public DefaultJetpackConfig(String key, String sectionTitle) {
         //this.section = new Section(false, "Tuning - " + sectionTitle, "tuning." + key);
@@ -59,8 +60,9 @@ public class DefaultJetpackConfig {
         d.speedSideways = 0.21D;
         d.sprintSpeedModifier = 2.5D;
         d.emergencyHoverMode = true;
+        d.chargerMode = true;
 
-        //if (SimplyJetpacksConfig.enableIntegrationVanilla) {
+        //if (IntegrationList.integrateVanilla) {
         if (true) {
             d = new DefaultJetpackConfig("jetpackIron", "Iron Jetpack (Vanilla 1)");
             d.fuelCapacity = 80000;
@@ -77,6 +79,7 @@ public class DefaultJetpackConfig {
             d.sprintSpeedModifier = 1.0D;
             d.sprintFuelModifier = 1.0D;
             d.emergencyHoverMode = false;
+            d.chargerMode = false;
 
             d = new DefaultJetpackConfig("jetpackGold", "Gold Jetpack (Vanilla 2)");
             d.fuelCapacity = 400000;
@@ -93,6 +96,7 @@ public class DefaultJetpackConfig {
             d.sprintSpeedModifier = 1.0D;
             d.sprintFuelModifier = 1.0D;
             d.emergencyHoverMode = false;
+            d.chargerMode = false;
 
             d = new DefaultJetpackConfig("jetpackDiamond", "Diamond Jetpack (Vanilla 3)");
             d.fuelCapacity = 20000000;
@@ -109,6 +113,7 @@ public class DefaultJetpackConfig {
             d.sprintSpeedModifier = 1.8D;
             d.sprintFuelModifier = 4.0D;
             d.emergencyHoverMode = true;
+            d.chargerMode = true;
         }
     }
 }

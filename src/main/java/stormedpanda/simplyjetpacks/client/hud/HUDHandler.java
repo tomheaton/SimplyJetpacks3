@@ -3,14 +3,15 @@ package stormedpanda.simplyjetpacks.client.hud;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.MainWindow;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
+import stormedpanda.simplyjetpacks.util.HUDRenderHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,43 +20,37 @@ public class HUDHandler {
 
     public final Minecraft minecraft = Minecraft.getInstance();
 
-    private void drawString(MainWindow window, MatrixStack matrix, ITextComponent text, int x, int y, int color) {
-        FontRenderer font = minecraft.fontRenderer;
-        int windowScaleHeight = window.getScaledHeight();
-        int windowScaleWidth = window.getScaledWidth();
-        font.func_238407_a_(matrix, text, x, y, color);
-    }
-
     @SubscribeEvent()
     public void renderOverlay(RenderGameOverlayEvent event) {
         if (event.getType() != RenderGameOverlayEvent.ElementType.ALL) {
             return;
         }
-        if (minecraft.player != null) {
-            ItemStack chestplate = minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
-            Item item = chestplate.getItem();
+        if (SimplyJetpacksConfig.CLIENT.enableJetpackHud.get()) {
+            if (minecraft.player != null) {
+                ItemStack chestplate = minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+                Item item = chestplate.getItem();
 
-            if (!chestplate.isEmpty() && item instanceof JetpackItem) {
-                JetpackItem jetpack = (JetpackItem) item;
+                if (!chestplate.isEmpty() && item instanceof JetpackItem) {
+                    JetpackItem jetpack = (JetpackItem) item;
 
-                IHUDInfoProvider provider = (IHUDInfoProvider) chestplate.getItem();
+                    IHUDInfoProvider provider = (IHUDInfoProvider) chestplate.getItem();
 
-                List<ITextComponent> renderStrings = new ArrayList<>();
-                provider.addHUDInfo(renderStrings, chestplate);
-                if (renderStrings.isEmpty()) {
-                    return;
+                    List<ITextComponent> renderStrings = new ArrayList<>();
+                    provider.addHUDInfo(renderStrings, chestplate);
+                    if (renderStrings.isEmpty()) {
+                        return;
+                    }
+                    int count = 0;
+                    MatrixStack matrix = event.getMatrixStack();
+                    matrix.push();
+                    matrix.scale(SimplyJetpacksConfig.CLIENT.hudScale.get(), SimplyJetpacksConfig.CLIENT.hudScale.get(), 1.0F);
+                    MainWindow window = event.getWindow();
+                    for (ITextComponent text : renderStrings) {
+                        HUDRenderHelper.drawStringAtPosition(window, matrix, text, count);
+                        count++;
+                    }
+                    matrix.pop();
                 }
-                int count = 10;
-
-                MatrixStack matrix = event.getMatrixStack();
-                matrix.push();
-                matrix.scale(1.0F, 1.0F, 1.0F);
-                MainWindow window = event.getWindow();
-                for (ITextComponent text : renderStrings) {
-                    drawString(window, matrix, text, 10, count, 0x10F4D3);
-                    count += 10;
-                }
-                matrix.pop();
             }
         }
     }
