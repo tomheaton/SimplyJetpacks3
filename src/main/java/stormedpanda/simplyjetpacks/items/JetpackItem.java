@@ -24,9 +24,9 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.capability.CapabilityProviderEnergy;
 import stormedpanda.simplyjetpacks.capability.EnergyConversionStorage;
+import stormedpanda.simplyjetpacks.capability.NewCapabilityProviderEnergy;
 import stormedpanda.simplyjetpacks.client.hud.IHUDInfoProvider;
 import stormedpanda.simplyjetpacks.client.model.JetpackModel;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
@@ -170,7 +170,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT nbt) {
         return new CapabilityProviderEnergy(new EnergyConversionStorage(this, stack));
-        //return new CapabilityProviderEnergy<>(new EnergyConversionStorage(this, stack), CapabilityEnergy.ENERGY, null);
+        //return new NewCapabilityProviderEnergy<>(new EnergyConversionStorage(this, stack), CapabilityEnergy.ENERGY, null);
     }
 
     private static float getChargeRatio(ItemStack stack) {
