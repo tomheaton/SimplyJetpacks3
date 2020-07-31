@@ -8,7 +8,6 @@ import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 import net.minecraftforge.fml.ModList;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
-import stormedpanda.simplyjetpacks.integration.IntegrationList;
 
 public class ModIntegrationCondition implements ICondition {
 
@@ -26,19 +25,29 @@ public class ModIntegrationCondition implements ICondition {
 
     @Override
     public boolean test() {
-        switch (modid) {
+        if (modid.equals("vanilla")) {
+            SimplyJetpacks.LOGGER.info("VANILLA: " + (SimplyJetpacksConfig.COMMON.enableIntegrationVanilla.get()));
+            return SimplyJetpacksConfig.COMMON.enableIntegrationVanilla.get();
+        }
+        if (modid.equals("immersiveengineering")) {
+            SimplyJetpacks.LOGGER.info("IE: " + (ModList.get().isLoaded(modid) && SimplyJetpacksConfig.COMMON.enableIntegrationImmersiveEngineering.get()));
+            return SimplyJetpacksConfig.COMMON.enableIntegrationImmersiveEngineering.get();
+        }
+        if (modid.equals("mekanism")) {
+            SimplyJetpacks.LOGGER.info("MEK: " + (ModList.get().isLoaded(modid) && SimplyJetpacksConfig.COMMON.enableIntegrationMekanism.get()));
+            return ModList.get().isLoaded(modid) && SimplyJetpacksConfig.COMMON.enableIntegrationMekanism.get();
+        }
+        return false;
+        /*switch (modid) {
             case "vanilla":
                 return SimplyJetpacksConfig.COMMON.enableIntegrationVanilla.get();
-                //return IntegrationList.integrateVanilla;
             case "immersiveengineering":
                 return ModList.get().isLoaded(modid) && SimplyJetpacksConfig.COMMON.enableIntegrationImmersiveEngineering.get();
-                //return IntegrationList.integrateImmersiveEngineering;
             case "mekanism":
                 return ModList.get().isLoaded(modid) && SimplyJetpacksConfig.COMMON.enableIntegrationMekanism.get();
-                //return IntegrationList.integrateMekanism;
             default:
                 return false;
-        }
+        }*/
     }
 
     @Override

@@ -1,6 +1,5 @@
 package stormedpanda.simplyjetpacks;
 
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -46,15 +45,16 @@ public class SimplyJetpacks {
     public static final String MODNAME = "Simply Jetpacks 3";
     public static final String VERSION = "${version}";
 
-    public static final Logger LOGGER = LogManager.getLogger(MODID);
+    public static final Logger LOGGER = LogManager.getLogger();
+
     public static final CreativeTabSimplyJetpacks tabSimplyJetpacks = new CreativeTabSimplyJetpacks();
 
     public SimplyJetpacks() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::CommonSetup);
+        FMLJavaModLoadingContext.get().getModEventBus(). addListener(this::CommonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::ClientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
-        FMLJavaModLoadingContext.get().getModEventBus().register(this);
+        //FMLJavaModLoadingContext.get().getModEventBus().register(this);
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new SyncHandler());
@@ -67,6 +67,8 @@ public class SimplyJetpacks {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_SPEC, "simplyjetpacks-common.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SimplyJetpacksConfig.SERVER_SPEC, "simplyjetpacks-server.toml");
         MinecraftForge.EVENT_BUS.register(SimplyJetpacksConfig.class);
+
+        CraftingHelper.register(ModIntegrationCondition.Serializer.INSTANCE);
 
         IntegrationList.init();
         JetpackType.loadAllConfigs();

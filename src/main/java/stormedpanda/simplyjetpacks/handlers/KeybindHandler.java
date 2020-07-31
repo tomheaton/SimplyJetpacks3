@@ -11,13 +11,10 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import org.lwjgl.glfw.GLFW;
-import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.gui.JetpackGuiScreen;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
-import stormedpanda.simplyjetpacks.network.packets.PacketToggleEngine;
-import stormedpanda.simplyjetpacks.network.packets.PacketToggleHover;
-import stormedpanda.simplyjetpacks.network.packets.PacketUpdateInput;
+import stormedpanda.simplyjetpacks.network.packets.*;
 
 public class KeybindHandler {
 
@@ -31,6 +28,8 @@ public class KeybindHandler {
     public static KeyBinding JETPACK_GUI_KEY;
     public static KeyBinding JETPACK_ENGINE_KEY;
     public static KeyBinding JETPACK_HOVER_KEY;
+    public static KeyBinding JETPACK_EHOVER_KEY;
+    public static KeyBinding JETPACK_CHARGER_KEY;
 
     public static void setup() {
         JETPACK_GUI_KEY = new KeyBinding("keybind.simplyjetpacks.jetpack_gui", GLFW.GLFW_KEY_K, "keybind.categories.simplyjetpacks");
@@ -39,6 +38,10 @@ public class KeybindHandler {
         ClientRegistry.registerKeyBinding(JETPACK_ENGINE_KEY);
         JETPACK_HOVER_KEY = new KeyBinding("keybind.simplyjetpacks.jetpack_hover", GLFW.GLFW_KEY_H, "keybind.categories.simplyjetpacks");
         ClientRegistry.registerKeyBinding(JETPACK_HOVER_KEY);
+        JETPACK_EHOVER_KEY = new KeyBinding("keybind.simplyjetpacks.jetpack_ehover", GLFW.GLFW_KEY_UNKNOWN, "keybind.categories.simplyjetpacks");
+        ClientRegistry.registerKeyBinding(JETPACK_EHOVER_KEY);
+        JETPACK_CHARGER_KEY = new KeyBinding("keybind.simplyjetpacks.jetpack_charger", GLFW.GLFW_KEY_UNKNOWN, "keybind.categories.simplyjetpacks");
+        ClientRegistry.registerKeyBinding(JETPACK_CHARGER_KEY);
     }
 
     @SubscribeEvent
@@ -60,17 +63,20 @@ public class KeybindHandler {
             if (JETPACK_HOVER_KEY.isPressed()) {
                 NetworkHandler.sendToServer(new PacketToggleHover());
             }
+            if (JETPACK_EHOVER_KEY.isPressed()) {
+                NetworkHandler.sendToServer(new PacketToggleEHover());
+            }
+            if (JETPACK_CHARGER_KEY.isPressed()) {
+                NetworkHandler.sendToServer(new PacketToggleCharger());
+            }
         }
     }
 
     private static void tickStart() {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player != null) {
-            boolean flyState;
-            boolean descendState;
-            flyState = mc.gameSettings.keyBindJump.isKeyDown();
-            descendState = mc.gameSettings.keyBindSneak.isKeyDown();
-
+            boolean flyState = mc.gameSettings.keyBindJump.isKeyDown();
+            boolean descendState = mc.gameSettings.keyBindSneak.isKeyDown();
             boolean forwardState = mc.gameSettings.keyBindForward.isKeyDown();
             boolean backwardState = mc.gameSettings.keyBindBack.isKeyDown();
             boolean leftState = mc.gameSettings.keyBindLeft.isKeyDown();

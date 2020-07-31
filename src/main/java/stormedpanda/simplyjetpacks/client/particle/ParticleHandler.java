@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.particles.RedstoneParticleData;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.event.TickEvent;
@@ -70,6 +71,10 @@ public class ParticleHandler {
                     Item item = chest.getItem();
                     if (!chest.isEmpty() && item instanceof JetpackItem) {
                         if (isFlying(minecraft.player)) {
+
+                            minecraft.world.addParticle(RedstoneParticleData.REDSTONE_DUST, minecraft.player.getPosX() + minecraft.world.rand.nextDouble(), minecraft.player.getPosY() + 0.15,
+                                    minecraft.player.getPosZ() + minecraft.world.rand.nextDouble(), 0, 0, 0);
+
                             Random rand = new Random();
                             Vector3d playerPos = new Vector3d(minecraft.player.getPositionVec().getX(), minecraft.player.getPositionVec().getY(), minecraft.player.getPositionVec().getZ()).add(0, 1.5, 0);
                             float random = (rand.nextFloat() - 0.5F) * 0.1F;

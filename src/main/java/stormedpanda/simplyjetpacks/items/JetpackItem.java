@@ -24,12 +24,14 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.capability.CapabilityProviderEnergy;
 import stormedpanda.simplyjetpacks.capability.EnergyConversionStorage;
 import stormedpanda.simplyjetpacks.client.hud.IHUDInfoProvider;
 import stormedpanda.simplyjetpacks.client.model.JetpackModel;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.handlers.SyncHandler;
+import stormedpanda.simplyjetpacks.integration.IntegrationList;
 import stormedpanda.simplyjetpacks.util.KeyboardUtil;
 import stormedpanda.simplyjetpacks.util.NBTHelper;
 import stormedpanda.simplyjetpacks.util.Styles;
@@ -78,7 +80,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         return new JetpackModel().applyData(_default);
     }
 
-    public String getBaseName() { return this.name; }
+    public String getBaseName() { return name; }
 
     public JetpackType getType() { return type; }
 
@@ -87,7 +89,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     @Override
-    public boolean hasEffect(ItemStack stack) {
+    public boolean hasEffect(@Nonnull ItemStack stack) {
         return (isCreative() || stack.isEnchanted());
     }
 
@@ -95,6 +97,9 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         super.onArmorTick(stack, world, player);
         flyUser(player, stack, this);
+        if (this.type.canCharge() && this.isChargerOn(stack)) {
+            chargeInventory(player, stack, this);
+        }
     }
 
     public int getCapacity() {
@@ -165,7 +170,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT nbt) {
         return new CapabilityProviderEnergy(new EnergyConversionStorage(this, stack));
-        //return new CapabilityProviderEnergy(new ItemEnergyStorage(stack, this.jetpack.capacity));
+        //return new CapabilityProviderEnergy<>(new EnergyConversionStorage(this, stack), CapabilityEnergy.ENERGY, null);
     }
 
     private static float getChargeRatio(ItemStack stack) {
@@ -184,16 +189,13 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         if (KeyboardUtil.isHoldingShift()) {
             shiftInformation(stack, tooltip);
         } else {
-            // TODO: make this use keybinding value rather than just hardcoded
             tooltip.add(new TranslationTextComponent("chat.simplyjetpacks.showDetails", new StringTextComponent("Shift").setStyle(Styles.GOLD)));
         }
     }
 
-    // TODO: make this check if fuel is used
     @OnlyIn(Dist.CLIENT)
     public void information(ItemStack stack, JetpackItem item, List<ITextComponent> tooltip) {
         tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.tier", tier));
-
         if (isCreative()) {
             tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.infiniteEnergy"));
         } else {
@@ -217,30 +219,8 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     @Override
-    protected boolean isInGroup(ItemGroup group) {
-        if (SimplyJetpacksConfig.COMMON.enableIntegrationVanilla.get()) {
-            if (getBaseName().contains("vanilla")) {
-                return true;
-            }
-        }
-        if (SimplyJetpacksConfig.COMMON.enableIntegrationImmersiveEngineering.get()) {
-            if (getBaseName().contains("ie")) {
-                return true;
-            }
-        }
-        if (SimplyJetpacksConfig.COMMON.enableIntegrationMekanism.get()) {
-            if (getBaseName().contains("mek")) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // TODO: get the energy-full variants to show up in NEI
-    @Override
     public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
-        super.fillItemGroup(group, items);
-        /*if (this.isInGroup(group)) {
+        if (this.isInGroup(group)) {
             if (isCreative()) {
                 items.add(new ItemStack(this));
             }
@@ -268,7 +248,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
                     items.add(full);
                 }
             }
-        }*/
+        }
     }
 
     @Override
@@ -373,12 +353,13 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         }
     }
 
-    public void doCharge(ItemStack stack, PlayerEntity player) {
-        //TODO: Charge Inventory Items
+    public void chargeInventory(PlayerEntity player, ItemStack stack, JetpackItem jetpackItem) {
+        //TODO: charge inventory items
     }
 
+
     @Override
-    public boolean isEnchantable(ItemStack stack) {
+    public boolean isEnchantable(@Nonnull ItemStack stack) {
         return true;
     }
 

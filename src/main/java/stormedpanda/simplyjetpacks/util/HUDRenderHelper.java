@@ -58,10 +58,9 @@ public class HUDRenderHelper {
                 drawStringRight(matrix, text, screenWidth - 2 + xOffset, screenHeight - 9 + yOffset, color, hudTextShadow);
                 break;
             default:
-                SimplyJetpacks.LOGGER.warn("Invalid HUD Position passed to renderer.");
+                SimplyJetpacks.LOGGER.info("Invalid HUD Position passed to renderer.");
         }
     }
-
     public static void drawStringLeft(MatrixStack matrix, ITextComponent text, int x, int y, int color, boolean shadow) {
         fontRenderer.func_238407_a_(matrix, text, x, y, color);
     }

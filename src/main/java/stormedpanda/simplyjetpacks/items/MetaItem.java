@@ -2,8 +2,12 @@ package stormedpanda.simplyjetpacks.items;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.integration.IntegrationList;
+
+import javax.annotation.Nonnull;
 
 public class MetaItem extends Item {
 
@@ -15,16 +19,23 @@ public class MetaItem extends Item {
     }
 
     @Override
-    protected boolean isInGroup(ItemGroup group) {
-        switch (fromMod) {
-            case "vanilla":
-                return IntegrationList.integrateVanilla && super.isInGroup(group);
-            case "ie":
-                return IntegrationList.integrateImmersiveEngineering && super.isInGroup(group);
-            case "mek":
-                return IntegrationList.integrateMekanism && super.isInGroup(group);
-            default:
-                return super.isInGroup(group);
+    public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
+        if (this.isInGroup(group)) {
+            if (IntegrationList.integrateVanilla) {
+                if (fromMod.equals("vanilla")) {
+                    items.add(new ItemStack(this));
+                }
+            }
+            if (IntegrationList.integrateImmersiveEngineering) {
+                if (fromMod.equals("ie")) {
+                    items.add(new ItemStack(this));
+                }
+            }
+            if (IntegrationList.integrateMekanism) {
+                if (fromMod.equals("mek")) {
+                    items.add(new ItemStack(this));
+                }
+            }
         }
     }
 }
