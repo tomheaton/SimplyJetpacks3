@@ -46,9 +46,7 @@ public class JetpackGuiScreen extends Screen {
         int relX = (this.width - WIDTH) / 2;
         int relY = (this.height - HEIGHT) / 2;
 
-        //this.addButton(new Button(relX + 108, relY + 10, 60, 20, new TranslationTextComponent("button.simplyjetpacks.engineToggle"), button -> NetworkHandler.sendToServer(new PacketToggleEngine())));
         this.addButton(new ImageButton(relX + 120, relY + 16, 20, 20, 176, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleEngine())));
-        //this.addButton(new Button(relX + 108, relY + 40, 60, 20, new TranslationTextComponent("button.simplyjetpacks.hoverToggle"), button -> NetworkHandler.sendToServer(new PacketToggleHover())));
         this.addButton(new ImageButton(relX + 120, relY + 38, 20, 20, 216, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleHover())));
 
         //TODO: Is this check really needed as you need a jetpack to open the gui anyway?
@@ -62,7 +60,6 @@ public class JetpackGuiScreen extends Screen {
                 this.addButton(new ImageButton(relX + 142, relY + 16, 20, 20, 196, 40, 0, GUI_BASE, button -> buttonClicked("CHARGER NOT AVAILABLE")));
             }
             if (jetpack.getType().canEHover()) {
-                //this.addButton(new Button(relX + 68, relY + 70, 100, 20, new TranslationTextComponent("button.simplyjetpacks.eHoverToggle"), button -> NetworkHandler.sendToServer(new PacketToggleEHover())));
                 this.addButton(new ImageButton(relX + 142, relY + 38, 20, 20, 236, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleEHover())));
             } else {
                 this.addButton(new ImageButton(relX + 142, relY + 38, 20, 20, 236, 40, 0, GUI_BASE, button -> buttonClicked("E HOVER NOT AVAILABLE")));

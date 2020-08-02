@@ -2,18 +2,21 @@ package stormedpanda.simplyjetpacks.items;
 
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
+import stormedpanda.simplyjetpacks.client.particle.JetpackParticleType;
 import stormedpanda.simplyjetpacks.config.DefaultJetpackConfig;
 import stormedpanda.simplyjetpacks.integration.IntegrationList;
 import stormedpanda.simplyjetpacks.lists.ArmorMaterialList;
+import stormedpanda.simplyjetpacks.util.NBTHelper;
 
 import java.util.EnumSet;
 
 public enum JetpackType {
-    CREATIVE("jetpack_creative", 6, "jetpackCreative"),
-    CREATIVE_ARMORED("jetpack_creative_armored", 6, "jetpackCreative", true),
+    CREATIVE("jetpack_creative", 6, "jetpackCreative", JetpackParticleType.RAINBOW),
+    CREATIVE_ARMORED("jetpack_creative_armored", 6, "jetpackCreative", JetpackParticleType.RAINBOW, true),
 
     VANILLA1("jetpack_vanilla1", 1, "jetpackIron"),
     VANILLA1_ARMORED("jetpack_vanilla1_armored", 1, "jetpackIron", true, 0),
@@ -58,6 +61,7 @@ public enum JetpackType {
     public static final EnumSet<JetpackType> JETPACK_VANILLA = EnumSet.range(VANILLA1, VANILLA4_ARMORED);
     public static final EnumSet<JetpackType> JETPACK_IE = EnumSet.range(IE1, IE3_ARMORED);
     public static final EnumSet<JetpackType> JETPACK_MEK = EnumSet.range(MEK1, MEK4_ARMORED);
+
     // Configurations:
     public final DefaultJetpackConfig defaults;
     //public int fuelCapacity;
@@ -76,10 +80,23 @@ public enum JetpackType {
     public boolean emergencyHoverMode;
     public boolean chargerMode;
 
+    public JetpackParticleType particleType;
+
 /*    JetpackType(String name, int tier, String defaultConfigKey, boolean usesFuel) {
         this(name, tier, defaultConfigKey);
         this.usesFuel = usesFuel;
     }*/
+
+    JetpackType(String name, int tier, String defaultConfigKey, JetpackParticleType particleType, boolean isArmored) {
+        this(name, tier, defaultConfigKey);
+        this.particleType = particleType;
+        this.isArmored = isArmored;
+    }
+
+    JetpackType(String name, int tier, String defaultConfigKey, JetpackParticleType particleType) {
+        this(name, tier, defaultConfigKey);
+        this.particleType = particleType;
+    }
 
     JetpackType(String name, int tier, String defaultConfigKey, boolean isArmored) {
         this(name, tier, defaultConfigKey);
@@ -100,6 +117,7 @@ public enum JetpackType {
         this.properties = new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks).maxStackSize(1);
         this.defaults = DefaultJetpackConfig.get(defaultConfigKey);
         //this.usesFuel = true;
+        this.particleType = JetpackParticleType.DEFAULT;
     }
 
     public String getName() {
@@ -179,6 +197,18 @@ public enum JetpackType {
 
     public int getPlatingID() {
         return platingID;
+    }
+
+    public JetpackParticleType getParticleType(ItemStack stack) {
+        if (stack.getTag() != null && NBTHelper.hasKey(stack, JetpackItem.TAG_PARTICLE)) {
+            int particle = NBTHelper.getInt(stack, JetpackItem.TAG_PARTICLE);//, particleType.ordinal());
+            JetpackParticleType particleType = JetpackParticleType.values()[particle];
+            if (particleType != null) {
+                return particleType;
+            }
+        }
+        NBTHelper.setInt(stack, JetpackItem.TAG_PARTICLE, particleType.ordinal());
+        return this.particleType;
     }
 
     public static void loadAllConfigs() {

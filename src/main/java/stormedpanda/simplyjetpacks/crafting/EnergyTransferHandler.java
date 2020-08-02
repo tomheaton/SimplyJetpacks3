@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import stormedpanda.simplyjetpacks.client.particle.JetpackParticleType;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
 import stormedpanda.simplyjetpacks.items.JetpackType;
 import stormedpanda.simplyjetpacks.util.NBTHelper;
@@ -21,16 +22,15 @@ public class EnergyTransferHandler {
         if (craftedItem instanceof JetpackItem) {
             for (int i = 0; i < event.getInventory().getSizeInventory(); i++) {
                 ItemStack input = event.getInventory().getStackInSlot(i);
-                if (input == null || !(input.getItem() instanceof JetpackItem)) { continue; }
-
+                if (!(input.getItem() instanceof JetpackItem)) { continue; }
                 if (input.getItem() instanceof JetpackItem) {
                     JetpackType inputJetpack = ((JetpackItem) input.getItem()).getType();
                     tags = NBTHelper.getTagCompound(input).copy();
-                    //SimplyJetpacks.LOGGER.info(tags.toString());
                     storedEnergy = NBTHelper.getInt(input, "Energy");
                     craftedStack.setTag(tags);
                     int energyToTransfer = Math.min(storedEnergy, ((JetpackItem) craftedItem).getCapacity());
-                    //NBTHelper.setInt(craftedStack, "Energy", energyToTransfer);
+                    JetpackParticleType particleType = inputJetpack.getParticleType(input);
+                    ((JetpackItem) craftedItem).setParticleType(craftedStack, particleType);
                     break;
                 }
             }

@@ -13,6 +13,9 @@ public abstract class Defaults {
     // Controls
     public static final boolean invertHoverSneakingBehavior = false;
 
+    // Audio
+    public static final boolean enableJetpackSounds = true;
+
     // GUI
     public static final boolean enableStateMessages = true;
     public static final boolean enableJetpackHud = true;

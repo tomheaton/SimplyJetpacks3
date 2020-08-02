@@ -50,7 +50,7 @@ public class SimplyJetpacks {
     public static final CreativeTabSimplyJetpacks tabSimplyJetpacks = new CreativeTabSimplyJetpacks();
 
     public SimplyJetpacks() {
-        FMLJavaModLoadingContext.get().getModEventBus(). addListener(this::CommonSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::CommonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::ClientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
@@ -61,12 +61,12 @@ public class SimplyJetpacks {
         MinecraftForge.EVENT_BUS.register(new PlatingReturnHandler());
         MinecraftForge.EVENT_BUS.register(new EnergyTransferHandler());
         MinecraftForge.EVENT_BUS.register(new ModSounds());
+        MinecraftForge.EVENT_BUS.register(SimplyJetpacksConfig.class);
 
         // TODO: Get all configs in one folder?
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SimplyJetpacksConfig.CLIENT_SPEC, "simplyjetpacks-client.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_SPEC, "simplyjetpacks-common.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SimplyJetpacksConfig.SERVER_SPEC, "simplyjetpacks-server.toml");
-        MinecraftForge.EVENT_BUS.register(SimplyJetpacksConfig.class);
 
         CraftingHelper.register(ModIntegrationCondition.Serializer.INSTANCE);
 

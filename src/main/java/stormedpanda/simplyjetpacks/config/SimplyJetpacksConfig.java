@@ -17,6 +17,7 @@ public class SimplyJetpacksConfig {
     public static class Client {
 
         public final BooleanValue invertHoverSneakingBehavior;
+        public final BooleanValue enableJetpackSounds;
         public final BooleanValue enableStateMessages;
         public final BooleanValue enableJetpackHud;
         public final IntValue hudTextColor;
@@ -34,57 +35,69 @@ public class SimplyJetpacksConfig {
             invertHoverSneakingBehavior = builder
                     .comment("This sets whether you must hold sneak to hover.")
                     .translation("config.simplyjetpacks.invertHoverSneakingBehavior")
-                    .worldRestart()
+                    //.worldRestart()
                     .define("invertHoverSneakingBehavior", Defaults.invertHoverSneakingBehavior);
+
+            builder.pop();
+
+            builder.comment("Audio Configurations").push("audio");
+
+            enableJetpackSounds = builder
+                    .comment("This sets whether jetpack sounds will play.")
+                    .translation("config.simplyjetpacks.enableJetpackSounds")
+                    //.worldRestart()
+                    .define("enableJetpackSounds", Defaults.enableJetpackSounds);
+
+            builder.pop();
 
             builder.comment("GUI Configurations").push("gui");
 
             enableStateMessages = builder
                     .comment("This sets whether or not jetpack state messages will show.")
                     .translation("config.simplyjetpacks.enableStateMessages")
-                    .worldRestart()
+                    //.worldRestart()
                     .define("enableStateMessages", Defaults.enableStateMessages);
 
             enableJetpackHud = builder
                     .comment("This sets whether or not the jetpack HUD will be visible.")
                     .translation("config.simplyjetpacks.enableJetpackHud")
-                    .worldRestart()
+                    //.worldRestart()
                     .define("enableJetpackHud", Defaults.enableJetpackHud);
 
             hudTextColor = builder
                     .comment("This sets the color of the Jetpack HUD.")
                     .translation("config.simplyjetpacks.hudTextColor")
-                    .worldRestart()
+                    //.worldRestart()
                     .defineInRange("hudTextColor", Defaults.hudTextColor, Integer.MIN_VALUE, Integer.MAX_VALUE);
 
             hudTextPosition = builder
                     .comment("HUD Position")
                     .translation("config.simplyjetpacks.hudTextPosition")
-                    .worldRestart()
+                    //.worldRestart()
                     .defineEnum("hudTextPosition", Defaults.hudTextPosition);
 
             hudXOffset = builder
                     .comment("HUD Position X Offset")
                     .translation("config.simplyjetpacks.hudXOffset")
-                    .worldRestart()
+                    //.worldRestart()
                     .defineInRange("hudXOffset", Defaults.hudXOffset, Integer.MIN_VALUE, Integer.MAX_VALUE);
 
             hudYOffset = builder
                     .comment("HUD Position Y Offset")
                     .translation("config.simplyjetpacks.hudYOffset")
-                    .worldRestart()
+                    //.worldRestart()
                     .defineInRange("hudYOffset", Defaults.hudYOffset, Integer.MIN_VALUE, Integer.MAX_VALUE);
 
             hudScale = builder
                     .comment("HUD Scale")
                     .translation("config.simplyjetpacks.hudScale")
-                    .worldRestart()
+                    //.worldRestart()
                     .defineInRange("hudScale", Defaults.hudScale, 1, 100);
 
             hudTextShadow = builder
                     .comment("HUD Text Shadow")
                     .translation("config.simplyjetpacks.hudTextShadow")
-                    .worldRestart()
+                    //.worldRestart()
                     .define("hudTextShadow", Defaults.hudTextShadow);
 
             builder.pop();
@@ -139,6 +152,8 @@ public class SimplyJetpacksConfig {
                     .translation("config.simplyjetpacks.enableIntegrationThermalDynamics")
                     .worldRestart()
                     .define("enableIntegrationThermalDynamics", Defaults.enableIntegrationThermalDynamics);
+
+            builder.pop();
 
             builder.comment("Jetpack Tuning Configurations").push("tuning");
 
