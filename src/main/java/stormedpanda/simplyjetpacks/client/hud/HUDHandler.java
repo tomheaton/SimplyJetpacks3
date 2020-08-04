@@ -25,7 +25,7 @@ public class HUDHandler {
         if (event.getType() != RenderGameOverlayEvent.ElementType.ALL) {
             return;
         }
-        if (SimplyJetpacksConfig.CLIENT.enableJetpackHud.get()) {
+        if (SimplyJetpacksConfig.CLIENT.enableJetpackHud.get() && !minecraft.gameSettings.hideGUI && !minecraft.gameSettings.showDebugInfo) {
             if (minecraft.player != null) {
                 ItemStack chestplate = minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
                 Item item = chestplate.getItem();
@@ -36,7 +36,7 @@ public class HUDHandler {
                     IHUDInfoProvider provider = (IHUDInfoProvider) chestplate.getItem();
 
                     List<ITextComponent> renderStrings = new ArrayList<>();
-                    provider.addHUDInfo(renderStrings, chestplate);
+                    provider.addHUDInfo(chestplate, renderStrings);
                     if (renderStrings.isEmpty()) {
                         return;
                     }

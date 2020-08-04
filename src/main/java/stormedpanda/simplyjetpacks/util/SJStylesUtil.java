@@ -4,7 +4,7 @@ import net.minecraft.util.text.Color;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 
-public final class Styles {
+public final class SJStylesUtil {
     public static final Style DARK_RED = Style.EMPTY.setColor(Color.func_240744_a_(TextFormatting.DARK_RED));
     public static final Style RED = Style.EMPTY.setColor(Color.func_240744_a_(TextFormatting.RED));
     public static final Style GOLD = Style.EMPTY.setColor(Color.func_240744_a_(TextFormatting.GOLD));

@@ -18,6 +18,7 @@ public class SimplyJetpacksConfig {
 
         public final BooleanValue invertHoverSneakingBehavior;
         public final BooleanValue enableJetpackSounds;
+        public final BooleanValue showExactEnergy;
         public final BooleanValue enableStateMessages;
         public final BooleanValue enableJetpackHud;
         public final IntValue hudTextColor;
@@ -51,6 +52,12 @@ public class SimplyJetpacksConfig {
             builder.pop();
 
             builder.comment("GUI Configurations").push("gui");
+
+            showExactEnergy = builder
+                    .comment("Show exact Energy of Jetpack in HUD")
+                    .translation("config.simplyjetpacks.showExactEnergy")
+                    //.worldRestart()
+                    .define("showExactEnergy", Defaults.showExactEnergy);
 
             enableStateMessages = builder
                     .comment("This sets whether or not jetpack state messages will show.")

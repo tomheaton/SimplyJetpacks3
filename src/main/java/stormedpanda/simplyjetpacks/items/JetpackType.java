@@ -40,8 +40,8 @@ public enum JetpackType {
     MEK2_ARMORED("jetpack_mek2_armored", 2, "jetpackGold", true, 8),
     MEK3("jetpack_mek3", 3, "jetpackDiamond"),
     MEK3_ARMORED("jetpack_mek3_armored", 3, "jetpackDiamond", true, 9),
-    MEK4("jetpack_mek4", 3, "jetpackDiamond"),
-    MEK4_ARMORED("jetpack_mek4_armored", 3, "jetpackDiamond", true, 10)
+    MEK4("jetpack_mek4", 4, "jetpackDiamond"),
+    MEK4_ARMORED("jetpack_mek4_armored", 4, "jetpackDiamond", true, 10)
     ;
 
     private final String name;
@@ -53,7 +53,7 @@ public enum JetpackType {
     private boolean isArmored;
     private int platingID;
     private final Item.Properties properties;
-    private boolean usesFuel;
+    private boolean usesEnergy;
     private Rarity rarity;
 
     protected static final EnumSet<JetpackType> JETPACK_ALL = EnumSet.allOf(JetpackType.class);
@@ -69,7 +69,7 @@ public enum JetpackType {
     //public int fuelPerTickOut;
     public int armorFuelPerHit;
     public int armorReduction;
-    public int fuelUsage;
+    public int energyUsage;
     public double speedVertical;
     public double accelVertical;
     public double speedVerticalHover;
@@ -116,7 +116,7 @@ public enum JetpackType {
         this.isArmored = false;
         this.properties = new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks).maxStackSize(1);
         this.defaults = DefaultJetpackConfig.get(defaultConfigKey);
-        //this.usesFuel = true;
+        //this.usesEnergy = true;
         this.particleType = JetpackParticleType.DEFAULT;
     }
 
@@ -126,6 +126,19 @@ public enum JetpackType {
 
     public int getTier() {
         return tier;
+    }
+
+    public Rarity getRarity() {
+        switch (tier) {
+            case 2:
+                return Rarity.UNCOMMON;
+            case 3:
+                return Rarity.RARE;
+            case 4:
+                return Rarity.EPIC;
+            default:
+                return Rarity.COMMON;
+        }
     }
 
     public int getCapacity() {
@@ -140,8 +153,8 @@ public enum JetpackType {
         return maxExtract;
     }
 
-    public int getFuelUsage() {
-        return fuelUsage;
+    public int getEnergyUsage() {
+        return energyUsage;
     }
 
     public double getSpeedVertical() {
@@ -244,7 +257,7 @@ public enum JetpackType {
         this.maxExtract = this.defaults.fuelPerTickOut;
         this.armorFuelPerHit = this.defaults.armorFuelPerHit;
         this.armorReduction = this.defaults.armorReduction;
-        this.fuelUsage = this.defaults.fuelUsage;
+        this.energyUsage = this.defaults.energyUsage;
         this.speedVertical = this.defaults.speedVertical;
         this.accelVertical = this.defaults.accelVertical;
         this.speedVerticalHover = this.defaults.speedVerticalHover;

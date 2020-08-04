@@ -14,7 +14,7 @@ import stormedpanda.simplyjetpacks.SimplyJetpacks;
 public enum ArmorMaterialList implements IArmorMaterial {
 
 	PILOT_GOGGLES("pilot_goggles", 0, new int[] {0, 0, 0, 0}, 0, Items.IRON_INGOT, "item.armor.equip_leather", 0.0f, 0.0f),
-	JETPACK("jetpack", 0, new int[] {0, 0, 0, 0}, 0, Items.IRON_INGOT, "item.armor.equip_iron", 0.0f, 0.0f),
+	JETPACK("jetpack", 0, new int[] {0, 0, 0, 0}, 10, Items.IRON_INGOT, "item.armor.equip_iron", 0.0f, 0.0f),
 	JETPACK_ARMORED("jetpack_armored", 66, new int[] {4, 7, 10, 4}, 10, Items.IRON_INGOT, "item.armor.equip_iron", 3.0f, 60.0f),
 	JETPLATE("jetplate", 66, new int[] {4, 7, 10, 4}, 10, Items.IRON_INGOT, "item.armor.equip_iron", 3.0f, 60.0f);
 

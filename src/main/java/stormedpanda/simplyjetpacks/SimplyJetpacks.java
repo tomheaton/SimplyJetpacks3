@@ -1,9 +1,7 @@
 package stormedpanda.simplyjetpacks;
 
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -111,6 +109,5 @@ public class SimplyJetpacks {
     public void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
         LOGGER.info("Recipe Serializers Registered.");
         CraftingHelper.register(ModIntegrationCondition.Serializer.INSTANCE);
-        event.getRegistry().register(new ConditionalRecipe.Serializer<>().setRegistryName(new ResourceLocation(MODID, "conditional")));
     }
 }

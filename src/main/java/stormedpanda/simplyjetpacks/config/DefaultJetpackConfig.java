@@ -10,7 +10,7 @@ public class DefaultJetpackConfig {
 
     // Base
     public int fuelCapacity;
-    public int fuelUsage;
+    public int energyUsage;
     public int fuelPerTickIn;
     public int fuelPerTickOut;
     public int armorReduction;
@@ -43,7 +43,7 @@ public class DefaultJetpackConfig {
         // Simply Jetpacks
         DefaultJetpackConfig d = new DefaultJetpackConfig("jetpackPotato", "Tuberous Jetpack");
         d.fuelCapacity = 1200;
-        d.fuelUsage = 45;
+        d.energyUsage = 45;
         d.speedVertical = 0.9D;
         d.accelVertical = 0.5D;
 
@@ -66,7 +66,7 @@ public class DefaultJetpackConfig {
         if (true) {
             d = new DefaultJetpackConfig("jetpackIron", "Iron Jetpack (Vanilla 1)");
             d.fuelCapacity = 80000;
-            d.fuelUsage = 32;
+            d.energyUsage = 32;
             d.fuelPerTickIn = 400;
             d.armorReduction = 5;
             d.armorFuelPerHit = 80;
@@ -83,7 +83,7 @@ public class DefaultJetpackConfig {
 
             d = new DefaultJetpackConfig("jetpackGold", "Gold Jetpack (Vanilla 2)");
             d.fuelCapacity = 400000;
-            d.fuelUsage = 50;
+            d.energyUsage = 50;
             d.fuelPerTickIn = 2000;
             d.armorReduction = 6;
             d.armorFuelPerHit = 80;
@@ -100,7 +100,7 @@ public class DefaultJetpackConfig {
 
             d = new DefaultJetpackConfig("jetpackDiamond", "Diamond Jetpack (Vanilla 3)");
             d.fuelCapacity = 20000000;
-            d.fuelUsage = 450;
+            d.energyUsage = 450;
             d.fuelPerTickIn = 50000;
             d.armorReduction = 8;
             d.armorFuelPerHit = 160;

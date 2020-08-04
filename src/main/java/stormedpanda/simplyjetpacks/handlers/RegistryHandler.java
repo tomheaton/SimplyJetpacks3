@@ -31,6 +31,8 @@ public class RegistryHandler {
     // Enchantments:
     public static final RegistryObject<EnchantmentFuelEfficiency> FUEL_EFFICIENCY = ENCHANTMENTS.register("fuel_efficiency", EnchantmentFuelEfficiency::new);
 
+    // Recipe Serializers:
+
     // Simply Jetpacks:
     public static final RegistryObject<Item> PILOT_GOGGLES = ITEMS.register("pilot_goggles", PilotGogglesItem::new);
     public static final RegistryObject<Item> LEATHER_STRAP = ITEMS.register("leather_strap", () ->

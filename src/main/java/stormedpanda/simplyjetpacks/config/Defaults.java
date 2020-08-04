@@ -17,9 +17,10 @@ public abstract class Defaults {
     public static final boolean enableJetpackSounds = true;
 
     // GUI
+    public static final boolean showExactEnergy = true;
     public static final boolean enableStateMessages = true;
     public static final boolean enableJetpackHud = true;
-    public static final int hudTextColor = 0xFFDD4F;
+    public static final int hudTextColor = 0xFFFFFF;
     public static final HUDPosition hudTextPosition = HUDPosition.TOP_LEFT;
     public static final int hudXOffset = 0;
     public static final int hudYOffset = 0;

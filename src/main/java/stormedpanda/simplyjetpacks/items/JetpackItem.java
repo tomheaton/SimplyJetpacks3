@@ -2,6 +2,7 @@ package stormedpanda.simplyjetpacks.items;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,13 +11,12 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Rarity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -30,12 +30,12 @@ import stormedpanda.simplyjetpacks.client.hud.IHUDInfoProvider;
 import stormedpanda.simplyjetpacks.client.model.JetpackModel;
 import stormedpanda.simplyjetpacks.client.particle.JetpackParticleType;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
+import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.handlers.SyncHandler;
 import stormedpanda.simplyjetpacks.integration.IntegrationList;
 import stormedpanda.simplyjetpacks.util.KeyboardUtil;
 import stormedpanda.simplyjetpacks.util.NBTHelper;
-import stormedpanda.simplyjetpacks.util.Styles;
-import stormedpanda.simplyjetpacks.util.TextUtil;
+import stormedpanda.simplyjetpacks.util.SJTextUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -85,9 +85,9 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     public JetpackType getType() { return type; }
 
-    public boolean isCreative() {
-        return getBaseName().contains("creative");
-    }
+    public int getCapacity() { return capacity; }
+
+    public boolean isCreative() { return getBaseName().contains("creative"); }
 
     @Override
     public boolean hasEffect(@Nonnull ItemStack stack) {
@@ -103,25 +103,16 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         }
     }
 
-    public int getCapacity() {
-        return capacity;
+    public int getEnergyUsage(ItemStack stack) {
+        int baseUsage = type.getEnergyUsage();
+        int level = EnchantmentHelper.getEnchantmentLevel(RegistryHandler.FUEL_EFFICIENCY.get(), stack);
+        return level != 0 ? (int) Math.round(baseUsage * (5 - level) / 5.0D) : baseUsage;
     }
 
-    // TESTING
-    public int getFuelUsage() {
-        int usage = type.getFuelUsage();
-        // TODO: add fuel efficiency enchantment effects
-        return usage;
-    }
     public void useEnergy(ItemStack container, int amount) {
-        if (container.getTag() == null || !container.getTag().contains(TAG_ENERGY)) {
-            // PASS
-        } else {
+        if (container.getTag() != null || container.getTag().contains(TAG_ENERGY)) {
             int stored = Math.min(container.getTag().getInt(TAG_ENERGY), getMaxEnergyStored(container));
-            //int energyExtracted = Math.min(stored, Math.min(this.maxExtract, maxExtract));
-            //int energyExtracted = 1;
-            int energyExtracted = amount;
-            stored -= energyExtracted;
+            stored -= amount;
             container.getTag().putInt(TAG_ENERGY, stored);
         }
     }
@@ -194,35 +185,18 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         if (KeyboardUtil.isHoldingShift()) {
             shiftInformation(stack, tooltip);
         } else {
-            tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.showDetails", new StringTextComponent("Shift").setStyle(Styles.GOLD)));
+            tooltip.add(SJTextUtil.getShiftText());
         }
     }
 
     @OnlyIn(Dist.CLIENT)
     public void information(ItemStack stack, JetpackItem item, List<ITextComponent> tooltip) {
-        tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.tier", tier));
-        if (isCreative()) {
-            tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.infiniteEnergy"));
-        } else {
-            stack.getCapability(CapabilityEnergy.ENERGY).ifPresent(e -> tooltip.add(TextUtil.energyWithMax(e.getEnergyStored(), e.getMaxEnergyStored())));
-        }
+        SJTextUtil.addBaseInfo(stack, tooltip);
     }
 
     @OnlyIn(Dist.CLIENT)
     public void shiftInformation(ItemStack stack, List<ITextComponent> tooltip) {
-        ITextComponent on = new TranslationTextComponent("tooltip.simplyjetpacks.enabled").setStyle(Styles.GREEN);
-        ITextComponent off = new TranslationTextComponent("tooltip.simplyjetpacks.disabled").setStyle(Styles.RED);
-        tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.itemJetpack.engineMode", (NBTHelper.getBoolean(stack, TAG_ENGINE) ? on : off)).setStyle(Styles.GOLD));
-        tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.itemJetpack.hoverMode", (NBTHelper.getBoolean(stack, TAG_HOVER) ? on : off)).setStyle(Styles.GOLD));
-        if (type.canEHover()) {
-            tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.itemJetpack.emergencyHoverMode", (NBTHelper.getBoolean(stack, TAG_E_HOVER) ? on : off)).setStyle(Styles.GOLD));
-        }
-        if (type.canCharge()) {
-            tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.itemJetpack.chargerMode", (NBTHelper.getBoolean(stack, TAG_CHARGER) ? on : off)).setStyle(Styles.GOLD));
-        }
-        if (!isCreative()) { tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.itemJetpack.fuelUsage", type.getFuelUsage())); }
-        ITextComponent particle = new TranslationTextComponent("tooltip.simplyjetpacks.particle." + this.getType().getParticleType(stack).ordinal()).setStyle(Styles.WHITE);
-        tooltip.add(new TranslationTextComponent("tooltip.simplyjetpacks.itemJetpack.particleType", particle).setStyle(Styles.GOLD));
+        SJTextUtil.addShiftInfo(stack, tooltip);
     }
 
     @Override
@@ -274,97 +248,68 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void addHUDInfo(List<ITextComponent> list, ItemStack stack) {
-        ITextComponent on = new TranslationTextComponent("chat.simplyjetpacks.enabled").setStyle(Styles.GREEN);
-        ITextComponent off = new TranslationTextComponent("chat.simplyjetpacks.disabled").setStyle(Styles.RED);
-        ITextComponent notAvailable = new TranslationTextComponent("chat.simplyjetpacks.notAvailable").setStyle(Styles.RED);
-        list.add(new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.engineMode", (isEngineOn(stack) ? on : off)));
-        list.add(new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.hoverMode", (isHoverOn(stack) ? on : off)));
-        list.add(new TranslationTextComponent("chat.simplyjetpacks.energy", TextUtil.energyWithMax(this.getEnergyStored(stack), this.getMaxEnergyStored(stack))));
-        if (type.canEHover()) {
-            list.add(new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.emergencyHoverMode", (isEHoverOn(stack) ? on : off)));
-        } else {
-            list.add(new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.emergencyHover", notAvailable));
-        }
-        if (type.canCharge()) {
-            list.add(new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.chargerMode", (isChargerOn(stack) ? on : off)));
-        } else {
-            list.add(new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.chargerMode", notAvailable));
-        }
+    public void addHUDInfo(ItemStack stack, List<ITextComponent> list) {
+        SJTextUtil.addHUDInfoText(stack, list);
     }
 
     public boolean isEngineOn(ItemStack stack) {
         return NBTHelper.getBoolean(stack, TAG_ENGINE);
     }
-
     public void toggleEngine(ItemStack stack, PlayerEntity player) {
         boolean current = NBTHelper.getBoolean(stack, TAG_ENGINE);
         NBTHelper.flipBoolean(stack, TAG_ENGINE);
-        //ITextComponent stateText = StringHelper.localizeNew(current ? "disabled" : "enabled");
-        ITextComponent on = new TranslationTextComponent("chat.simplyjetpacks.enabled").setStyle(Styles.GREEN);
-        ITextComponent off = new TranslationTextComponent("chat.simplyjetpacks.disabled").setStyle(Styles.RED);
-        ITextComponent msg = new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.engineMode", (!current ? on : off));
-        player.sendStatusMessage(msg, true);
+        ITextComponent msgTest = SJTextUtil.getStateToggle("engineMode", !current);
+        player.sendStatusMessage(msgTest, true);
     }
 
     public boolean isHoverOn(ItemStack stack) {
         return NBTHelper.getBoolean(stack, TAG_HOVER);
     }
-
     public void toggleHover(ItemStack stack, PlayerEntity player) {
         boolean current = NBTHelper.getBoolean(stack, TAG_HOVER);
         NBTHelper.flipBoolean(stack, TAG_HOVER);
-        //ITextComponent stateText = StringHelper.localizeNew(current ? "disabled" : "enabled");
-        ITextComponent on = new TranslationTextComponent("chat.simplyjetpacks.enabled").setStyle(Styles.GREEN);
-        ITextComponent off = new TranslationTextComponent("chat.simplyjetpacks.disabled").setStyle(Styles.RED);
-        ITextComponent msg = new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.hoverMode", (!current ? on : off));
-        player.sendStatusMessage(msg, true);
+        ITextComponent msgTest = SJTextUtil.getStateToggle("hoverMode", !current);
+        player.sendStatusMessage(msgTest, true);
     }
 
     public boolean isEHoverOn(ItemStack stack) {
         return NBTHelper.getBoolean(stack, TAG_E_HOVER);
     }
-
     public void toggleEHover(ItemStack stack, PlayerEntity player) {
         if (type.canEHover()) {
             boolean current = NBTHelper.getBoolean(stack, TAG_E_HOVER);
             NBTHelper.flipBoolean(stack, TAG_E_HOVER);
-            //ITextComponent stateText = StringHelper.localizeNew(current ? "disabled" : "enabled");
-            ITextComponent on = new TranslationTextComponent("chat.simplyjetpacks.enabled").setStyle(Styles.GREEN);
-            ITextComponent off = new TranslationTextComponent("chat.simplyjetpacks.disabled").setStyle(Styles.RED);
-            ITextComponent msg = new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.emergencyHoverMode", (!current ? on : off));
-            player.sendStatusMessage(msg, true);
+            ITextComponent msgTest = SJTextUtil.getStateToggle("emergencyHoverMode", !current);
+            player.sendStatusMessage(msgTest, true);
         }
     }
-
     public void doEHover(ItemStack stack, PlayerEntity player) {
         NBTHelper.setBoolean(stack, TAG_ENGINE, true);
         NBTHelper.setBoolean(stack, TAG_HOVER, true);
-        //message.getStyle().setColor(Color.func_240745_a_("#00f"));
-        ITextComponent message = new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.emergencyHoverModeActivated").setStyle(Styles.RED);;
+        ITextComponent message = SJTextUtil.getEmergencyText();
         player.sendStatusMessage(message, true);
     }
 
     public boolean isChargerOn(ItemStack stack) {
         return NBTHelper.getBoolean(stack, TAG_CHARGER);
     }
-
     public void toggleCharger(ItemStack stack, PlayerEntity player) {
         if (type.canCharge()) {
             boolean current = NBTHelper.getBoolean(stack, TAG_CHARGER);
             NBTHelper.flipBoolean(stack, TAG_CHARGER);
-            //ITextComponent stateText = StringHelper.localizeNew(current ? "disabled" : "enabled");
-            ITextComponent on = new TranslationTextComponent("chat.simplyjetpacks.enabled").setStyle(Styles.GREEN);
-            ITextComponent off = new TranslationTextComponent("chat.simplyjetpacks.disabled").setStyle(Styles.RED);
-            ITextComponent msg = new TranslationTextComponent("chat.simplyjetpacks.itemJetpack.charger", (!current ? on : off));
-            player.sendStatusMessage(msg, true);
+            ITextComponent msgTest = SJTextUtil.getStateToggle("chargerMode", !current);
+            player.sendStatusMessage(msgTest, true);
         }
     }
-
     public void chargeInventory(PlayerEntity player, ItemStack stack, JetpackItem jetpackItem) {
         //TODO: charge inventory items
     }
 
+    @Nonnull
+    @Override
+    public Rarity getRarity(@Nonnull ItemStack stack) {
+        return type.getRarity();
+    }
 
     @Override
     public boolean isEnchantable(@Nonnull ItemStack stack) {
@@ -388,11 +333,8 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
             double speedVerticalHoverSlow = type.getSpeedVerticalHoverSlow();
 
             if ((flyKeyDown || hoverMode && !player.isOnGround())) {
-                // TODO: replace this with an if uses fuel check
                 if (!isCreative()) {
-                    // TODO: add fuel usage to this
-                    //item.useFuel(stack, (int) (user.isSprinting() ? Math.round(this.getFuelUsage(stack) * Jetpack.values()[i].sprintFuelModifier) : this.getFuelUsage(stack)), false);
-                    int amount = (int) (player.isSprinting() ? Math.round(getFuelUsage() * type.getSprintFuelModifier()) : getFuelUsage());
+                    int amount = (int) (player.isSprinting() ? Math.round(getEnergyUsage(stack) * type.getSprintFuelModifier()) : getEnergyUsage(stack));
                     useEnergy(stack, amount);
                 }
                 if (getEnergyStored(stack) > 0 || isCreative()) {

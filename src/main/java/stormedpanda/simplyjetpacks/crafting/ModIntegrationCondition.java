@@ -26,19 +26,16 @@ public class ModIntegrationCondition implements ICondition {
     @Override
     public boolean test() {
         if (modid.equals("vanilla")) {
-            SimplyJetpacks.LOGGER.info("VANILLA: " + (SimplyJetpacksConfig.COMMON.enableIntegrationVanilla.get()));
             return SimplyJetpacksConfig.COMMON.enableIntegrationVanilla.get();
         }
         if (modid.equals("immersiveengineering")) {
-            SimplyJetpacks.LOGGER.info("IE: " + (ModList.get().isLoaded(modid) && SimplyJetpacksConfig.COMMON.enableIntegrationImmersiveEngineering.get()));
-            return SimplyJetpacksConfig.COMMON.enableIntegrationImmersiveEngineering.get();
+            return ModList.get().isLoaded(modid) && SimplyJetpacksConfig.COMMON.enableIntegrationImmersiveEngineering.get();
         }
         if (modid.equals("mekanism")) {
-            SimplyJetpacks.LOGGER.info("MEK: " + (ModList.get().isLoaded(modid) && SimplyJetpacksConfig.COMMON.enableIntegrationMekanism.get()));
             return ModList.get().isLoaded(modid) && SimplyJetpacksConfig.COMMON.enableIntegrationMekanism.get();
         }
         return false;
-        /*switch (modid) {
+/*        switch (modid) {
             case "vanilla":
                 return SimplyJetpacksConfig.COMMON.enableIntegrationVanilla.get();
             case "immersiveengineering":
