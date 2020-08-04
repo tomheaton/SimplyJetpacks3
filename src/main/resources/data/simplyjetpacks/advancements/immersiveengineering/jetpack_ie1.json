@@ -33,5 +33,11 @@
   "rewards": {
     "experience": 1
   },
-  "parent": "simplyjetpacks:immersiveengineering/root_immersiveengineering"
+  "parent": "simplyjetpacks:immersiveengineering/root_immersiveengineering",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "immersiveengineering"
+    }
+  ]
 }

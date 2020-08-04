@@ -27,5 +27,11 @@
   "rewards": {
     "experience": 1
   },
-  "parent": "simplyjetpacks:main/root_simplyjetpacks"
+  "parent": "simplyjetpacks:main/root_simplyjetpacks",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekanism"
+    }
+  ]
 }
