@@ -1,6 +1,6 @@
 package stormedpanda.simplyjetpacks.config;
 
-public abstract class Defaults {
+public abstract class ConfigDefaults {
 
     // Mod Integration
     public static final boolean enableIntegrationVanilla = true;

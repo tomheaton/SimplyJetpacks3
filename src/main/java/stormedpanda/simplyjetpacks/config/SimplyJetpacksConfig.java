@@ -22,7 +22,7 @@ public class SimplyJetpacksConfig {
         public final BooleanValue enableStateMessages;
         public final BooleanValue enableJetpackHud;
         public final IntValue hudTextColor;
-        public final EnumValue<Defaults.HUDPosition> hudTextPosition;
+        public final EnumValue<ConfigDefaults.HUDPosition> hudTextPosition;
         public final IntValue hudXOffset;
         public final IntValue hudYOffset;
         public final ForgeConfigSpec.LongValue hudScale;
@@ -36,8 +36,7 @@ public class SimplyJetpacksConfig {
             invertHoverSneakingBehavior = builder
                     .comment("This sets whether you must hold sneak to hover.")
                     .translation("config.simplyjetpacks.invertHoverSneakingBehavior")
-                    //.worldRestart()
-                    .define("invertHoverSneakingBehavior", Defaults.invertHoverSneakingBehavior);
+                    .define("invertHoverSneakingBehavior", ConfigDefaults.invertHoverSneakingBehavior);
 
             builder.pop();
 
@@ -46,8 +45,7 @@ public class SimplyJetpacksConfig {
             enableJetpackSounds = builder
                     .comment("This sets whether jetpack sounds will play.")
                     .translation("config.simplyjetpacks.enableJetpackSounds")
-                    //.worldRestart()
-                    .define("enableJetpackSounds", Defaults.enableJetpackSounds);
+                    .define("enableJetpackSounds", ConfigDefaults.enableJetpackSounds);
 
             builder.pop();
 
@@ -56,56 +54,47 @@ public class SimplyJetpacksConfig {
             showExactEnergy = builder
                     .comment("Show exact Energy of Jetpack in HUD")
                     .translation("config.simplyjetpacks.showExactEnergy")
-                    //.worldRestart()
-                    .define("showExactEnergy", Defaults.showExactEnergy);
+                    .define("showExactEnergy", ConfigDefaults.showExactEnergy);
 
             enableStateMessages = builder
                     .comment("This sets whether or not jetpack state messages will show.")
                     .translation("config.simplyjetpacks.enableStateMessages")
-                    //.worldRestart()
-                    .define("enableStateMessages", Defaults.enableStateMessages);
+                    .define("enableStateMessages", ConfigDefaults.enableStateMessages);
 
             enableJetpackHud = builder
                     .comment("This sets whether or not the jetpack HUD will be visible.")
                     .translation("config.simplyjetpacks.enableJetpackHud")
-                    //.worldRestart()
-                    .define("enableJetpackHud", Defaults.enableJetpackHud);
+                    .define("enableJetpackHud", ConfigDefaults.enableJetpackHud);
 
             hudTextColor = builder
                     .comment("This sets the color of the Jetpack HUD.")
                     .translation("config.simplyjetpacks.hudTextColor")
-                    //.worldRestart()
-                    .defineInRange("hudTextColor", Defaults.hudTextColor, Integer.MIN_VALUE, Integer.MAX_VALUE);
+                    .defineInRange("hudTextColor", ConfigDefaults.hudTextColor, Integer.MIN_VALUE, Integer.MAX_VALUE);
 
             hudTextPosition = builder
                     .comment("HUD Position")
                     .translation("config.simplyjetpacks.hudTextPosition")
-                    //.worldRestart()
-                    .defineEnum("hudTextPosition", Defaults.hudTextPosition);
+                    .defineEnum("hudTextPosition", ConfigDefaults.hudTextPosition);
 
             hudXOffset = builder
                     .comment("HUD Position X Offset")
                     .translation("config.simplyjetpacks.hudXOffset")
-                    //.worldRestart()
-                    .defineInRange("hudXOffset", Defaults.hudXOffset, Integer.MIN_VALUE, Integer.MAX_VALUE);
+                    .defineInRange("hudXOffset", ConfigDefaults.hudXOffset, Integer.MIN_VALUE, Integer.MAX_VALUE);
 
             hudYOffset = builder
                     .comment("HUD Position Y Offset")
                     .translation("config.simplyjetpacks.hudYOffset")
-                    //.worldRestart()
-                    .defineInRange("hudYOffset", Defaults.hudYOffset, Integer.MIN_VALUE, Integer.MAX_VALUE);
+                    .defineInRange("hudYOffset", ConfigDefaults.hudYOffset, Integer.MIN_VALUE, Integer.MAX_VALUE);
 
             hudScale = builder
                     .comment("HUD Scale")
                     .translation("config.simplyjetpacks.hudScale")
-                    //.worldRestart()
-                    .defineInRange("hudScale", Defaults.hudScale, 1, 100);
+                    .defineInRange("hudScale", ConfigDefaults.hudScale, 1, 100);
 
             hudTextShadow = builder
                     .comment("HUD Text Shadow")
                     .translation("config.simplyjetpacks.hudTextShadow")
-                    //.worldRestart()
-                    .define("hudTextShadow", Defaults.hudTextShadow);
+                    .define("hudTextShadow", ConfigDefaults.hudTextShadow);
 
             builder.pop();
         }
@@ -128,37 +117,37 @@ public class SimplyJetpacksConfig {
                     .comment("Enable Vanilla Jetpacks Integration.")
                     .translation("config.simplyjetpacks.enableIntegrationVanilla")
                     .worldRestart()
-                    .define("enableIntegrationVanilla", Defaults.enableIntegrationVanilla);
+                    .define("enableIntegrationVanilla", ConfigDefaults.enableIntegrationVanilla);
 
             enableIntegrationImmersiveEngineering = builder
                     .comment("Enable Immersive Engineering Jetpacks Integration.")
                     .translation("config.simplyjetpacks.enableIntegrationImmersiveEngineering")
                     .worldRestart()
-                    .define("enableIntegrationImmersiveEngineering", Defaults.enableIntegrationImmersiveEngineering);
+                    .define("enableIntegrationImmersiveEngineering", ConfigDefaults.enableIntegrationImmersiveEngineering);
 
             enableIntegrationMekanism = builder
                     .comment("Enable Mekanism Jetpacks Integration.")
                     .translation("config.simplyjetpacks.enableIntegrationMekanism")
                     .worldRestart()
-                    .define("enableIntegrationMekanism", Defaults.enableIntegrationMekanism);
+                    .define("enableIntegrationMekanism", ConfigDefaults.enableIntegrationMekanism);
 
             enableIntegrationEnderIO = builder
                     .comment("Enable EnderIO Jetpacks Integration.")
                     .translation("config.simplyjetpacks.enableIntegrationEnderIO")
                     .worldRestart()
-                    .define("enableIntegrationEnderIO", Defaults.enableIntegrationEnderIO);
+                    .define("enableIntegrationEnderIO", ConfigDefaults.enableIntegrationEnderIO);
 
             enableIntegrationThermalExpansion = builder
                     .comment("Enable Thermal Expansion Jetpacks Integration.")
                     .translation("config.simplyjetpacks.enableIntegrationThermalExpansion")
                     .worldRestart()
-                    .define("enableIntegrationThermalExpansion", Defaults.enableIntegrationThermalExpansion);
+                    .define("enableIntegrationThermalExpansion", ConfigDefaults.enableIntegrationThermalExpansion);
 
             enableIntegrationThermalDynamics = builder
                     .comment("Enable Thermal Dynamics Jetpacks Integration.")
                     .translation("config.simplyjetpacks.enableIntegrationThermalDynamics")
                     .worldRestart()
-                    .define("enableIntegrationThermalDynamics", Defaults.enableIntegrationThermalDynamics);
+                    .define("enableIntegrationThermalDynamics", ConfigDefaults.enableIntegrationThermalDynamics);
 
             builder.pop();
 

@@ -7,7 +7,7 @@ import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.client.particle.JetpackParticleType;
-import stormedpanda.simplyjetpacks.config.DefaultJetpackConfig;
+import stormedpanda.simplyjetpacks.config.JetpackConfigDefaults;
 import stormedpanda.simplyjetpacks.integration.IntegrationList;
 import stormedpanda.simplyjetpacks.lists.ArmorMaterialList;
 import stormedpanda.simplyjetpacks.util.NBTHelper;
@@ -57,13 +57,14 @@ public enum JetpackType {
     private final Item.Properties properties;
 
     // Configurations:
-    public final DefaultJetpackConfig defaults;
+    public final JetpackConfigDefaults defaults;
     //public int energyCapacity;
     //public int energyPerTickIn;
     //public int energyPerTickOut;
     private int capacity;
     private int maxReceive;
     private int maxExtract;
+    private int enchantability;
     public int armorEnergyPerHit;
     public int armorReduction;
     public int energyUsage;
@@ -107,7 +108,7 @@ public enum JetpackType {
         this.armorTexture = new ResourceLocation(("simplyjetpacks:textures/models/armor/" + name + ".png"));
         this.isArmored = false;
         this.properties = new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks).maxStackSize(1);
-        this.defaults = DefaultJetpackConfig.get(defaultConfigKey);
+        this.defaults = JetpackConfigDefaults.get(defaultConfigKey);
         this.particleType = JetpackParticleType.DEFAULT;
     }
 
@@ -188,11 +189,23 @@ public enum JetpackType {
     }
 
     public IArmorMaterial getArmorMaterial() {
-        return isArmored ? ArmorMaterialList.JETPACK_ARMORED : ArmorMaterialList.JETPACK;
+        //ArmorMaterialList.setArmorReduction(ArmorMaterialList.JETPACK_ARMORED, getArmorReduction());
+        //return isArmored ? ArmorMaterialList.JETPACK_ARMORED : ArmorMaterialList.JETPACK;
+        ArmorMaterialList armorMaterial = isArmored ? ArmorMaterialList.JETPACK_ARMORED : ArmorMaterialList.JETPACK;
+        ArmorMaterialList.setStats(armorMaterial, isArmored, getEnchantability(), getArmorReduction());
+        return armorMaterial;
     }
 
     public boolean getIsArmored() {
         return isArmored;
+    }
+
+    public int getArmorReduction() {
+        return armorReduction;
+    }
+
+    public int getEnchantability() {
+        return enchantability;
     }
 
     public Item.Properties getProperties() {
@@ -243,6 +256,7 @@ public enum JetpackType {
         this.capacity = this.defaults.energyCapacity;
         this.maxReceive = this.defaults.energyPerTickIn;
         this.maxExtract = this.defaults.energyPerTickOut;
+        this.enchantability = this.defaults.enchantability;
         this.armorEnergyPerHit = this.defaults.armorEnergyPerHit;
         this.armorReduction = this.defaults.armorReduction;
         this.energyUsage = this.defaults.energyUsage;

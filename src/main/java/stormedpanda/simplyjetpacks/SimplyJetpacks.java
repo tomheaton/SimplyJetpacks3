@@ -18,8 +18,8 @@ import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import stormedpanda.simplyjetpacks.client.ClientJetpackHandler;
 import stormedpanda.simplyjetpacks.client.hud.HUDHandler;
-import stormedpanda.simplyjetpacks.client.particle.ParticleHandler;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.crafting.EnergyTransferHandler;
 import stormedpanda.simplyjetpacks.crafting.ModIntegrationCondition;
@@ -52,7 +52,6 @@ public class SimplyJetpacks {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::ClientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
-        //FMLJavaModLoadingContext.get().getModEventBus().register(this);
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new SyncHandler());
@@ -81,7 +80,7 @@ public class SimplyJetpacks {
     private void ClientSetup(final FMLClientSetupEvent event) {
         LOGGER.info("Client Setup Method registered.");
         MinecraftForge.EVENT_BUS.register(new KeybindHandler());
-        MinecraftForge.EVENT_BUS.register(new ParticleHandler());
+        MinecraftForge.EVENT_BUS.register(new ClientJetpackHandler());
         MinecraftForge.EVENT_BUS.register(new HUDHandler());
         KeybindHandler.setup();
     }

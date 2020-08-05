@@ -24,11 +24,15 @@ import stormedpanda.simplyjetpacks.network.packets.PacketToggleEHover;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleEngine;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleHover;
 
+import javax.annotation.Nonnull;
+
 @OnlyIn(Dist.CLIENT)
 public class JetpackGuiScreen extends Screen {
 
     private static final int WIDTH = 176;
     private static final int HEIGHT = 100;
+
+    private static final Minecraft minecraft = Minecraft.getInstance();
 
     private final ResourceLocation GUI_BASE = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/jetpack_gui_pack.png");
     private final ResourceLocation ENERGY_BAR = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/energy_bar.png");
@@ -49,8 +53,7 @@ public class JetpackGuiScreen extends Screen {
         this.addButton(new ImageButton(relX + 120, relY + 16, 20, 20, 176, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleEngine())));
         this.addButton(new ImageButton(relX + 120, relY + 38, 20, 20, 216, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleHover())));
 
-        //TODO: Is this check really needed as you need a jetpack to open the gui anyway?
-        ItemStack stack = this.minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+        ItemStack stack = minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
         Item item = stack.getItem();
         if (item instanceof JetpackItem) {
             JetpackItem jetpack = (JetpackItem) item;
@@ -72,18 +75,18 @@ public class JetpackGuiScreen extends Screen {
     }
 
     @Override
-    public void render(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
-        FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+    public void render(@Nonnull MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
+        FontRenderer fontRenderer = minecraft.fontRenderer;
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         int relX = (this.width - WIDTH) / 2;
         int relY = (this.height - HEIGHT) / 2;
         float mousePosX = (float) mouseX;
         float mousePosY = (float) mouseY;
-        this.minecraft.getTextureManager().bindTexture(GUI_BASE);
+        minecraft.getTextureManager().bindTexture(GUI_BASE);
         this.blit(stack, relX, relY, 0, 0, WIDTH, HEIGHT);
-        drawCenteredString(stack, fontRenderer, new TranslationTextComponent(this.minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST).getTranslationKey()), relX + 88, relY + 5, 0xFFFFFF);
-        InventoryScreen.drawEntityOnScreen(relX + 80, relY + 90, 40, (float)(relX + 51) - mousePosX, (float)(relY + 75 - 50) - mousePosY, this.minecraft.player);
-        this.minecraft.getTextureManager().bindTexture(ENERGY_BAR);
+        drawCenteredString(stack, fontRenderer, new TranslationTextComponent(minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST).getTranslationKey()), relX + 88, relY + 5, 0xFFFFFF);
+        InventoryScreen.drawEntityOnScreen(relX + 80, relY + 90, 40, (float)(relX + 51) - mousePosX, (float)(relY + 75 - 50) - mousePosY, minecraft.player);
+        minecraft.getTextureManager().bindTexture(ENERGY_BAR);
         blit(stack, relX + 10, relY + 16, 0, 0, 14, 78, 128, 128);
         int amount = getEnergyBarAmount();
         int barOffset = 78-amount;
@@ -92,7 +95,7 @@ public class JetpackGuiScreen extends Screen {
     }
 
     private int getEnergyBarAmount() {
-        ItemStack stack = this.minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+        ItemStack stack = minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
         Item item = stack.getItem();
         if (item instanceof JetpackItem) {
             JetpackItem jetpack = (JetpackItem) item;
@@ -110,7 +113,7 @@ public class JetpackGuiScreen extends Screen {
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (KeybindHandler.JETPACK_GUI_KEY.matchesKey(keyCode, scanCode)) {
-            this.minecraft.displayGuiScreen(null);
+            minecraft.displayGuiScreen(null);
             return true;
         } else {
             return super.keyPressed(keyCode, scanCode, modifiers);

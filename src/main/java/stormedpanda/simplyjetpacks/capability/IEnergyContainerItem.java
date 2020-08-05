@@ -1,4 +1,4 @@
-package stormedpanda.simplyjetpacks.items;
+package stormedpanda.simplyjetpacks.capability;
 
 import net.minecraft.item.ItemStack;
 

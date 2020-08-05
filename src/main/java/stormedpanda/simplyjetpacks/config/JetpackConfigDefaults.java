@@ -3,9 +3,9 @@ package stormedpanda.simplyjetpacks.config;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DefaultJetpackConfig {
+public class JetpackConfigDefaults {
     
-    private static final Map<String, DefaultJetpackConfig> DEFAULTS = new HashMap<>();
+    private static final Map<String, JetpackConfigDefaults> DEFAULTS = new HashMap<>();
     //public final Section section;
 
     // Base
@@ -28,12 +28,12 @@ public class DefaultJetpackConfig {
     public boolean emergencyHoverMode;
     public boolean chargerMode;
 
-    public DefaultJetpackConfig(String key, String sectionTitle) {
+    public JetpackConfigDefaults(String key, String sectionTitle) {
         //this.section = new Section(false, "Tuning - " + sectionTitle, "tuning." + key);
         DEFAULTS.put(key, this);
     }
 
-    public static DefaultJetpackConfig get(String key)
+    public static JetpackConfigDefaults get(String key)
     {
         return DEFAULTS.get(key);
     }
@@ -41,13 +41,13 @@ public class DefaultJetpackConfig {
     // TODO: add other jetpack values back in
     static {
         // Simply Jetpacks
-        DefaultJetpackConfig d = new DefaultJetpackConfig("jetpackPotato", "Tuberous Jetpack");
+        JetpackConfigDefaults d = new JetpackConfigDefaults("jetpackPotato", "Potato Jetpack");
         d.energyCapacity = 1200;
         d.energyUsage = 45;
         d.speedVertical = 0.9D;
         d.accelVertical = 0.5D;
 
-        d = new DefaultJetpackConfig("jetpackCreative", "Creative Jetpack");
+        d = new JetpackConfigDefaults("jetpackCreative", "Creative Jetpack");
         d.energyCapacity = 0;
         d.energyPerTickOut = 0;
         d.energyPerTickIn = 0;
@@ -63,7 +63,7 @@ public class DefaultJetpackConfig {
         d.chargerMode = true;
 
         if(true) {
-            d = new DefaultJetpackConfig("jetpack1", "Conductive Iron Jetpack (EIO 1)");
+            d = new JetpackConfigDefaults("jetpack1", "Tier 1 Jetpack");
             d.energyCapacity = 80000;
             d.energyUsage = 32;
             d.energyPerTickIn = 400;
@@ -80,7 +80,7 @@ public class DefaultJetpackConfig {
             d.emergencyHoverMode = false;
             d.chargerMode = false;
 
-            d = new DefaultJetpackConfig("jetpack2", "Electrical Steel Jetpack (EIO 2)");
+            d = new JetpackConfigDefaults("jetpack2", "Tier 2 Jetpack");
             d.energyCapacity = 400000;
             d.energyUsage = 50;
             d.energyPerTickIn = 2000;
@@ -97,7 +97,7 @@ public class DefaultJetpackConfig {
             d.emergencyHoverMode = false;
             d.chargerMode = false;
 
-            d = new DefaultJetpackConfig("jetpack3", "Energetic Jetpack (EIO 3)");
+            d = new JetpackConfigDefaults("jetpack3", "Tier 3 Jetpack");
             d.energyCapacity = 4000000;
             d.energyUsage = 200;
             d.energyPerTickIn = 20000;
@@ -114,7 +114,7 @@ public class DefaultJetpackConfig {
             d.emergencyHoverMode = true;
             d.chargerMode = false;
 
-            d = new DefaultJetpackConfig("jetpack4", "Vibrant Jetpack (EIO 4)");
+            d = new JetpackConfigDefaults("jetpack4", "Tier 4 Jetpack");
             d.energyCapacity = 20000000;
             d.energyUsage = 450;
             d.energyPerTickIn = 50000;
@@ -131,7 +131,7 @@ public class DefaultJetpackConfig {
             d.emergencyHoverMode = true;
             d.chargerMode = true;
 
-            d = new DefaultJetpackConfig("jetpack5", "Dark Soularium JetPlate (EIO 5)");
+            d = new JetpackConfigDefaults("jetpack5", "Tier 5 Jetpack");
             d.energyCapacity = 60000000;
             d.energyUsage = 850;
             d.energyPerTickIn = 200000;

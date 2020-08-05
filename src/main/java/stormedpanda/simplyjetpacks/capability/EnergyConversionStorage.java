@@ -2,7 +2,6 @@ package stormedpanda.simplyjetpacks.capability;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.energy.IEnergyStorage;
-import stormedpanda.simplyjetpacks.items.IEnergyContainerItem;
 
 public class EnergyConversionStorage implements IEnergyStorage {
 

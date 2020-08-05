@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.text.ITextComponent;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
-import stormedpanda.simplyjetpacks.config.Defaults;
+import stormedpanda.simplyjetpacks.config.ConfigDefaults;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 
 public class HUDRenderHelper {
@@ -18,7 +18,7 @@ public class HUDRenderHelper {
         int windowScaleHeight = window.getScaledHeight();
         int windowScaleWidth = window.getScaledWidth();
 
-        Defaults.HUDPosition position = SimplyJetpacksConfig.CLIENT.hudTextPosition.get();
+        ConfigDefaults.HUDPosition position = SimplyJetpacksConfig.CLIENT.hudTextPosition.get();
         int color = SimplyJetpacksConfig.CLIENT.hudTextColor.get();
         int xOffset = SimplyJetpacksConfig.CLIENT.hudXOffset.get();
         int yOffset = SimplyJetpacksConfig.CLIENT.hudYOffset.get();

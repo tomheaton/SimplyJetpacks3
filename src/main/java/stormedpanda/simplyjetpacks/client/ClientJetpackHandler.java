@@ -1,4 +1,4 @@
-package stormedpanda.simplyjetpacks.client.particle;
+package stormedpanda.simplyjetpacks.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.ParticleStatus;
@@ -12,6 +12,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import stormedpanda.simplyjetpacks.client.particle.JetpackParticleType;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.handlers.SyncHandler;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
@@ -20,7 +21,7 @@ import stormedpanda.simplyjetpacks.util.Pos3D;
 
 import java.util.Random;
 
-public class ParticleHandler {
+public class ClientJetpackHandler {
     Minecraft minecraft = Minecraft.getInstance();
 
     @SubscribeEvent

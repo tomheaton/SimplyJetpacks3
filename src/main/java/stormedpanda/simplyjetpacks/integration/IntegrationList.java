@@ -1,6 +1,5 @@
 package stormedpanda.simplyjetpacks.integration;
 
-import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 
 public class IntegrationList {
@@ -13,7 +12,6 @@ public class IntegrationList {
     public static boolean integrateThermalDynamics;
 
     public static void init() {
-        SimplyJetpacks.LOGGER.info("Updated Integration List.");
         integrateVanilla = ModType.SIMPLY_JETPACKS.loaded && SimplyJetpacksConfig.COMMON.enableIntegrationVanilla.get();
         integrateImmersiveEngineering = ModType.IMMERSIVE_ENGINEERING.loaded && SimplyJetpacksConfig.COMMON.enableIntegrationImmersiveEngineering.get();
         integrateMekanism = ModType.MEKANISM.loaded && SimplyJetpacksConfig.COMMON.enableIntegrationMekanism.get();

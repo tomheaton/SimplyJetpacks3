@@ -26,6 +26,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import stormedpanda.simplyjetpacks.capability.CapabilityProviderEnergy;
 import stormedpanda.simplyjetpacks.capability.EnergyConversionStorage;
+import stormedpanda.simplyjetpacks.capability.IEnergyContainerItem;
 import stormedpanda.simplyjetpacks.client.hud.IHUDInfoProvider;
 import stormedpanda.simplyjetpacks.client.model.JetpackModel;
 import stormedpanda.simplyjetpacks.client.particle.JetpackParticleType;
@@ -179,24 +180,15 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
         if (CapabilityEnergy.ENERGY == null) return;
-        information(stack, this, tooltip);
+        SJTextUtil.addBaseInfo(stack, tooltip);
         if (KeyboardUtil.isHoldingShift()) {
-            shiftInformation(stack, tooltip);
+            SJTextUtil.addShiftInfo(stack, tooltip);
         } else {
             tooltip.add(SJTextUtil.getShiftText());
         }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public void information(ItemStack stack, JetpackItem item, List<ITextComponent> tooltip) {
-        SJTextUtil.addBaseInfo(stack, tooltip);
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public void shiftInformation(ItemStack stack, List<ITextComponent> tooltip) {
-        SJTextUtil.addShiftInfo(stack, tooltip);
     }
 
     @Override
@@ -242,8 +234,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
     @Override
     public int getRGBDurabilityForDisplay(ItemStack stack) {
-        //return MathHelper.hsvToRGB((1 + getChargeRatio(stack)) / 3.0F, 1.0F, 1.0F);
-        return 0x03fc49;//0x23e232;
+        return 0x03fc49;
     }
 
     @OnlyIn(Dist.CLIENT)
