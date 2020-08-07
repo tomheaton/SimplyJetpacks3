@@ -15,7 +15,7 @@ public class KeyboardUtil {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static boolean isHoldingCTRL() {
+    public static boolean isHoldingCtrl() {
         return InputMappings.isKeyDown(MINECRAFT_WINDOW, GLFW.GLFW_KEY_LEFT_CONTROL);
     }
 }

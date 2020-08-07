@@ -101,7 +101,6 @@ public class NBTHelper {
     }
 
     public static boolean getBoolean(ItemStack stack, String key) {
-        //return stack.hasTag() ? stack.getTag().getBoolean(key) : false;
         return stack.hasTag() && stack.getTag().getBoolean(key);
     }
 

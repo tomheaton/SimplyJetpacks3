@@ -100,7 +100,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         super.onArmorTick(stack, world, player);
         flyUser(player, stack, this);
         if (this.type.canCharge() && this.isChargerOn(stack)) {
-            chargeInventory(player, stack, this);
+            chargeInventory(player, stack);
         }
     }
 
@@ -114,6 +114,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         if (container.getTag() != null || container.getTag().contains(TAG_ENERGY)) {
             int stored = Math.min(container.getTag().getInt(TAG_ENERGY), getMaxEnergyStored(container));
             stored -= amount;
+            if (stored < 0) stored = 0;
             container.getTag().putInt(TAG_ENERGY, stored);
         }
     }
@@ -167,7 +168,6 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT nbt) {
         return new CapabilityProviderEnergy(new EnergyConversionStorage(this, stack));
-        //return new NewCapabilityProviderEnergy<>(new EnergyConversionStorage(this, stack), CapabilityEnergy.ENERGY, null);
     }
 
     private static float getChargeRatio(ItemStack stack) {
@@ -249,8 +249,8 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public void toggleEngine(ItemStack stack, PlayerEntity player) {
         boolean current = NBTHelper.getBoolean(stack, TAG_ENGINE);
         NBTHelper.flipBoolean(stack, TAG_ENGINE);
-        ITextComponent msgTest = SJTextUtil.getStateToggle("engineMode", !current);
-        player.sendStatusMessage(msgTest, true);
+        ITextComponent msg = SJTextUtil.getStateToggle("engineMode", !current);
+        player.sendStatusMessage(msg, true);
     }
 
     public boolean isHoverOn(ItemStack stack) {
@@ -259,8 +259,8 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public void toggleHover(ItemStack stack, PlayerEntity player) {
         boolean current = NBTHelper.getBoolean(stack, TAG_HOVER);
         NBTHelper.flipBoolean(stack, TAG_HOVER);
-        ITextComponent msgTest = SJTextUtil.getStateToggle("hoverMode", !current);
-        player.sendStatusMessage(msgTest, true);
+        ITextComponent msg = SJTextUtil.getStateToggle("hoverMode", !current);
+        player.sendStatusMessage(msg, true);
     }
 
     public boolean isEHoverOn(ItemStack stack) {
@@ -270,15 +270,15 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         if (type.canEHover()) {
             boolean current = NBTHelper.getBoolean(stack, TAG_E_HOVER);
             NBTHelper.flipBoolean(stack, TAG_E_HOVER);
-            ITextComponent msgTest = SJTextUtil.getStateToggle("emergencyHoverMode", !current);
-            player.sendStatusMessage(msgTest, true);
+            ITextComponent msg = SJTextUtil.getStateToggle("emergencyHoverMode", !current);
+            player.sendStatusMessage(msg, true);
         }
     }
-    public void doEHover(ItemStack stack, PlayerEntity player) {
+    private void doEHover(ItemStack stack, PlayerEntity player) {
         NBTHelper.setBoolean(stack, TAG_ENGINE, true);
         NBTHelper.setBoolean(stack, TAG_HOVER, true);
-        ITextComponent message = SJTextUtil.getEmergencyText();
-        player.sendStatusMessage(message, true);
+        ITextComponent msg = SJTextUtil.getEmergencyText();
+        player.sendStatusMessage(msg, true);
     }
 
     public boolean isChargerOn(ItemStack stack) {
@@ -288,12 +288,29 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         if (type.canCharge()) {
             boolean current = NBTHelper.getBoolean(stack, TAG_CHARGER);
             NBTHelper.flipBoolean(stack, TAG_CHARGER);
-            ITextComponent msgTest = SJTextUtil.getStateToggle("chargerMode", !current);
-            player.sendStatusMessage(msgTest, true);
+            ITextComponent msg = SJTextUtil.getStateToggle("chargerMode", !current);
+            player.sendStatusMessage(msg, true);
         }
     }
-    public void chargeInventory(PlayerEntity player, ItemStack stack, JetpackItem jetpackItem) {
-        //TODO: charge inventory items
+    private void chargeInventory(PlayerEntity player, ItemStack stack) {
+        if (!player.world.isRemote) {
+            if (getEnergyStored(stack) > 0 || isCreative()) {
+                for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
+                    ItemStack itemStack = player.inventory.getStackInSlot(i);
+                    if (!itemStack.equals(stack) && itemStack.getCapability(CapabilityEnergy.ENERGY).isPresent()) {
+                        LazyOptional<IEnergyStorage> optional = itemStack.getCapability(CapabilityEnergy.ENERGY);
+                        if (optional.isPresent()) {
+                            IEnergyStorage energyStorage = optional.orElseThrow(IllegalStateException::new);
+                            if (isCreative()) {
+                                energyStorage.receiveEnergy(1000, false);
+                            } else {
+                                useEnergy(stack,energyStorage.receiveEnergy(getEnergyUsage(stack),false));
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @Nonnull
